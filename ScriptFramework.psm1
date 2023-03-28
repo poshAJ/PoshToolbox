@@ -1,4 +1,5 @@
-# Modified "PowerShell Module Framework" from Warren Frame (http://github.com/ramblingcookiemonster).
+# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
+# Copyright (c) 2015 Warren Frame, Modified "PowerShell Module Framework" (http://github.com/ramblingcookiemonster)
 
 using namespace System.IO
 using namespace System.Management.Automation

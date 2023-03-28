@@ -1,37 +1,4 @@
-<#PSScriptInfo
-
-    .VERSION 3.0.2
-
-    .GUID 3dbe34cb-6c77-4df2-a983-14fac15b78ce
-
-    .AUTHOR Anthony J. Raymond
-
-    .COMPANYNAME
-
-    .COPYRIGHT (c) 2022 Anthony J. Raymond
-
-    .TAGS operators null-coalescing ??
-
-    .LICENSEURI https://github.com/CodeAJGit/posh/blob/master/LICENSE
-
-    .PROJECTURI https://github.com/CodeAJGit/posh
-
-    .ICONURI
-
-    .EXTERNALMODULEDEPENDENCIES
-
-    .REQUIREDSCRIPTS
-
-    .EXTERNALSCRIPTDEPENDENCIES
-
-    .RELEASENOTES
-        20220908-AJR: 3.0.0 - Initial Release
-        20220921-AJR: 3.0.1 - Fix for External Help
-        20221115-AJR: 3.0.2 - Moved TryCatch inside ForEach
-
-    .PRIVATEDATA
-
-#>
+# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
 
 function Use-NullCoalescing {
     [CmdletBinding()]

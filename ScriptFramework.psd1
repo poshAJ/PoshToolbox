@@ -77,9 +77,9 @@
                 "log"
             )
 
-            LicenseUri   = "https://github.com/CodeAJGit/posh/blob/master/LICENSE"
+            LicenseUri   = "https://github.com/PoshAJ/PoshFramework/blob/main/LICENSE"
 
-            ProjectUri   = "https://github.com/CodeAJGit/posh"
+            ProjectUri   = "https://github.com/PoshAJ/PoshFramework"
 
             # IconUri = ""
 
@@ -94,7 +94,7 @@
 
     }
 
-    HelpInfoURI       = "https://github.com/CodeAJGit/posh/blob/master/Modules/ScriptFramework/readme.md"
+    HelpInfoURI       = "https://github.com/PoshAJ/PoshFramework/blob/main/README.md"
 
     # DefaultCommandPrefix = ""
 
