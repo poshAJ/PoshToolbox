@@ -1,6 +1,6 @@
 @{
 
-    RootModule        = "ScriptFramework.psm1"
+    RootModule        = "PoshToolbox.psm1"
 
     ModuleVersion     = "1.1.2"
 
@@ -14,7 +14,7 @@
 
     Copyright         = "(c) 2022 Anthony J. Raymond"
 
-    Description       = "Simple framework that can be used to build PowerShell script and modules."
+    Description       = "Simple toolbox of functions that can be used to build PowerShell scripts and modules."
 
     # PowerShellVersion = ""
 
@@ -74,12 +74,13 @@
             Tags         = @(
                 "script"
                 "framework"
+                "toolbox"
                 "log"
             )
 
-            LicenseUri   = "https://github.com/PoshAJ/PoshFramework/blob/main/LICENSE"
+            LicenseUri   = "https://github.com/PoshAJ/PoshToolbox/blob/main/LICENSE"
 
-            ProjectUri   = "https://github.com/PoshAJ/PoshFramework"
+            ProjectUri   = "https://github.com/PoshAJ/PoshToolbox"
 
             # IconUri = ""
 
@@ -94,7 +95,7 @@
 
     }
 
-    HelpInfoURI       = "https://github.com/PoshAJ/PoshFramework/blob/main/README.md"
+    HelpInfoURI       = "https://github.com/PoshAJ/PoshToolbox/blob/main/README.md"
 
     # DefaultCommandPrefix = ""
 
