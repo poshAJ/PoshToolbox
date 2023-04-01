@@ -1,11 +1,11 @@
 ﻿---
-external help file: ScriptFramework-help.xml
-Module Name: ScriptFramework
-online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Write-Log.md
+external help file: PoshToolbox-help.xml
+Module Name: PoshToolbox
+online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Write-PoshLog.md
 schema: 2.0.0
 ---
 
-# Write-Log
+# Write-PoshLog
 
 ## SYNOPSIS
 Writes a log message.
@@ -13,11 +13,11 @@ Writes a log message.
 ## SYNTAX
 
 ```
-Write-Log [-Type <String>] [-Message] <String> [<CommonParameters>]
+Write-PoshLog [-Type <String>] [-Message] <String> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Write-Log cmdlet writes a log message to the PowerShell log.
+The Write-PoshLog cmdlet writes a log message to the PowerShell log.
 
 ## PARAMETERS
 

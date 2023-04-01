@@ -1,7 +1,7 @@
 Describe "Use-Object" {
     BeforeAll {
         ## SOURCE #############################################################
-        Import-Module "$PSScriptRoot\..\ScriptFramework.psm1"
+        Import-Module "$PSScriptRoot\..\PoshToolbox.psm1"
 
         ## SETUP ##############################################################
     }
@@ -13,7 +13,7 @@ Describe "Use-Object" {
                 Use-Object ($Disposable = [System.IO.File]::OpenRead($PSCommandPath)) {}
                 $Disposable.ReadByte()
             }
-            $Test | Should -Throw "*: ""Cannot access a closed file."""
+            $Test | Should -Throw "*: ""Cannot access a closed Stream."""
         }
 
         It "ComObject" {

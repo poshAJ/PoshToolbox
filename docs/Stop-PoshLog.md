@@ -1,11 +1,11 @@
 ﻿---
-external help file: ScriptFramework-help.xml
-Module Name: ScriptFramework
-online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Stop-Log.md
+external help file: PoshToolbox-help.xml
+Module Name: PoshToolbox
+online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Stop-PoshLog.md
 schema: 2.0.0
 ---
 
-# Stop-Log
+# Stop-PoshLog
 
 ## SYNOPSIS
 Stops the PowerShell session log.
@@ -13,11 +13,11 @@ Stops the PowerShell session log.
 ## SYNTAX
 
 ```
-Stop-Log [<CommonParameters>]
+Stop-PoshLog [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Stop-Log cmdlet stops a log that was started by the Start-Log cmdlet.
+The Stop-PoshLog cmdlet stops a log that was started by the Start-PoshLog cmdlet.
 
 ## PARAMETERS
 
