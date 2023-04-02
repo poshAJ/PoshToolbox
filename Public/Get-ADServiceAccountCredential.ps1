@@ -3,9 +3,7 @@
 
 using namespace System.Security
 using namespace System.Runtime.InteropServices
-using namespace System.Management.Automation
 using namespace System.DirectoryServices
-using namespace System.DirectoryServices.ActiveDirectory
 
 function Get-ADServiceAccountCredential {
     [CmdletBinding()]
@@ -46,21 +44,21 @@ function Get-ADServiceAccountCredential {
 
     ## PROCESS ################################################################
     process {
-        :Main foreach ($Object in $Identity) {
+        foreach ($Object in $Identity) {
             try {
                 try {
                     # https://ldapwiki.com/wiki/ObjectGUID
                     $ObjectGUID = ([guid] $Object).ToByteArray().ForEach({ $_.ToString("X2") }) -join "\"
-                    $Filter = "(&(objectGUID=\${ObjectGUID})(ObjectCategory=msDS-GroupManagedServiceAccount))"
+                    $Filter = "(&(objectGUID=\{0})(ObjectCategory=msDS-GroupManagedServiceAccount))" -f $ObjectGUID
                 } catch {
-                    $Filter = "(&(|(distinguishedName=${Object})(objectSid=${Object})(sAMAccountName=$( $Object -ireplace "[^$]$", "$&$" )))(ObjectCategory=msDS-GroupManagedServiceAccount))"
+                    $Filter = "(&(|(distinguishedName={0})(objectSid={0})(sAMAccountName={1}))(ObjectCategory=msDS-GroupManagedServiceAccount))" -f $Object, ($Object -ireplace "[^$]$", "$&$")
                 }
 
                 New-Variable -Name ADServiceAccount -Option AllScope
 
                 Use-Object ($DirectorySearcher = [DirectorySearcher] $Filter) {
                     if ($Server) {
-                        $DirectorySearcher.SearchRoot = [DirectoryEntry] "LDAP://${Server}"
+                        $DirectorySearcher.SearchRoot = [DirectoryEntry] "LDAP://{0}" -f $Server
                     }
 
                     $DirectorySearcher.SearchRoot.AuthenticationType = "Sealing"
@@ -69,19 +67,9 @@ function Get-ADServiceAccountCredential {
                     $ADServiceAccount = $DirectorySearcher.FindOne() | Select-Object -Property $Properties
 
                     if (-not $ADServiceAccount) {
-                        throw [ErrorRecord]::new(
-                            [ActiveDirectoryObjectNotFoundException] "Cannot find an object with identity: '${Object}' under: '$( $DirectorySearcher.SearchRoot.distinguishedName )'.",
-                            "ObjectException",
-                            [ErrorCategory]::ObjectNotFound,
-                            $Object
-                        )
+                        New-ActiveDirectoryObjectNotFoundException -Message ("Cannot find an object with identity: '{0}' under: '{1}'." -f $Object, $DirectorySearcher.SearchRoot.distinguishedName) -Throw
                     } elseif ($ADServiceAccount.Length -eq 0) {
-                        throw [ErrorRecord]::new(
-                            [ActiveDirectoryOperationException] "Cannot retrieve service account password. A process has requested access to an object, but has not been granted those access rights.",
-                            "OperationException",
-                            [ErrorCategory]::PermissionDenied,
-                            $Object
-                        )
+                        New-ActiveDirectoryOperationException -Message "Cannot retrieve service account password. A process has requested access to an object, but has not been granted those access rights." -Throw
                     }
                 }
 
@@ -91,18 +79,9 @@ function Get-ADServiceAccountCredential {
                 Write-Output ([pscredential]::new($ADServiceAccount.sAMAccountName, $SecureString))
                 ## EXCEPTIONS #################################################
             } catch [SetValueInvocationException] {
-                $PSCmdlet.WriteError(
-                    [ErrorRecord]::new(
-                        [ActiveDirectoryServerDownException] "Unable to contact the server. This may be because this server does not exist, it is currently down, or it does not have the Active Directory Services running.",
-                        "ServerException",
-                        [ErrorCategory]::ResourceUnavailable,
-                        $null
-                    )
-                )
-                continue Main
+                $PSCmdlet.WriteError((New-ActiveDirectoryServerDownException -Message "Unable to contact the server. This may be because this server does not exist, it is currently down, or it does not have the Active Directory Services running."))
             } catch {
                 $PSCmdlet.WriteError($_)
-                continue Main
             } finally {
                 if ($ADServiceAccount) {
                     [Marshal]::Copy([byte[]]::new($ADServiceAccount.Length), 0, $ADServiceAccount.ManagedPassword, $ADServiceAccount.Length)

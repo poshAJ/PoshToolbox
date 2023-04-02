@@ -1,7 +1,6 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
 using namespace System.IO
-using namespace System.Management.Automation
 
 function Stop-PoshLog {
     [CmdletBinding()]
@@ -14,14 +13,7 @@ function Stop-PoshLog {
     ## BEGIN ##################################################################
     begin {
         if (-not $PSLogDetails) {
-            $PSCmdlet.ThrowTerminatingError(
-                [ErrorRecord]::new(
-                    ([PSInvalidOperationException] "An error occurred stopping the log: The host is not currently logging."),
-                    "InvalidOperation",
-                    [ErrorCategory]::InvalidOperation,
-                    $null
-                )
-            )
+            New-PSInvalidOperationException -Message "An error occurred stopping the log: The host is not currently logging." -Throw
         } else {
             if ($Events = Get-EventSubscriber | Where-Object SourceIdentifier -CMatch "^PSLog") {
                 $Events | Unregister-Event
@@ -44,7 +36,7 @@ function Stop-PoshLog {
 
     ## PROCESS ################################################################
     process {
-        :Main foreach ($PSLog in $PSLogDetails) {
+        foreach ($PSLog in $PSLogDetails) {
             try {
                 $Format = $PSLog.Utc | ?: { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime" }
 
@@ -54,21 +46,12 @@ function Stop-PoshLog {
                     }
                 }
 
-                Write-Information -InformationAction Continue -MessageData "Log stopped, output file is '$( $PSLog.Path )'" -InformationVariable null
+                Write-Information -InformationAction Continue -MessageData ("Log stopped, output file is '{0}'" -f $PSLog.Path) -InformationVariable null
                 ## EXCEPTIONS #################################################
             } catch [MethodInvocationException] {
-                $PSCmdlet.WriteError(
-                    [ErrorRecord]::new(
-                        $_.Exception.InnerException,
-                        "MethodException",
-                        [ErrorCategory]::InvalidOperation,
-                        $PSLog
-                    )
-                )
-                continue Main
+                $PSCmdlet.WriteError((New-MethodInvocationException -Exception $_.Exception.InnerException))
             } catch {
                 $PSCmdlet.WriteError($_)
-                continue Main
             }
         }
     }
