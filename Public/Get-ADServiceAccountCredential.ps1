@@ -58,7 +58,7 @@ function Get-ADServiceAccountCredential {
 
                 Use-Object ($DirectorySearcher = [DirectorySearcher] $Filter) {
                     if ($Server) {
-                        $DirectorySearcher.SearchRoot = [DirectoryEntry] "LDAP://{0}" -f $Server
+                        $DirectorySearcher.SearchRoot = [DirectoryEntry] ("LDAP://{0}" -f $Server)
                     }
 
                     $DirectorySearcher.SearchRoot.AuthenticationType = "Sealing"

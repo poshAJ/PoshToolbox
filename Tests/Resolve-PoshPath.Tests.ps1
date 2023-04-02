@@ -1,10 +1,10 @@
 Describe "Resolve-PoshPath" {
     BeforeAll {
         ## SOURCE #############################################################
-        Import-Module "$PSScriptRoot\..\PoshToolbox.psm1"
+        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
 
         ## SETUP ##############################################################
-        Push-Location "$PSScriptRoot"
+        Push-Location "${PSScriptRoot}"
 
         $Path = Get-Item "*"
         $LiteralPath = Get-Item -LiteralPath "."

@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Stop-PoshLog.md
@@ -19,6 +19,8 @@ Stop-PoshLog [<CommonParameters>]
 ## DESCRIPTION
 The Stop-PoshLog cmdlet stops a log that was started by the Start-PoshLog cmdlet.
 
+## EXAMPLES
+
 ## PARAMETERS
 
 ### CommonParameters
@@ -37,4 +39,5 @@ This cmdlet does not generate any output.
 ## NOTES
 
 ## RELATED LINKS
+
 [None]()

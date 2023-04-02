@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Write-PoshLog.md
@@ -12,12 +12,20 @@ Writes a log message.
 
 ## SYNTAX
 
+### Type (Default)
 ```
 Write-PoshLog [-Type <String>] [-Message] <String> [<CommonParameters>]
 ```
 
+### PSEventArgs
+```
+Write-PoshLog [<CommonParameters>]
+```
+
 ## DESCRIPTION
 The Write-PoshLog cmdlet writes a log message to the PowerShell log.
+
+## EXAMPLES
 
 ## PARAMETERS
 
@@ -73,4 +81,5 @@ Write-Warning -WarningVariable null
 Write-Error -ErrorVariable null
 
 ## RELATED LINKS
+
 [None]()
