@@ -85,8 +85,8 @@ function Write-PoshLog {
                 }
 
                 ## EXCEPTIONS #################################################
-            } catch [MethodInvocationException] {
-                $PSCmdlet.WriteError((New-MethodInvocationException -Exception $_.Exception.InnerException))
+            } catch [System.Management.Automation.MethodInvocationException] {
+                $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
             }

@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Resolve-PoshPath.md
@@ -14,12 +14,12 @@ Resolves a path with wildcard support.
 
 ### Path
 ```
-Resolve-PoshPath [-Path] <String[]> [-Provider] [<CommonParameters>]
+Resolve-PoshPath [-Path] <String[]> [<CommonParameters>]
 ```
 
 ### LiteralPath
 ```
-Resolve-PoshPath -LiteralPath <String[]> [-Provider] [<CommonParameters>]
+Resolve-PoshPath -LiteralPath <String[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -59,21 +59,6 @@ Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 
-### -Provider
-Outputs the PSProvider for the specified path(s).
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
 ### CommonParameters
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
@@ -84,11 +69,8 @@ You can pipe a string that contains a path to this cmdlet.
 
 ## OUTPUTS
 
-### String
-Returns a string value for the resolved path.
-
-### System.Management.Automation.ProviderInfo
-Returns a ProviderInfo object if you specify the Provider parameter.
+### PSObject
+Returns a result object for each resolved path.
 
 ## NOTES
 This cmdlet is designed to work with the data exposed by any provider. To list the providers available in your session, type Get-PSProvider. For more information, see [about_Providers](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_providers).

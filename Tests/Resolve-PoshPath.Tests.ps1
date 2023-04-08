@@ -13,23 +13,13 @@ Describe "Resolve-PoshPath" {
     ## SUCCESS ################################################################
     Context "Success" {
         It "Path" {
-            $Test = Resolve-PoshPath "*"
-            $Test | Should -Be $Path.FullName
+            $Test = Resolve-PoshPath -Path "*"
+            $Test.ProviderPath | Should -Be $Path.FullName
         }
 
         It "LiteralPath" {
             $Test = Resolve-PoshPath -LiteralPath "."
-            $Test | Should -Be $LiteralPath.FullName
-        }
-
-        It "Path & Provider" {
-            $Test = Resolve-PoshPath "*" -Provider
-            $Test | Should -Be $Path.PSProvider[0]
-        }
-
-        It "LiteralPath & Provider" {
-            $Test = Resolve-PoshPath -LiteralPath "." -Provider
-            $Test | Should -Be $LiteralPath.PSProvider
+            $Test.ProviderPath | Should -Be $LiteralPath.FullName
         }
     }
 
