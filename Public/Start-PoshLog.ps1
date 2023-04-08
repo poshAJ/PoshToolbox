@@ -2,6 +2,7 @@
 
 using namespace System.IO
 using namespace System.Text
+using namespace System.Management.Automation
 using namespace System.Collections.ObjectModel
 
 function Start-PoshLog {
@@ -29,12 +30,6 @@ function Start-PoshLog {
             ParameterSetName = "PathNoClobber"
         )]
         [ValidateScript({
-                if ((Resolve-PoshPath -Path $_ -Provider).Name -eq "FileSystem") {
-                    return $true
-                }
-                throw "The argument specified must resolve to a valid path on the FileSystem provider."
-            })]
-        [ValidateScript({
                 if (Test-Path -Path $_ -IsValid) {
                     return $true
                 }
@@ -59,12 +54,6 @@ function Start-PoshLog {
             ParameterSetName = "LiteralPathNoClobber"
         )]
         [Alias("PSPath")]
-        [ValidateScript({
-                if ((Resolve-PoshPath -LiteralPath $_ -Provider).Name -eq "FileSystem") {
-                    return $true
-                }
-                throw "The argument specified must resolve to a valid path on the FileSystem provider."
-            })]
         [ValidateScript({
                 if (Test-Path -LiteralPath $_ -IsValid) {
                     return $true
@@ -115,17 +104,21 @@ function Start-PoshLog {
 
         foreach ($Object in $Process) {
             try {
-                if (-not ($LogDir = [DirectoryInfo] (Split-Path $Object -Parent)).Exists) {
-                    $LogDir = [Directory]::CreateDirectory($LogDir.FullName)
+                if ($Object.Provider.Name -ne "FileSystem") {
+                    New-ArgumentException "The argument specified must resolve to a valid path on the FileSystem provider." -Throw
                 }
 
-                if (-not ($LogFile = [FileInfo] (Split-Path $Object -Leaf)).Extension) {
-                    $LogDir = [Directory]::CreateDirectory($LogDir.FullName + "\" + $LogFile.Name)
+                $FileInfo = [FileInfo] $Object.ProviderPath
 
-                    $LogFile = [FileInfo] ("PowerShell_log.{0}.{1:$( $Format[2] )}.txt" -f ([guid]::NewGuid() -isplit "-")[0], $DateTime.($Format[1]).Invoke())
+                if (-not ($Directory = $FileInfo.Extension | ?: { $FileInfo.Directory } { $FileInfo }).Exists) {
+                    $null = [Directory]::CreateDirectory($Directory)
                 }
 
-                Use-Object ($File = [File]::Open($LogDir.FullName + "\" + $LogFile.Name, $FileMode)) {
+                if (-not $FileInfo.Extension) {
+                    $FileInfo = [FileInfo] ("PowerShell_log.{0}.{1:$( $Format[2] )}.txt" -f ([guid]::NewGuid() -isplit "-")[0], $DateTime.($Format[1]).Invoke())
+                }
+
+                Use-Object ($File = [File]::Open($Directory.FullName + "\" + $FileInfo.Name, $FileMode)) {
                     if ($Append) {
                         $NewLine = [Encoding]::UTF8.GetBytes([Environment]::NewLine)
                         $File.Write($NewLine, 0, $NewLine.Length)

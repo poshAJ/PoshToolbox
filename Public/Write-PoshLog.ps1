@@ -38,7 +38,7 @@ function Write-PoshLog {
     ## BEGIN ##################################################################
     begin {
         if (-not $PSLogDetails) {
-            $PSCmdlet.ThrowTerminatingError((New-PSInvalidOperationException -Message "An error occurred stopping the log: The host is not currently logging."))
+            $PSCmdlet.ThrowTerminatingError(( New-PSInvalidOperationException -Message "An error occurred writing the log: The host is not currently logging." ))
         }
 
         $TypeMap = @{
@@ -49,7 +49,7 @@ function Write-PoshLog {
         }
 
         $Template = {
-            "{0:$( $Format[0] )}`t[{1}]`t{2}" -f $DateTime.($Format[1]).Invoke(), $TypeMap.$Type, $Message
+            "{0:$( $Format[0] )}`t[{1}] `t{2}" -f $DateTime.($Format[1]).Invoke(), $TypeMap.$Type, $Message
         }
 
         if ($PSEventArgs) {
