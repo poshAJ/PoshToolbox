@@ -14,7 +14,7 @@ Splits large files into several smaller files.
 
 ### Path
 ```
-Split-File -Path <String[]> [-Destination <String>] -Size <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
+Split-File [-Path] <String[]> [-Destination <String>] -Size <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### LiteralPath
@@ -60,6 +60,36 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
+### -LiteralPath
+Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.
+
+```yaml
+Type: String[]
+Parameter Sets: LiteralPath
+Aliases: PSPath
+
+Required: True
+Position: Named
+Default value: None
+Accept pipeline input: True (ByPropertyName)
+Accept wildcard characters: False
+```
+
+### -Path
+Specifies a path to one or more locations. Wildcards are accepted.
+
+```yaml
+Type: String[]
+Parameter Sets: Path
+Aliases:
+
+Required: True
+Position: 0
+Default value: None
+Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
 ### -Size
 Specifies the maximum size in bytes of each split file.
 
@@ -88,36 +118,6 @@ Required: False
 Position: Named
 Default value: None
 Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -LiteralPath
-Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.
-
-```yaml
-Type: String[]
-Parameter Sets: LiteralPath
-Aliases: PSPath
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Path
-Specifies a path to one or more locations. Wildcards are accepted.
-
-```yaml
-Type: String[]
-Parameter Sets: Path
-Aliases:
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
 Accept wildcard characters: False
 ```
 

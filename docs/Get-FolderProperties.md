@@ -14,7 +14,7 @@ Displays folder properties.
 
 ### Path
 ```
-Get-FolderProperties -Path <String[]> [-Unit <String>] [<CommonParameters>]
+Get-FolderProperties [-Path] <String[]> [-Unit <String>] [<CommonParameters>]
 ```
 
 ### LiteralPath
@@ -28,22 +28,6 @@ The Get-FolderProperties cmdlet creates a result object for the specified folder
 ## EXAMPLES
 
 ## PARAMETERS
-
-### -Unit
-Specifies the unit of size measurement.
-
-```yaml
-Type: String
-Parameter Sets: (All)
-Aliases:
-Accepted values: KB, MB, GB, TB, PB, EB, ZB, YB, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
 
 ### -LiteralPath
 Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.
@@ -69,9 +53,25 @@ Parameter Sets: Path
 Aliases:
 
 Required: True
-Position: Named
+Position: 0
 Default value: None
 Accept pipeline input: True (ByPropertyName, ByValue)
+Accept wildcard characters: False
+```
+
+### -Unit
+Specifies the unit of size measurement.
+
+```yaml
+Type: String
+Parameter Sets: (All)
+Aliases:
+Accepted values: KB, MB, GB, TB, PB, EB, ZB, YB, KiB, MiB, GiB, TiB, PiB, EiB, ZiB, YiB
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
