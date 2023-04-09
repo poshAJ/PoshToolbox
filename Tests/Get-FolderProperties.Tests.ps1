@@ -8,17 +8,17 @@ Describe "Get-FolderProperties" {
 
         $ComparatorKB = [pscustomobject] @{
             FullName = (Get-Location -PSProvider FileSystem).ProviderPath
-            Length   = 52428800
-            Size     = "52,428.80 KB"
-            Contains = "6 Files, 0 Folders"
+            Length   = 11883864
+            Size     = "11,883.86 KB"
+            Contains = "7 Files, 0 Folders"
             Created  = "*"
         }
 
         $ComparatorMiB = [pscustomobject] @{
             FullName = (Get-Location -PSProvider FileSystem).ProviderPath
-            Length   = 52428800
-            Size     = "50.00 MiB"
-            Contains = "6 Files, 0 Folders"
+            Length   = 11883864
+            Size     = "11.33 MiB"
+            Contains = "7 Files, 0 Folders"
             Created  = "*"
         }
     }
