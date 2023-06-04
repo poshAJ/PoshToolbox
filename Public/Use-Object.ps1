@@ -4,7 +4,7 @@ using namespace System.Runtime.InteropServices
 
 function Use-Object {
     [CmdletBinding()]
-    [OutputType([void])]
+    [OutputType([object])]
 
     ## PARAMETERS #############################################################
     param (
