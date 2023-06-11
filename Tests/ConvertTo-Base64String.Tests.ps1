@@ -4,74 +4,23 @@ Describe "ConvertTo-Base64String" {
         Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
 
         ## SETUP ##############################################################
-        Push-Location -Path "${PSScriptRoot}\Files"
-
-        $Bytes = Get-Content -Path "5MB.file.1split" -Encoding Byte
-        $String = [Convert]::ToBase64String($Bytes)
+        $HashTable = "PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vcG93ZXJzaGVsbC8yMDA0LzA0Ij4NCiAgPE9iaiBSZWZJZD0iMCI+DQogICAgPFROIFJlZklkPSIwIj4NCiAgICAgIDxUPlN5c3RlbS5Db2xsZWN0aW9ucy5IYXNodGFibGU8L1Q+DQogICAgICA8VD5TeXN0ZW0uT2JqZWN0PC9UPg0KICAgIDwvVE4+DQogICAgPERDVD4NCiAgICAgIDxFbj4NCiAgICAgICAgPFMgTj0iS2V5Ij5UZXN0PC9TPg0KICAgICAgICA8QiBOPSJWYWx1ZSI+dHJ1ZTwvQj4NCiAgICAgIDwvRW4+DQogICAgPC9EQ1Q+DQogIDwvT2JqPg0KPC9PYmpzPg=="
     }
 
     ## SUCCESS ################################################################
     Context "Success" {
-        It "Path" {
-            $Test = ConvertTo-Base64String -Path "*.1split"
-            Get-Content $Test | Should -Be $String
+        It "Pipeline" {
+            $Result = @{ Test = $true } | ConvertTo-Base64String
+            $Result | Should -Be $HashTable
         }
 
-        It "LiteralPath" {
-            $Test = ConvertTo-Base64String -LiteralPath "5MB.file.1split"
-            Get-Content $Test | Should -Be $String
-        }
-
-        It "InputObject & Destination" {
-            $Test = ConvertTo-Base64String -InputObject $Bytes -Destination "Copy.txt"
-            $Test.Name | Should -Be "Copy.txt"
-            Get-Content $Test | Should -Be $String
-        }
-
-        It "Path & Destination" {
-            $Test = ConvertTo-Base64String -Path "*.1split" -Destination "Copy.txt"
-            $Test.Name | Should -Be "Copy.txt"
-            Get-Content $Test | Should -Be $String
-        }
-
-        It "LiteralPath & Destination" {
-            $Test = ConvertTo-Base64String -LiteralPath "5MB.file.1split" -Destination "Copy.txt"
-            $Test.Name | Should -Be "Copy.txt"
-            Get-Content $Test | Should -Be $String
-        }
-
-        It "InputObject & AsString" {
-            $Test = ConvertTo-Base64String -InputObject $Bytes -AsString
-            $Test | Should -Be $String
-        }
-
-        It "Path & AsString" {
-            $Test = ConvertTo-Base64String -Path "*.1split" -AsString
-            $Test | Should -Be $String
-        }
-
-        It "LiteralPath & AsString" {
-            $Test = ConvertTo-Base64String -LiteralPath "5MB.file.1split" -AsString
-            $Test | Should -Be $String
+        It "InputObject" {
+            $Result = ConvertTo-Base64String -InputObject @{ Test = $true }
+            $Result | Should -Be $HashTable
         }
     }
 
     ## FAILURE ################################################################
     Context "Failure" {
-        It "DirectoryNotFoundException" {
-            $Test = { ConvertTo-Base64String -Path "5MB.file.1split" -Destination "\\fake\potato" -ErrorAction Stop }
-            $Test | Should -Throw "Could not find a part of the path '\\fake\potato'."
-        }
-
-        It "UnauthorizedAccessException" {
-            $Test = { ConvertTo-Base64String -InputObject 0 -Destination "C:\Config.Msi\potato.txt" -ErrorAction Stop }
-            $Test | Should -Throw "Access to the path 'C:\Config.Msi\potato.txt' is denied."
-        }
-    }
-
-    AfterAll {
-        ## CLEAN UP ###########################################################
-        Remove-Item -Path "Copy.txt"
-        Pop-Location
     }
 }

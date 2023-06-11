@@ -8,138 +8,58 @@ schema: 2.0.0
 # ConvertTo-Base64String
 
 ## SYNOPSIS
-Converts a file to a Base-64 string.
+Converts an object to a Base-64 string.
 
 ## SYNTAX
 
-### Path (Default)
 ```
-ConvertTo-Base64String [-Path] <String[]> [-AsString] [-WhatIf] [-Confirm] [-Destination <String>]
- [<CommonParameters>]
-```
-
-### LiteralPath
-```
-ConvertTo-Base64String -LiteralPath <String[]> [-AsString] [-WhatIf] [-Confirm] [-Destination <String>]
- [<CommonParameters>]
-```
-
-### InputObject
-```
-ConvertTo-Base64String -InputObject <Byte[]> [-AsString] [-WhatIf] [-Confirm] [-Destination <String>]
- [<CommonParameters>]
+ConvertTo-Base64String -InputObject <Object> [-Depth <Int32>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The ConvertTo-Base64String cmdlet returns a Base-64 string that represents the file you submit. You can then use the ConvertFrom-Base64String cmdlet to recreate files from the Base-64 strings.
+The ConvertTo-Base64String cmdlet returns a Base-64 string that represents an object. You can then use the ConvertFrom-Base64String cmdlet to recreate objects from the Base-64 strings.
 
 ## EXAMPLES
 
-## PARAMETERS
-
-### -AsString
-Outputs the object as a string.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases:
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
+### Represent a File in Base-64
+```powershell
+Get-Content -Path "Archive.zip" -Encoding Byte -Raw | ConvertTo-Base64String | Set-Content -Path "Archive.txt"
 ```
 
-### -Destination
-Specifies the path to the new location. The default is the current directory.
+### Represent an Object in Base-64
+```powershell
+$Base64String = ConvertTo-Base64String -InputObject $Object
+```
+
+## PARAMETERS
+
+### -Depth
+Specifies how many levels of contained objects are included in the Base-64 representation.
 
 ```yaml
-Type: String
+Type: Int32
 Parameter Sets: (All)
 Aliases:
 
 Required: False
 Position: Named
-Default value: None
+Default value: 2
 Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
 ### -InputObject
-Specifies the byte value to convert.
+Specifies the byte value or object to convert.
 
 ```yaml
-Type: Byte[]
-Parameter Sets: InputObject
+Type: Object
+Parameter Sets: (All)
 Aliases:
 
 Required: True
 Position: Named
 Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -LiteralPath
-Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.
-
-```yaml
-Type: String[]
-Parameter Sets: LiteralPath
-Aliases: PSPath
-
-Required: True
-Position: Named
-Default value: None
-Accept pipeline input: True (ByPropertyName)
-Accept wildcard characters: False
-```
-
-### -Path
-Specifies a path to one or more locations. Wildcards are accepted.
-
-```yaml
-Type: String[]
-Parameter Sets: Path
-Aliases:
-
-Required: True
-Position: 0
-Default value: None
-Accept pipeline input: True (ByPropertyName, ByValue)
-Accept wildcard characters: False
-```
-
-### -Confirm
-Prompts you for confirmation before running the cmdlet.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: cf
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
-Accept wildcard characters: False
-```
-
-### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
-
-```yaml
-Type: SwitchParameter
-Parameter Sets: (All)
-Aliases: wi
-
-Required: False
-Position: Named
-Default value: None
-Accept pipeline input: False
+Accept pipeline input: True (ByValue)
 Accept wildcard characters: False
 ```
 
@@ -148,15 +68,16 @@ This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable
 
 ## INPUTS
 
-### String
-You can pipe a string that contains a file path to this cmdlet.
+### PSObject
+You can pipe any object to this cmdlet.
 
 ## OUTPUTS
 
-### PSObject, String
-This cmdlet generates a string value, if you specify the AsString parameter. Otherwise, this cmdlet returns a result object for each specified file.
+### String
+This cmdlet returns a string representing the input object converted to a Base-64 string.
 
 ## NOTES
+The ConvertTo-Base64String cmdlet is implemented using [System.Management.Automation.PSSerializer](https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.psserializer).
 
 ## RELATED LINKS
 
