@@ -1,7 +1,5 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
-using namespace System.Runtime.InteropServices
-
 function Use-Object {
     [CmdletBinding()]
     [OutputType([object])]
@@ -23,21 +21,21 @@ function Use-Object {
             Mandatory
         )]
         [scriptblock]
-        $Scriptblock
+        $ScriptBlock
     )
 
     ## PROCESS ################################################################
     process {
         try {
-            . $Scriptblock
+            . $ScriptBlock
         } catch {
             throw $_
         } finally {
             foreach ($Object in $InputObject) {
-                if ($Object -is [IDisposable]) {
+                if ($Object -is [System.IDisposable]) {
                     $Object.Dispose()
-                } elseif ($Object -is [__ComObject]) {
-                    $null = [Marshal]::ReleaseComObject($Object)
+                } elseif ([System.Runtime.InteropServices.Marshal]::IsComObject($Object)) {
+                    $null = [System.Runtime.InteropServices.Marshal]::ReleaseComObject($Object)
                 }
             }
         }
