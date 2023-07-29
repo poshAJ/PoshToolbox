@@ -30,31 +30,24 @@ function Resolve-PoshPath {
 
     ## PROCESS ################################################################
     process {
-        foreach ($Object in ($Path + $LiteralPath).Where({ $_ })) {
+        foreach ($PSPath in $PSBoundParameters[$PSCmdlet.ParameterSetName]) {
             try {
                 if ($PSCmdlet.ParameterSetName -eq "Path") {
                     try {
-                        $Object = $PSCmdlet.SessionState.Path.GetResolvedPSPathFromPSPath($Object)
-                    } catch {
-                        $Parent = Split-Path $_.Exception.InnerException.ItemName -Parent
-                        $Leaf = Split-Path $_.Exception.InnerException.ItemName -Leaf
-
-                        if ($Parent) {
-                            $Object = $PSCmdlet.SessionState.Path.GetResolvedPSPathFromPSPath($Parent).ForEach({ "{0}\{1}" -f $_.Path, $Leaf })
-                        } else {
-                            throw $_
-                        }
+                        $PSPath = $PSCmdlet.SessionState.Path.GetResolvedPSPathFromPSPath($PSPath)
+                    } catch [System.Management.Automation.ItemNotFoundException] {
+                        $PSPath = $_.Exception.InnerException.ItemName
                     }
                 }
 
-                foreach ($String in $Object) {
-                    $ProviderInfo = $DriveInfo = $null
-                    $ProviderPath = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($String, [ref] $ProviderInfo, [ref] $DriveInfo)
+                foreach ($String in $PSPath) {
+                    $Provider = $Drive = $null
+                    $ProviderPath = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($String, [ref] $Provider, [ref] $Drive)
 
                     Write-Output ([pscustomobject] @{
                             ProviderPath = $ProviderPath
-                            Provider     = $ProviderInfo
-                            Drive        = $DriveInfo
+                            Provider     = $Provider
+                            Drive        = $Drive
                         })
                 }
                 ## EXCEPTIONS #################################################
