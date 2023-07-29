@@ -1,7 +1,5 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
-using namespace System.Management.Automation
-
 function New-Exception {
     [CmdletBinding()]
     [OutputType([System.Management.Automation.ErrorRecord])]
@@ -23,10 +21,10 @@ function New-Exception {
 
     ## PROCESS ################################################################
     process {
-        $ErrorRecord = [ErrorRecord]::new(
-            [Exception]::new($Message),
+        $ErrorRecord = [System.Management.Automation.ErrorRecord]::new(
+            [System.Management.Automation.Exception]::new($Message),
             "System.Exception",
-            [ErrorCategory]::NotSpecified,
+            [System.Management.Automation.ErrorCategory]::NotSpecified,
             $null
         )
 

@@ -1,7 +1,5 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
-using namespace System.IO
-
 function Get-FolderProperties {
     [CmdletBinding()]
     [OutputType([object])]
@@ -9,10 +7,10 @@ function Get-FolderProperties {
     ## PARAMETERS #############################################################
     param (
         [Parameter(
-            Mandatory,
             Position = 0,
-            ValueFromPipelineByPropertyName,
+            Mandatory,
             ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
             ParameterSetName = "Path"
         )]
         [ValidateScript({
@@ -24,12 +22,12 @@ function Get-FolderProperties {
         [string[]]
         $Path,
 
+        [Alias("PSPath")]
         [Parameter(
             Mandatory,
             ValueFromPipelineByPropertyName,
             ParameterSetName = "LiteralPath"
         )]
-        [Alias("PSPath")]
         [ValidateScript({
                 if (Test-Path -LiteralPath $_ -PathType Container) {
                     return $true
@@ -62,7 +60,7 @@ function Get-FolderProperties {
         }
 
         $Base = $Unit.Contains("i") | ?: { 1024 } { 1000 }
-        $Divisor = [Math]::Pow($Base, $Prefix[$Unit[0]])
+        $Divisor = [System.Math]::Pow($Base, $Prefix[$Unit[0]])
     }
 
     ## PROCESS ################################################################
@@ -75,7 +73,7 @@ function Get-FolderProperties {
                     New-ArgumentException "The argument specified must resolve to a valid path on the FileSystem provider." -Throw
                 }
 
-                $Folder = [DirectoryInfo] $Object.ProviderPath
+                $Folder = [System.IO.DirectoryInfo] $Object.ProviderPath
 
                 Write-Verbose ("GET {0}" -f $Folder)
                 $Dirs = $Files = $Bytes = 0
@@ -101,6 +99,7 @@ function Get-FolderProperties {
                         Contains = "{0} Files, {1} Folders" -f $Files, $Dirs
                         Created  = "{0:F}" -f $Folder.CreationTime
                     })
+
                 ## EXCEPTIONS #################################################
             } catch {
                 $PSCmdlet.WriteError($_)
