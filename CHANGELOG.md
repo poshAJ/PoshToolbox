@@ -6,6 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## Unreleased
 
+## [4.0.1](https://www.powershellgallery.com/packages/PoshToolbox/4.0.1) - 2023-08-02
+
+### Fixed
++ Updated reference to Marshal for `Get-ADServiceAccountCredential` ([#20](https://github.com/PoshAJ/PoshToolbox/pull/20))
+
 ## [4.0.0](https://www.powershellgallery.com/packages/PoshToolbox/4.0.0) - 2023-07-28
 
 ### Added

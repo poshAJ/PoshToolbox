@@ -32,7 +32,7 @@ function Get-ADServiceAccountCredential {
             @{ n = "ManagedPassword"; e = {
                     $Length = $_.Properties."msds-managedpassword".Length
                     Write-Output ($IntPtr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($Length))
-                    [Marshal]::Copy([byte[]] $_.Properties."msds-managedpassword".ForEach({ $_ }), 0, $IntPtr, $Length)
+                    [System.Runtime.InteropServices.Marshal]::Copy([byte[]] $_.Properties."msds-managedpassword".ForEach({ $_ }), 0, $IntPtr, $Length)
                 }
             }
         )
