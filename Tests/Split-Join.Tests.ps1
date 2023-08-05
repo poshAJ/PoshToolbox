@@ -20,24 +20,28 @@ Describe "Split-File" {
     Context "Success" {
         It "Path" {
             $Result = Split-File -Path "*.file" -Size 1MB
+
             $Result.Count | Should -Be 5
             $Result.Name | Should -BeLike "5MB.file.*split"
         }
 
         It "LiteralPath" {
             $Result = Split-File -LiteralPath "5MB.file" -Size 1MB
+
             $Result.Count | Should -Be 5
             $Result.Name | Should -BeLike "5MB.file.*split"
         }
 
         It "Path & Destination" {
             $Result = Split-File -Path "*.file" -Size 1MB -Destination "Copy\"
+
             $Result.Count | Should -Be 5
             $Result.Name | Should -BeLike "5MB.file.*split"
         }
 
         It "LiteralPath & Destination" {
             $Result = Split-File -LiteralPath "5MB.file" -Size 1MB -Destination "Copy\"
+
             $Result.Count | Should -Be 5
             $Result.Name | Should -BeLike "5MB.file.*split"
         }
@@ -47,11 +51,13 @@ Describe "Split-File" {
     Context "Failure" {
         It "DirectoryNotFoundException" {
             $Test = { Split-File -Path "5MB.file" -Size 1MB -Destination "\\Throw\Error" -ErrorAction Stop }
+
             $Test | Should -Throw "Could not find a part of the path '\\Throw\Error'."
         }
 
         It "UnauthorizedAccessException" {
             $Test = { Split-File -Path "5MB.file" -Size 1MB -Destination "C:\Config.Msi\" -ErrorAction Stop }
+
             $Test | Should -Throw "Access to the path 'C:\Config.Msi\5MB.file.1split' is denied."
         }
     }
@@ -62,24 +68,28 @@ Describe "Join-File" {
     Context "Success" {
         It "Path" {
             $Result = Get-FileHash (Join-File -Path "*.file.1split")
+
             $Result.Hash | Should -Be $FileHash.Hash
             $Result.Path | Should -BeLike "*\5MB.file"
         }
 
         It "LiteralPath" {
             $Result = Get-FileHash (Join-File -LiteralPath "5MB.file.1split")
+
             $Result.Hash | Should -Be $FileHash.Hash
             $Result.Path | Should -BeLike "*\5MB.file"
         }
 
         It "Path & Destination" {
             $Result = Get-FileHash (Join-File -Path "*.file.1split" -Destination "5MB.copy")
+
             $Result.Hash | Should -Be $FileHash.Hash
             $Result.Path | Should -BeLike "*\5MB.copy"
         }
 
         It "LiteralPath & Destination" {
             $Result = Get-FileHash (Join-File -LiteralPath "5MB.file.1split" -Destination "5MB.copy")
+
             $Result.Hash | Should -Be $FileHash.Hash
             $Result.Path | Should -BeLike "*\5MB.copy"
         }
@@ -89,11 +99,13 @@ Describe "Join-File" {
     Context "Failure" {
         It "DirectoryNotFoundException" {
             $Test = { Join-File -Path "5MB.file.1split" -Destination "\\Throw\Error" -ErrorAction Stop }
+
             $Test | Should -Throw "Could not find a part of the path '\\Throw\Error'."
         }
 
         It "UnauthorizedAccessException" {
             $Test = { Join-File -Path "5MB.file.1split" -Destination "C:\Config.Msi\" -ErrorAction Stop }
+
             $Test | Should -Throw "Access to the path 'C:\Config.Msi\5MB.file' is denied."
         }
     }

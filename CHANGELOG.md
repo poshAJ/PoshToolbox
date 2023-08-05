@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## Unreleased
 
+### Added
++ New-IPAddress ([#23](https://github.com/PoshAJ/PoshToolbox/pull/23))
+    > Creates an IPAddress object.
++ New-IPSubnet ([#23](https://github.com/PoshAJ/PoshToolbox/pull/23))
+    > Creates an IPSubnet object.
+
 ### Fixed
 + Updated reference to Exception for `New-Exception` ([#21](https://github.com/PoshAJ/PoshToolbox/pull/21))
 + Refactored Tests. ([#22](https://github.com/PoshAJ/PoshToolbox/pull/22))

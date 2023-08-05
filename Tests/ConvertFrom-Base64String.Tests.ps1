@@ -11,11 +11,13 @@ Describe "ConvertFrom-Base64String" {
     Context "Success" {
         It "Pipeline" {
             $Result = $HashTable | ConvertFrom-Base64String
+
             $Result["Test"] | Should -Be $true
         }
 
         It "InputObject" {
             $Result = ConvertFrom-Base64String -InputObject $HashTable
+
             $Result["Test"] | Should -Be $true
         }
     }
@@ -24,6 +26,7 @@ Describe "ConvertFrom-Base64String" {
     Context "Failure" {
         It "FormatException" {
             $Test = { ConvertFrom-Base64String -InputObject "ThrowError" -ErrorAction Stop }
+
             $Test | Should -Throw "Invalid length for a Base-64 char array or string."
         }
     }

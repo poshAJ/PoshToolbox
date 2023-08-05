@@ -61,24 +61,7 @@
     # NestedModules = @()
 
     # Functions to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no functions to export.
-    FunctionsToExport = @(
-        'ConvertFrom-Base64String'
-        'ConvertTo-Base64String'
-        'Find-NlMtu'
-        'Get-ADServiceAccountCredential'
-        'Get-FolderProperties'
-        'Invoke-ExponentialBackoff'
-        'Join-File'
-        'New-Exception'
-        'Resolve-PoshPath'
-        'Split-File'
-        'Start-PoshLog'
-        'Stop-PoshLog'
-        'Use-NullCoalescing'
-        'Use-Object'
-        'Use-Ternary'
-        'Write-PoshLog'
-    )
+    FunctionsToExport = @()
 
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
     CmdletsToExport   = @()
@@ -104,7 +87,7 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags         = 'script', 'module', 'framework', 'toolbox', 'logging'
+            Tags         = 'script', 'module', 'framework', 'library', 'toolbox'
 
             # A URL to the license for this module.
             LicenseUri   = 'https://github.com/PoshAJ/PoshToolbox/blob/main/LICENSE'

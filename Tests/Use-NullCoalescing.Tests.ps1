@@ -8,11 +8,13 @@ Describe "Use-NullCoalescing" {
     Context "Success" {
         It "Null" {
             $Result = $null | Use-NullCoalescing { "VALUE" }
+
             $Result | Should -Be "VALUE"
         }
 
         It "Not Null" {
             $Result = "VALUE" | Use-NullCoalescing { 1 / 0 }
+
             $Result | Should -Be "VALUE"
         }
     }
