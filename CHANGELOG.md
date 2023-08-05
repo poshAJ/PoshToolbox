@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## Unreleased
 
+### Fixed
++ Updated reference to Exception for `New-Exception` ([#21](https://github.com/PoshAJ/PoshToolbox/pull/21))
++ Refactored Tests. ([#22](https://github.com/PoshAJ/PoshToolbox/pull/22))
+
 ## [4.0.1](https://www.powershellgallery.com/packages/PoshToolbox/4.0.1) - 2023-08-02
 
 ### Fixed

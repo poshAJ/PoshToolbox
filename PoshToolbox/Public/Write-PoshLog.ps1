@@ -76,7 +76,7 @@ function Write-PoshLog {
     process {
         foreach ($PSLog in $PSLogDetails) {
             try {
-                $Format = $PSLog.Utc | ?: { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime" }
+                $Format = $PSLog.Utc | Use-Ternary { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime" }
 
                 Use-Object ($File = [System.IO.File]::AppendText($PSLog.Path)) {
                     $File.WriteLine($Template.Invoke()[0])

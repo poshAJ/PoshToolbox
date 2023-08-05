@@ -62,7 +62,7 @@ function Split-File {
 
     ## PROCESS ################################################################
     process {
-        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | ?: { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
+        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | Use-Ternary { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
 
         foreach ($Object in $Process) {
             try {
@@ -77,7 +77,7 @@ function Split-File {
                     $Buffer = [byte[]]::new($Size)
                     $Count = 1
 
-                    $CalculatedDestination = $DestinationInfo.Extension | ?: { "{0}\{1}" -f $DestinationInfo.Directory.FullName, $File.Name } { "{0}\{1}" -f $DestinationInfo.FullName.TrimEnd("\"), $File.Name }
+                    $CalculatedDestination = $DestinationInfo.Extension | Use-Ternary { "{0}\{1}" -f $DestinationInfo.Directory.FullName, $File.Name } { "{0}\{1}" -f $DestinationInfo.FullName.TrimEnd("\"), $File.Name }
 
                     while ($Read = $Reader.Read($Buffer, 0, $Buffer.Length)) {
                         if ($Read -ne $Buffer.Length) {
@@ -86,7 +86,7 @@ function Split-File {
 
                         $SplitFile = "{0}.{1}split" -f $CalculatedDestination, $Count
                         if ($PSCmdlet.ShouldProcess($SplitFile, "Write Content")) {
-                            if (-not ($Directory = $DestinationInfo.Extension | ?: { $DestinationInfo.Directory } { $DestinationInfo }).Exists) {
+                            if (-not ($Directory = $DestinationInfo.Extension | Use-Ternary { $DestinationInfo.Directory } { $DestinationInfo }).Exists) {
                                 $null = [System.IO.Directory]::CreateDirectory($Directory)
                             }
 

@@ -1,19 +1,19 @@
-Describe "Use-Ternary" {
-    BeforeAll {
-        ## SOURCE #############################################################
-        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
-    }
+BeforeAll {
+    ## SOURCE #################################################################
+    Import-Module "${PSScriptRoot}\..\PoshToolbox\PoshToolbox.psm1"
+}
 
+Describe "Use-Ternary" {
     ## SUCCESS ################################################################
     Context "Success" {
         It "True" {
-            $Test = $true | ?: { "VALUE" } { 1 / 0 }
-            $Test | Should -Be "VALUE"
+            $Result = $true | Use-Ternary { "VALUE" } { 1 / 0 }
+            $Result | Should -Be "VALUE"
         }
 
         It "False" {
-            $Test = $false | ?: { 1 / 0 } { "VALUE" }
-            $Test | Should -Be "VALUE"
+            $Result = $false | Use-Ternary { 1 / 0 } { "VALUE" }
+            $Result | Should -Be "VALUE"
         }
     }
 }

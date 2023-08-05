@@ -35,7 +35,7 @@ function Resolve-PoshPath {
                 if ($PSCmdlet.ParameterSetName -eq "Path") {
                     try {
                         $PSPath = $PSCmdlet.SessionState.Path.GetResolvedPSPathFromPSPath($PSPath)
-                    } catch [System.Management.Automation.ItemNotFoundException] {
+                    } catch [System.Management.Automation.MethodInvocationException] {
                         $PSPath = $_.Exception.InnerException.ItemName
                     }
                 }

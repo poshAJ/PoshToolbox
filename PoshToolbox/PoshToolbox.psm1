@@ -49,4 +49,4 @@ foreach ($Function in $Public) {
     }
 }
 
-Export-ModuleMember -Function $Public.BaseName -Alias (Get-Alias | Where-Object Source -EQ "PoshToolbox")
+Export-ModuleMember -Function $Public.BaseName
