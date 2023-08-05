@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Start-PoshLog.md
@@ -43,9 +43,9 @@ Start-PoshLog -LiteralPath <String[]> [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Start-PoshLog cmdlet creates a record of all or part of a PowerShell session to a text file. The log includes all output from the Write-PoshLog, Write-Information, Write-Warning, and Write-Error cmdlets.
+The `Start-PoshLog` cmdlet creates a record of all or part of a PowerShell session to a text file. The log includes all output from the `Write-PoshLog`, `Write-Information`, `Write-Warning`, and `Write-Error` cmdlets.
 
-Files that are created by the Start-PoshLog cmdlet include random characters in names to prevent potential overwrites or duplication when two or more transcripts are started simultaneously.
+Files that are created by the `Start-PoshLog` cmdlet include random characters in names to prevent potential overwrites or duplication when two or more transcripts are started simultaneously.
 
 ## EXAMPLES
 
@@ -155,7 +155,7 @@ You can pipe a string that contains a path to this cmdlet.
 This cmdlet generates a string value that represents the path, if you specify the PassThru parameter. Otherwise, this cmdlet does not generate any output.
 
 ## NOTES
-The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding Write-Information, Write-Warning, and Write-Error cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.
+The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding `Write-Information`, `Write-Warning,` and `Write-Error` cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.
 
 Write-Information -InformationVariable null
 Write-Warning -WarningVariable null

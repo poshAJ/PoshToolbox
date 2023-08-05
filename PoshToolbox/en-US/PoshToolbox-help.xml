@@ -6,39 +6,16 @@
       <command:verb>ConvertFrom</command:verb>
       <command:noun>Base64String</command:noun>
       <maml:description>
-        <maml:para>Converts a Base-64 string to a file.</maml:para>
+        <maml:para>Converts a Base-64 string to an object.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The ConvertFrom-Base64String cmdlet returns a file that represents the Base-64 string you submit. You can use the ConvertTo-Base64String cmdlet to create Base-64 strings from files.</maml:para>
+      <maml:para>The `ConvertFrom-Base64String` cmdlet returns an object that represents a Base-64 string. You can use the `ConvertTo-Base64String` cmdlet to create Base-64 strings from objects.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>ConvertFrom-Base64String</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AsBytes</maml:name>
-          <maml:description>
-            <maml:para>Outputs the object as an array of bytes.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Destination</maml:name>
-          <maml:description>
-            <maml:para>Specifies the path to the new location. The default is the current directory.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>InputObject</maml:name>
           <maml:description>
             <maml:para>Specifies the string value to convert.</maml:para>
@@ -50,176 +27,10 @@
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>ConvertFrom-Base64String</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AsBytes</maml:name>
-          <maml:description>
-            <maml:para>Outputs the object as an array of bytes.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Destination</maml:name>
-          <maml:description>
-            <maml:para>Specifies the path to the new location. The default is the current directory.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="PSPath">
-          <maml:name>LiteralPath</maml:name>
-          <maml:description>
-            <maml:para>Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-          <dev:type>
-            <maml:name>String[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>ConvertFrom-Base64String</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
-          <maml:name>Path</maml:name>
-          <maml:description>
-            <maml:para>Specifies a path to one or more locations. Wildcards are accepted.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-          <dev:type>
-            <maml:name>String[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AsBytes</maml:name>
-          <maml:description>
-            <maml:para>Outputs the object as an array of bytes.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Destination</maml:name>
-          <maml:description>
-            <maml:para>Specifies the path to the new location. The default is the current directory.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>AsBytes</maml:name>
-        <maml:description>
-          <maml:para>Outputs the object as an array of bytes.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Destination</maml:name>
-        <maml:description>
-          <maml:para>Specifies the path to the new location. The default is the current directory.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>InputObject</maml:name>
         <maml:description>
           <maml:para>Specifies the string value to convert.</maml:para>
@@ -231,54 +42,6 @@
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="PSPath">
-        <maml:name>LiteralPath</maml:name>
-        <maml:description>
-          <maml:para>Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-        <dev:type>
-          <maml:name>String[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
-        <maml:name>Path</maml:name>
-        <maml:description>
-          <maml:para>Specifies a path to one or more locations. Wildcards are accepted.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-        <dev:type>
-          <maml:name>String[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-        <maml:name>Confirm</maml:name>
-        <maml:description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-        <maml:name>WhatIf</maml:name>
-        <maml:description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
@@ -286,26 +49,41 @@
           <maml:name>String</maml:name>
         </dev:type>
         <maml:description>
-          <maml:para>You can pipe a string that contains a file path to this cmdlet.</maml:para>
+          <maml:para>You can pipe a Base-64 string to this cmdlet.</maml:para>
         </maml:description>
       </command:inputType>
     </command:inputTypes>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>PSObject, Byte</maml:name>
+          <maml:name>PSObject</maml:name>
         </dev:type>
         <maml:description>
-          <maml:para>This cmdlet generates a byte value, if you specify the AsByte parameter. Otherwise, this cmdlet returns a result object for each specified file.</maml:para>
+          <maml:para>This cmdlet returns an object representing the input Base-64 string converted to an object.</maml:para>
         </maml:description>
       </command:returnValue>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para></maml:para>
+        <maml:para>The `ConvertTo-Base64String` cmdlet is implemented using System.Management.Automation.PSSerializer (https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.psserializer).</maml:para>
       </maml:alert>
     </maml:alertSet>
-    <command:examples />
+    <command:examples>
+      <command:example>
+        <maml:title>------------------ Restore a File in Base-64 ------------------</maml:title>
+        <dev:code>Get-Content -Path "Archive.txt" -Raw | ConvertFrom-Base64String | Set-Content -Path "Archive.zip" -Encoding Byte</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>----------------- Restore an Object in Base-64 -----------------</maml:title>
+        <dev:code>$Object = ConvertTo-Base64String -InputObject $Base64String</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
@@ -323,306 +101,108 @@
       <command:verb>ConvertTo</command:verb>
       <command:noun>Base64String</command:noun>
       <maml:description>
-        <maml:para>Converts a file to a Base-64 string.</maml:para>
+        <maml:para>Converts an object to a Base-64 string.</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The ConvertTo-Base64String cmdlet returns a Base-64 string that represents the file you submit. You can then use the ConvertFrom-Base64String cmdlet to recreate files from the Base-64 strings.</maml:para>
+      <maml:para>The `ConvertTo-Base64String` cmdlet returns a Base-64 string that represents an object. You can then use the `ConvertFrom-Base64String` cmdlet to recreate objects from the Base-64 strings.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>ConvertTo-Base64String</maml:name>
         <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AsString</maml:name>
+          <maml:name>Depth</maml:name>
           <maml:description>
-            <maml:para>Outputs the object as a string.</maml:para>
+            <maml:para>Specifies how many levels of contained objects are included in the Base-64 representation.</maml:para>
           </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
           <dev:type>
-            <maml:name>SwitchParameter</maml:name>
+            <maml:name>Int32</maml:name>
             <maml:uri />
           </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
+          <dev:defaultValue>2</dev:defaultValue>
         </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Destination</maml:name>
-          <maml:description>
-            <maml:para>Specifies the path to the new location. The default is the current directory.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
           <maml:name>InputObject</maml:name>
           <maml:description>
-            <maml:para>Specifies the byte value to convert.</maml:para>
+            <maml:para>Specifies the byte value or object to convert.</maml:para>
           </maml:description>
-          <command:parameterValue required="true" variableLength="false">Byte[]</command:parameterValue>
+          <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
           <dev:type>
-            <maml:name>Byte[]</maml:name>
+            <maml:name>Object</maml:name>
             <maml:uri />
           </dev:type>
           <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>ConvertTo-Base64String</maml:name>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AsString</maml:name>
-          <maml:description>
-            <maml:para>Outputs the object as a string.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Destination</maml:name>
-          <maml:description>
-            <maml:para>Specifies the path to the new location. The default is the current directory.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="PSPath">
-          <maml:name>LiteralPath</maml:name>
-          <maml:description>
-            <maml:para>Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-          <dev:type>
-            <maml:name>String[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-      </command:syntaxItem>
-      <command:syntaxItem>
-        <maml:name>ConvertTo-Base64String</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
-          <maml:name>Path</maml:name>
-          <maml:description>
-            <maml:para>Specifies a path to one or more locations. Wildcards are accepted.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-          <dev:type>
-            <maml:name>String[]</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>AsString</maml:name>
-          <maml:description>
-            <maml:para>Outputs the object as a string.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-          <maml:name>Destination</maml:name>
-          <maml:description>
-            <maml:para>Specifies the path to the new location. The default is the current directory.</maml:para>
-          </maml:description>
-          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-          <dev:type>
-            <maml:name>String</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>None</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-          <maml:name>Confirm</maml:name>
-          <maml:description>
-            <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
-        </command:parameter>
-        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-          <maml:name>WhatIf</maml:name>
-          <maml:description>
-            <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-          </maml:description>
-          <dev:type>
-            <maml:name>SwitchParameter</maml:name>
-            <maml:uri />
-          </dev:type>
-          <dev:defaultValue>False</dev:defaultValue>
         </command:parameter>
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
       <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>AsString</maml:name>
+        <maml:name>Depth</maml:name>
         <maml:description>
-          <maml:para>Outputs the object as a string.</maml:para>
+          <maml:para>Specifies how many levels of contained objects are included in the Base-64 representation.</maml:para>
         </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
         <dev:type>
-          <maml:name>SwitchParameter</maml:name>
+          <maml:name>Int32</maml:name>
           <maml:uri />
         </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
+        <dev:defaultValue>2</dev:defaultValue>
       </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
-        <maml:name>Destination</maml:name>
-        <maml:description>
-          <maml:para>Specifies the path to the new location. The default is the current directory.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
-        <dev:type>
-          <maml:name>String</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="named" aliases="none">
         <maml:name>InputObject</maml:name>
         <maml:description>
-          <maml:para>Specifies the byte value to convert.</maml:para>
+          <maml:para>Specifies the byte value or object to convert.</maml:para>
         </maml:description>
-        <command:parameterValue required="true" variableLength="false">Byte[]</command:parameterValue>
+        <command:parameterValue required="true" variableLength="false">Object</command:parameterValue>
         <dev:type>
-          <maml:name>Byte[]</maml:name>
+          <maml:name>Object</maml:name>
           <maml:uri />
         </dev:type>
         <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName)" position="named" aliases="PSPath">
-        <maml:name>LiteralPath</maml:name>
-        <maml:description>
-          <maml:para>Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-        <dev:type>
-          <maml:name>String[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="none">
-        <maml:name>Path</maml:name>
-        <maml:description>
-          <maml:para>Specifies a path to one or more locations. Wildcards are accepted.</maml:para>
-        </maml:description>
-        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
-        <dev:type>
-          <maml:name>String[]</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>None</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="cf">
-        <maml:name>Confirm</maml:name>
-        <maml:description>
-          <maml:para>Prompts you for confirmation before running the cmdlet.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
-      </command:parameter>
-      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="wi">
-        <maml:name>WhatIf</maml:name>
-        <maml:description>
-          <maml:para>Shows what would happen if the cmdlet runs. The cmdlet is not run.</maml:para>
-        </maml:description>
-        <command:parameterValue required="false" variableLength="false">SwitchParameter</command:parameterValue>
-        <dev:type>
-          <maml:name>SwitchParameter</maml:name>
-          <maml:uri />
-        </dev:type>
-        <dev:defaultValue>False</dev:defaultValue>
       </command:parameter>
     </command:parameters>
     <command:inputTypes>
       <command:inputType>
         <dev:type>
-          <maml:name>String</maml:name>
+          <maml:name>PSObject</maml:name>
         </dev:type>
         <maml:description>
-          <maml:para>You can pipe a string that contains a file path to this cmdlet.</maml:para>
+          <maml:para>You can pipe any object to this cmdlet.</maml:para>
         </maml:description>
       </command:inputType>
     </command:inputTypes>
     <command:returnValues>
       <command:returnValue>
         <dev:type>
-          <maml:name>PSObject, String</maml:name>
+          <maml:name>String</maml:name>
         </dev:type>
         <maml:description>
-          <maml:para>This cmdlet generates a string value, if you specify the AsString parameter. Otherwise, this cmdlet returns a result object for each specified file.</maml:para>
+          <maml:para>This cmdlet returns a string representing the input object converted to a Base-64 string.</maml:para>
         </maml:description>
       </command:returnValue>
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para></maml:para>
+        <maml:para>The `ConvertTo-Base64String` cmdlet is implemented using System.Management.Automation.PSSerializer (https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.psserializer).</maml:para>
       </maml:alert>
     </maml:alertSet>
-    <command:examples />
+    <command:examples>
+      <command:example>
+        <maml:title>----------------- Represent a File in Base-64 -----------------</maml:title>
+        <dev:code>Get-Content -Path "Archive.zip" -Encoding Byte -Raw | ConvertTo-Base64String | Set-Content -Path "Archive.txt"</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+      <command:example>
+        <maml:title>---------------- Represent an Object in Base-64 ----------------</maml:title>
+        <dev:code>$Base64String = ConvertTo-Base64String -InputObject $Object</dev:code>
+        <dev:remarks>
+          <maml:para></maml:para>
+        </dev:remarks>
+      </command:example>
+    </command:examples>
     <command:relatedLinks>
       <maml:navigationLink>
         <maml:linkText>Online Version:</maml:linkText>
@@ -644,7 +224,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Find-NlMtu cmdlet creates a result object for the specified computer name(s) by evaluating the response to Internet Control Message Protocol (ICMP) echo request packets.</maml:para>
+      <maml:para>The `Find-NlMtu` cmdlet creates a result object for the specified computer name(s) by evaluating the response to Internet Control Message Protocol (ICMP) echo request packets.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -772,12 +352,12 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-ADServiceAccountCredential cmdlet creates a credential object for a specified identity by retrieving the password from Active Directory. You can use the credential object in security operations.</maml:para>
+      <maml:para>The `Get-ADServiceAccountCredential` cmdlet creates a credential object for a specified identity by retrieving the password from Active Directory. You can use the credential object in security operations.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
         <maml:name>Get-ADServiceAccountCredential</maml:name>
-        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="distinguishedName, objectGUID, objectSid, sAMAccountName">
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="distinguishedName, objectGuid, objectSid, sAMAccountName">
           <maml:name>Identity</maml:name>
           <maml:description>
             <maml:para>Specifies an Active Directory service account object by providing one of the following property values. The acceptable values for this parameter are:</maml:para>
@@ -814,7 +394,7 @@
       </command:syntaxItem>
     </command:syntax>
     <command:parameters>
-      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="distinguishedName, objectGUID, objectSid, sAMAccountName">
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByPropertyName, ByValue)" position="0" aliases="distinguishedName, objectGuid, objectSid, sAMAccountName">
         <maml:name>Identity</maml:name>
         <maml:description>
           <maml:para>Specifies an Active Directory service account object by providing one of the following property values. The acceptable values for this parameter are:</maml:para>
@@ -871,7 +451,7 @@
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>You can use the PSCredential object that Get-ADServiceAccountCredential creates in cmdlets that request user authentication, such as those with a Credential parameter.</maml:para>
+        <maml:para>You can use the PSCredential object that `Get-ADServiceAccountCredential` creates in cmdlets that request user authentication, such as those with a Credential parameter.</maml:para>
       </maml:alert>
     </maml:alertSet>
     <command:examples />
@@ -900,7 +480,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Get-FolderProperties cmdlet creates a result object for the specified folder path(s). The information displayed replicates the Microsoft Windows Explorer file folder properties window.</maml:para>
+      <maml:para>The `Get-FolderProperties` cmdlet creates a result object for the specified folder path(s). The information displayed replicates the Microsoft Windows Explorer file folder properties window.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1071,6 +651,159 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>Invoke-ExponentialBackoff</command:name>
+      <command:verb>Invoke</command:verb>
+      <command:noun>ExponentialBackoff</command:noun>
+      <maml:description>
+        <maml:para>Executes a scriptblock implementing retries with exponential backoff.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `Invoke-ExponentialBackoff` cmdlet Retries with exponential backoff is a technique that retries an operation, with an exponentially increasing wait time, up to a maximum retry count has been reached.</maml:para>
+      <maml:para>&gt; Jitter &amp;times; Scalar &amp;times; Base &lt;sup&gt;Iteration&lt;/sup&gt;</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>Invoke-ExponentialBackoff</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+          <maml:name>ScriptBlock</maml:name>
+          <maml:description>
+            <maml:para>Specifies the expression to be executed.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+          <dev:type>
+            <maml:name>ScriptBlock</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Base</maml:name>
+          <maml:description>
+            <maml:para>Specifies the multiplicative factor of the exponential.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>RetryCount</maml:name>
+          <maml:description>
+            <maml:para>Specifies the number of retries.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+          <maml:name>Scalar</maml:name>
+          <maml:description>
+            <maml:para>Specifies the multiplicative factor of the function.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Base</maml:name>
+        <maml:description>
+          <maml:para>Specifies the multiplicative factor of the exponential.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>RetryCount</maml:name>
+        <maml:description>
+          <maml:para>Specifies the number of retries.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="false" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="none">
+        <maml:name>Scalar</maml:name>
+        <maml:description>
+          <maml:para>Specifies the multiplicative factor of the function.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="0" aliases="none">
+        <maml:name>ScriptBlock</maml:name>
+        <maml:description>
+          <maml:para>Specifies the expression to be executed.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">ScriptBlock</command:parameterValue>
+        <dev:type>
+          <maml:name>ScriptBlock</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>None</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>You cannot pipe input to this cmdlet.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>PSObject</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Returns the output that is generated by the invoked command.</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Invoke-ExponentialBackoff.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>https://learn.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/implement-retries-exponential-backoff</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Join-File</command:name>
       <command:verb>Join</command:verb>
       <command:noun>File</command:noun>
@@ -1079,7 +812,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Join-File cmdlet combines the specified parts into a file.</maml:para>
+      <maml:para>The `Join-File` cmdlet combines the specified parts into a file.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1290,7 +1023,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The New-Exception cmdlet creates an ErrorRecord object for an exception with the specified message.</maml:para>
+      <maml:para>The `New-Exception` cmdlet creates an ErrorRecord object for an exception with the specified message.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1385,6 +1118,217 @@
   </command:command>
   <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
     <command:details>
+      <command:name>New-IPAddress</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>IPAddress</command:noun>
+      <maml:description>
+        <maml:para>Creates an IPAddress object.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `New-IPAddress` cmdlet creates a System.Net.IPAddress object that represents an IP address.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-IPAddress</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="Address">
+          <maml:name>IPAddress</maml:name>
+          <maml:description>
+            <maml:para>Specifies an IP address in dotted-quad notation for IPv4 and in colon-hexadecimal notation for IPv6.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="Address">
+        <maml:name>IPAddress</maml:name>
+        <maml:description>
+          <maml:para>Specifies an IP address in dotted-quad notation for IPv4 and in colon-hexadecimal notation for IPv6.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>You can pipe an IP Address as a string to this cmdlet.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>System.Net.IPAddress</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Returns an object representing the IP Address.</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/PoshAJ/PoshToolbox/blob/main/docs/New-IPAddress.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>None</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
+      <command:name>New-IPSubnet</command:name>
+      <command:verb>New</command:verb>
+      <command:noun>IPSubnet</command:noun>
+      <maml:description>
+        <maml:para>Creates an IPSubnet object.</maml:para>
+      </maml:description>
+    </command:details>
+    <maml:description>
+      <maml:para>The `New-IPSubnet` cmdlet creates an IPSubnet object that represents a set of IP addresses.</maml:para>
+    </maml:description>
+    <command:syntax>
+      <command:syntaxItem>
+        <maml:name>New-IPSubnet</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+          <maml:name>InputObject</maml:name>
+          <maml:description>
+            <maml:para>Specifies an IP subnet in CIDR notation.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+          <dev:type>
+            <maml:name>String[]</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+      <command:syntaxItem>
+        <maml:name>New-IPSubnet</maml:name>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Address">
+          <maml:name>IPAddress</maml:name>
+          <maml:description>
+            <maml:para>Specifies an IP address in dotted-quad notation for IPv4 and in colon-hexadecimal notation for IPv6.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+          <dev:type>
+            <maml:name>String</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+        <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Prefix">
+          <maml:name>IPPrefix</maml:name>
+          <maml:description>
+            <maml:para>Specifies an IP prefix as the number of bits within the host section of the IP address.</maml:para>
+          </maml:description>
+          <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+          <dev:type>
+            <maml:name>Int32</maml:name>
+            <maml:uri />
+          </dev:type>
+          <dev:defaultValue>None</dev:defaultValue>
+        </command:parameter>
+      </command:syntaxItem>
+    </command:syntax>
+    <command:parameters>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="True (ByValue)" position="0" aliases="none">
+        <maml:name>InputObject</maml:name>
+        <maml:description>
+          <maml:para>Specifies an IP subnet in CIDR notation.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String[]</command:parameterValue>
+        <dev:type>
+          <maml:name>String[]</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Address">
+        <maml:name>IPAddress</maml:name>
+        <maml:description>
+          <maml:para>Specifies an IP address in dotted-quad notation for IPv4 and in colon-hexadecimal notation for IPv6.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">String</command:parameterValue>
+        <dev:type>
+          <maml:name>String</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+      <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="named" aliases="Prefix">
+        <maml:name>IPPrefix</maml:name>
+        <maml:description>
+          <maml:para>Specifies an IP prefix as the number of bits within the host section of the IP address.</maml:para>
+        </maml:description>
+        <command:parameterValue required="true" variableLength="false">Int32</command:parameterValue>
+        <dev:type>
+          <maml:name>Int32</maml:name>
+          <maml:uri />
+        </dev:type>
+        <dev:defaultValue>None</dev:defaultValue>
+      </command:parameter>
+    </command:parameters>
+    <command:inputTypes>
+      <command:inputType>
+        <dev:type>
+          <maml:name>String</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>You can pipe a string that contains an IP subnet in CIDR notation to this cmdlet.</maml:para>
+        </maml:description>
+      </command:inputType>
+    </command:inputTypes>
+    <command:returnValues>
+      <command:returnValue>
+        <dev:type>
+          <maml:name>IPSubnet</maml:name>
+        </dev:type>
+        <maml:description>
+          <maml:para>Returns an object representing the IP subnet.</maml:para>
+        </maml:description>
+      </command:returnValue>
+    </command:returnValues>
+    <maml:alertSet>
+      <maml:alert>
+        <maml:para></maml:para>
+      </maml:alert>
+    </maml:alertSet>
+    <command:examples />
+    <command:relatedLinks>
+      <maml:navigationLink>
+        <maml:linkText>Online Version:</maml:linkText>
+        <maml:uri>https://github.com/PoshAJ/PoshToolbox/blob/main/docs/New-IPSubnet.md</maml:uri>
+      </maml:navigationLink>
+      <maml:navigationLink>
+        <maml:linkText>None</maml:linkText>
+        <maml:uri></maml:uri>
+      </maml:navigationLink>
+    </command:relatedLinks>
+  </command:command>
+  <command:command xmlns:maml="http://schemas.microsoft.com/maml/2004/10" xmlns:command="http://schemas.microsoft.com/maml/dev/command/2004/10" xmlns:dev="http://schemas.microsoft.com/maml/dev/2004/10" xmlns:MSHelp="http://msdn.microsoft.com/mshelp">
+    <command:details>
       <command:name>Resolve-PoshPath</command:name>
       <command:verb>Resolve</command:verb>
       <command:noun>PoshPath</command:noun>
@@ -1393,7 +1337,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Resolve-PoshPath cmdlet resolves a drive or provider qualified absolute or relative path that may contain wildcard characters into one or more provider-internal paths.</maml:para>
+      <maml:para>The `Resolve-PoshPath` cmdlet resolves a drive or provider qualified absolute or relative path that may contain wildcard characters into one or more provider-internal paths.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1504,7 +1448,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Split-File cmdlet separates a file into parts of the specified size.</maml:para>
+      <maml:para>The `Split-File` cmdlet separates a file into parts of the specified size.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -1751,8 +1695,8 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Start-PoshLog cmdlet creates a record of all or part of a PowerShell session to a text file. The log includes all output from the Write-PoshLog, Write-Information, Write-Warning, and Write-Error cmdlets.</maml:para>
-      <maml:para>Files that are created by the Start-PoshLog cmdlet include random characters in names to prevent potential overwrites or duplication when two or more transcripts are started simultaneously.</maml:para>
+      <maml:para>The `Start-PoshLog` cmdlet creates a record of all or part of a PowerShell session to a text file. The log includes all output from the `Write-PoshLog`, `Write-Information`, `Write-Warning`, and `Write-Error` cmdlets.</maml:para>
+      <maml:para>Files that are created by the `Start-PoshLog` cmdlet include random characters in names to prevent potential overwrites or duplication when two or more transcripts are started simultaneously.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2118,7 +2062,7 @@
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding Write-Information, Write-Warning, and Write-Error cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.</maml:para>
+        <maml:para>The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding `Write-Information`, `Write-Warning,` and `Write-Error` cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.</maml:para>
         <maml:para>Write-Information -InformationVariable null Write-Warning -WarningVariable null Write-Error -ErrorVariable null</maml:para>
       </maml:alert>
     </maml:alertSet>
@@ -2144,7 +2088,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Stop-PoshLog cmdlet stops a log that was started by the Start-PoshLog cmdlet.</maml:para>
+      <maml:para>The `Stop-PoshLog` cmdlet stops a log that was started by the `Start-PoshLog` cmdlet.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2195,11 +2139,11 @@
       <command:verb>Use</command:verb>
       <command:noun>NullCoalescing</command:noun>
       <maml:description>
-        <maml:para>Impliments the Null-coalescing operator (??).</maml:para>
+        <maml:para>Implements the Null-coalescing operator (??).</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Use-NullCoalescing cmdlet simulates the effect of the null-coalescing operator for earlier versions of PowerShell before it was introduced.</maml:para>
+      <maml:para>The `Use-NullCoalescing` cmdlet simulates the effect of the null-coalescing operator for earlier versions of PowerShell before it was introduced.</maml:para>
       <maml:para>The null-coalescing operator ?? returns the value of its left-hand operand if it isn't null. Otherwise, it evaluates the right-hand operand and returns its result. The ?? operator doesn't evaluate its right-hand operand if the left-hand operand evaluates to non-null.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2273,7 +2217,7 @@
           <maml:name>PSObject</maml:name>
         </dev:type>
         <maml:description>
-          <maml:para>Returns the output that is generated by the executed expression.</maml:para>
+          <maml:para>Returns the output that is generated by the invoked command.</maml:para>
         </maml:description>
       </command:returnValue>
     </command:returnValues>
@@ -2312,8 +2256,8 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Use-Object cmdlet simulates the effect of the using statement found in C# with added support for ComObjects.</maml:para>
-      <maml:para>When the lifetime of an IDisposable or ComObject is limited to a single method, you should declare and instantiate it in the Use-Object cmdlet. The Use-Object cmdlet calls the Dispose or ReleaseComObject method on the object in the correct way when it goes out of scope. The Use-Object cmdlet ensures that Dispose or ReleaseComObject is called even if an exception occurs within the using block.</maml:para>
+      <maml:para>The `Use-Object` cmdlet simulates the effect of the using statement found in C# with added support for ComObjects.</maml:para>
+      <maml:para>When the lifetime of an IDisposable or ComObject is limited to a single method, you should declare and instantiate it in the `Use-Object` cmdlet. The `Use-Object` cmdlet calls the Dispose or ReleaseComObject method on the object in the correct way when it goes out of scope. The `Use-Object` cmdlet ensures that Dispose or ReleaseComObject is called even if an exception occurs within the using block.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2331,7 +2275,7 @@
           <dev:defaultValue>None</dev:defaultValue>
         </command:parameter>
         <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-          <maml:name>Scriptblock</maml:name>
+          <maml:name>ScriptBlock</maml:name>
           <maml:description>
             <maml:para>Specifies the commands to run.</maml:para>
           </maml:description>
@@ -2358,7 +2302,7 @@
         <dev:defaultValue>None</dev:defaultValue>
       </command:parameter>
       <command:parameter required="true" variableLength="true" globbing="false" pipelineInput="False" position="1" aliases="none">
-        <maml:name>Scriptblock</maml:name>
+        <maml:name>ScriptBlock</maml:name>
         <maml:description>
           <maml:para>Specifies the commands to run.</maml:para>
         </maml:description>
@@ -2386,7 +2330,7 @@
           <maml:name>PSObject</maml:name>
         </dev:type>
         <maml:description>
-          <maml:para>Returns the output that is generated by the executed expression.</maml:para>
+          <maml:para>Returns the output that is generated by the invoked command.</maml:para>
         </maml:description>
       </command:returnValue>
     </command:returnValues>
@@ -2413,11 +2357,11 @@
       <command:verb>Use</command:verb>
       <command:noun>Ternary</command:noun>
       <maml:description>
-        <maml:para>Impliments the Ternary operator (?:).</maml:para>
+        <maml:para>Implements the Ternary operator (?:).</maml:para>
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Use-Ternary cmdlet simulates the effect of the ternary operator for earlier versions of PowerShell before it was introduced.</maml:para>
+      <maml:para>The `Use-Ternary` cmdlet simulates the effect of the ternary operator for earlier versions of PowerShell before it was introduced.</maml:para>
       <maml:para>You can use the ternary operator as a replacement for the if-else statement in simple conditional cases.</maml:para>
     </maml:description>
     <command:syntax>
@@ -2515,7 +2459,7 @@
           <maml:name>PSObject</maml:name>
         </dev:type>
         <maml:description>
-          <maml:para>Returns the output that is generated by the executed expression.</maml:para>
+          <maml:para>Returns the output that is generated by the invoked command.</maml:para>
         </maml:description>
       </command:returnValue>
     </command:returnValues>
@@ -2554,7 +2498,7 @@
       </maml:description>
     </command:details>
     <maml:description>
-      <maml:para>The Write-PoshLog cmdlet writes a log message to the PowerShell log.</maml:para>
+      <maml:para>The `Write-PoshLog` cmdlet writes a log message to the PowerShell log.</maml:para>
     </maml:description>
     <command:syntax>
       <command:syntaxItem>
@@ -2639,7 +2583,7 @@
     </command:returnValues>
     <maml:alertSet>
       <maml:alert>
-        <maml:para>The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding Write-Information, Write-Warning, and Write-Error cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.</maml:para>
+        <maml:para>The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding `Write-Information`, `Write-Warning`, and `Write-Error` cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.</maml:para>
         <maml:para>Write-Information -InformationVariable null Write-Warning -WarningVariable null Write-Error -ErrorVariable null</maml:para>
       </maml:alert>
     </maml:alertSet>

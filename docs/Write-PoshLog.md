@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Write-PoshLog.md
@@ -23,7 +23,7 @@ Write-PoshLog [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Write-PoshLog cmdlet writes a log message to the PowerShell log.
+The `Write-PoshLog` cmdlet writes a log message to the PowerShell log.
 
 ## EXAMPLES
 
@@ -74,7 +74,7 @@ You cannot pipe input to this cmdlet.
 This cmdlet does not generate any output.
 
 ## NOTES
-The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding Write-Information, Write-Warning, and Write-Error cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.
+The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding `Write-Information`, `Write-Warning`, and `Write-Error` cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.
 
 Write-Information -InformationVariable null
 Write-Warning -WarningVariable null

@@ -18,7 +18,7 @@ Invoke-ExponentialBackoff [-ScriptBlock] <ScriptBlock> [-RetryCount <Int32>] [-B
 ```
 
 ## DESCRIPTION
-Retries with exponential backoff is a technique that retries an operation, with an exponentially increasing wait time, up to a maximum retry count has been reached.
+The `Invoke-ExponentialBackoff` cmdlet Retries with exponential backoff is a technique that retries an operation, with an exponentially increasing wait time, up to a maximum retry count has been reached.
 
 > Jitter &times; Scalar &times; Base <sup>Iteration</sup>
 
