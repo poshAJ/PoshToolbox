@@ -8,21 +8,25 @@ schema: 2.0.0
 # Write-PoshLog
 
 ## SYNOPSIS
+
 Writes a log message.
 
 ## SYNTAX
 
 ### Type (Default)
+
 ```
 Write-PoshLog [-Type <String>] [-Message] <String> [<CommonParameters>]
 ```
 
 ### PSEventArgs
+
 ```
 Write-PoshLog [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 The `Write-PoshLog` cmdlet writes a log message to the PowerShell log.
 
 ## EXAMPLES
@@ -30,6 +34,7 @@ The `Write-PoshLog` cmdlet writes a log message to the PowerShell log.
 ## PARAMETERS
 
 ### -Message
+
 Specifies the log message.
 
 ```yaml
@@ -45,6 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -Type
+
 Specifies the type of event.
 
 ```yaml
@@ -61,19 +67,23 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### None
+
 You cannot pipe input to this cmdlet.
 
 ## OUTPUTS
 
 ### None
+
 This cmdlet does not generate any output.
 
 ## NOTES
+
 The InformationVariable, WarningVariable, and ErrorVariable parameters of the corresponding `Write-Information`, `Write-Warning`, and `Write-Error` cmdlets are used to determine messages written to the PowerShell log. A specific message(s) can be excluded by using the correct parameter with a variable or null as show below.
 
 Write-Information -InformationVariable null

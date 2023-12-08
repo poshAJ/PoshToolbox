@@ -2,13 +2,25 @@ Describe "Use-Ternary" {
     ## SUCCESS ################################################################
     Context "Success" {
         It "True" {
-            $Result = $true | Use-Ternary { "VALUE" } { 1 / 0 }
+            $Result = $true | Use-Ternary "VALUE" $false
+
+            $Result | Should -Be "VALUE"
+        }
+
+        It "True ScriptBlock" {
+            $Result = $true | Use-Ternary { "VALUE" } { $false }
 
             $Result | Should -Be "VALUE"
         }
 
         It "False" {
-            $Result = $false | Use-Ternary { 1 / 0 } { "VALUE" }
+            $Result = $false | Use-Ternary $true "VALUE"
+
+            $Result | Should -Be "VALUE"
+        }
+
+        It "False ScriptBlock" {
+            $Result = $false | Use-Ternary { $true } { "VALUE" }
 
             $Result | Should -Be "VALUE"
         }

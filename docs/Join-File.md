@@ -8,21 +8,25 @@ schema: 2.0.0
 # Join-File
 
 ## SYNOPSIS
+
 Combines split files into their larger source file.
 
 ## SYNTAX
 
 ### Path
+
 ```
 Join-File [-Path] <String[]> [-Destination <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### LiteralPath
+
 ```
 Join-File -LiteralPath <String[]> [-Destination <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 The `Join-File` cmdlet combines the specified parts into a file.
 
 ## EXAMPLES
@@ -30,6 +34,7 @@ The `Join-File` cmdlet combines the specified parts into a file.
 ## PARAMETERS
 
 ### -Destination
+
 Specifies the path to the new location. The default is the current directory.
 
 ```yaml
@@ -45,6 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -LiteralPath
+
 Specifies a path to one or more locations. The value of LiteralPath is used exactly as it's typed.
 
 ```yaml
@@ -60,6 +66,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
+
 Specifies a path to one or more locations. Wildcards are accepted.
 
 ```yaml
@@ -75,6 +82,7 @@ Accept wildcard characters: False
 ```
 
 ### -Confirm
+
 Prompts you for confirmation before running the cmdlet.
 
 ```yaml
@@ -90,6 +98,7 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
+
 Shows what would happen if the cmdlet runs.
 The cmdlet is not run.
 
@@ -106,16 +115,19 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### String
+
 You can pipe a string that contains a folder path to this cmdlet.
 
 ## OUTPUTS
 
 ### PSObject
+
 Returns a result object for each specified folder.
 
 ## NOTES
