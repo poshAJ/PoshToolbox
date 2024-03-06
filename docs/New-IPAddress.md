@@ -1,7 +1,7 @@
 ﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
-online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/New-IPAddress.md
+online version: https://gitlab.com/PoshAJ/PoshToolbox/-/blob/main/docs/New-IPAddress.md
 schema: 2.0.0
 ---
 

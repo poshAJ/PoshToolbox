@@ -1,7 +1,7 @@
 ﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
-online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/New-IPSubnet.md
+online version: https://gitlab.com/PoshAJ/PoshToolbox/-/blob/main/docs/New-IPSubnet.md
 schema: 2.0.0
 ---
 
