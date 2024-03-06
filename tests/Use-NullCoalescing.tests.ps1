@@ -18,5 +18,17 @@ Describe "Use-NullCoalescing" {
 
             $Result | Should -Be "VALUE"
         }
+
+        It "Empty Pipeline" {
+            $Result = Where-Object $false | Use-NullCoalescing "VALUE"
+
+            $Result | Should -be "VALUE"
+        }
+
+        It "Mixed Pipeline" {
+            $Result = $null, "VALUE2" | Use-NullCoalescing "VALUE1"
+
+            $Result | Should -Be "VALUE1", "VALUE2"
+        }
     }
 }

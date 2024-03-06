@@ -24,10 +24,13 @@ function Use-NullCoalescing {
         $IfNull
     )
 
-    ## PROCESS ################################################################
-    process {
-        # wrapping in an array to handle $null as input
-        foreach ($Object in @($InputObject)) {
+    ## END ####################################################################
+    end {
+        if (-not ($InputObject = $input)) {
+            $InputObject = , $null
+        }
+
+        foreach ($Object in $InputObject) {
             try {
                 if (($null -eq $Object) -and ($IfNull -is [scriptblock])) {
                     . $IfNull

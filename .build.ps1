@@ -81,7 +81,7 @@ task BuildModule {
 task BuildHelp {
     assert (Test-Path -Path "./docs/")
 
-    New-ExternalHelp -Path "./docs/" -OutputPath "./${RootModule}/${ModuleVersion}/en-US/" -Force
+    New-ExternalHelp -Path "./docs/" -OutputPath "./${RootModule}/${ModuleVersion}/en-US/" -Encoding ([System.Text.Encoding]::UTF8) -Force
 }
 
 
@@ -106,6 +106,12 @@ task AnalyzeModule {
     assert (Test-Path -Path "./${RootModule}/${ModuleVersion}")
 
     Invoke-ScriptAnalyzer -Path "./${RootModule}/${ModuleVersion}"
+}
+
+
+task UpdateHelp LoadModule, {
+    New-MarkdownHelp -Module $RootModule -OutputFolder "./docs" -AlphabeticParamsOrder -ExcludeDontShow -Encoding ([System.Text.Encoding]::UTF8) -ErrorAction SilentlyContinue
+    Update-MarkdownHelp -Path "./docs" -AlphabeticParamsOrder -ExcludeDontShow -Encoding ([System.Text.Encoding]::UTF8) -Force
 }
 
 
@@ -137,7 +143,6 @@ task Build `
     CleanLibrary
 
 task Test `
-    Build,
     LoadModule,
     AnalyzeModule,
     TestModule
