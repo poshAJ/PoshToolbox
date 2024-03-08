@@ -1,9 +1,5 @@
 param (
     [Parameter()]
-    [string]
-    $RootModule = "PoshToolbox",
-
-    [Parameter()]
     [version]
     $ModuleVersion = "0.0.0",
 
@@ -11,6 +7,8 @@ param (
     [string]
     $ApiKey
 )
+
+$Script:RootModule = "PoshToolbox"
 
 
 task CleanModule {
@@ -36,8 +34,10 @@ task LoadChangeLog {
     $Latest = Select-String -Path "./CHANGELOG.md" -Pattern "^## \[(\d\.\d\.\d)\]" |
         Select-Object LineNumber -First 2
 
-    $Script:ReleaseNotes = Get-Content -Path "./CHANGELOG.md" -TotalCount ($Latest[1].LineNumber - 1) |
+    $ReleaseNotes = Get-Content -Path "./CHANGELOG.md" -TotalCount ($Latest[1].LineNumber - 1) |
         Select-Object -Skip $Latest[0].LineNumber
+
+    $Script:ReleaseNotes = $ReleaseNotes -replace "\[!\d+\]\(.*$"
 }
 
 
