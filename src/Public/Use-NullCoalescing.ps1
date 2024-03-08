@@ -35,9 +35,9 @@ function Use-NullCoalescing {
                 if (($null -eq $Object) -and ($IfNull -is [scriptblock])) {
                     . $IfNull
                 } elseif ($null -eq $Object) {
-                    Write-Output $IfNull -NoEnumerate
+                    Write-Output (, $IfNull)
                 } else {
-                    Write-Output $Object -NoEnumerate
+                    Write-Output (, $Object)
                 }
             } catch {
                 $PSCmdlet.WriteError($_)
