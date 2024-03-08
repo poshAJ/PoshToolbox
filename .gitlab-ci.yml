@@ -3,8 +3,17 @@ default:
   image: mcr.microsoft.com/dotnet/sdk:8.0
 
 stages:
+  - build
   - test
-  - deploy
+  - publish
+
+build:
+  stage: build
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - pwsh -c "Install-PSResource -RequiredResourceFile ./RequiredModules.psd1 -TrustRepository"
+    - pwsh -c "Invoke-Build -Task Build"
 
 test:
   stage: test
@@ -12,14 +21,14 @@ test:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
     - pwsh -c "Install-PSResource -RequiredResourceFile ./RequiredModules.psd1 -TrustRepository"
-    - pwsh -c "Invoke-Build -Task Build, Test"
+    - pwsh -c "Invoke-Build -Task Test"
   artifacts:
     reports:
       junit: testResults.xml
   coverage: /Covered (\d+\.\d+%)/
 
 publish:
-  stage: deploy
+  stage: publish
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TITLE =~ /^\d+\.\d+\.\d+$/
   script:
@@ -27,7 +36,7 @@ publish:
     - pwsh -c "Invoke-Build -Task Publish -ModuleVersion $CI_COMMIT_TITLE -ApiKey $ApiKey"
 
 release:
-  stage: deploy
+  stage: publish
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TITLE =~ /^\d+\.\d+\.\d+$/
