@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## Unreleased
 
+## [4.0.0](https://www.powershellgallery.com/packages/PoshToolbox/4.0.0) - 2023-07-28
+
 ### Added
 + Invoke-ExponentialBackoff ([#15](https://github.com/PoshAJ/PoshToolbox/pull/15))
     > Executes a scriptblock implementing retries with exponential backoff.
