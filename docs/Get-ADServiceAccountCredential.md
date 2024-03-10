@@ -1,6 +1,6 @@
 ﻿---
-external help file: ScriptFramework-help.xml
-Module Name: ScriptFramework
+external help file: PoshToolbox-help.xml
+Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Get-ADServiceAccountCredential.md
 schema: 2.0.0
 ---

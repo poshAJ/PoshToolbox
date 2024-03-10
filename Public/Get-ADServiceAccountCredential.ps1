@@ -1,4 +1,4 @@
-# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
+# Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 # Copyright (c) 2021 Ryan Ephgrave, Modified Get-GMSACredential.ps1 (https://github.com/Ryan2065/gMSACredentialModule)
 
 using namespace System.Security

@@ -1,8 +1,8 @@
-# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
+# Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
 using namespace System.Management.Automation
 
-function Resolve-PSPath {
+function Resolve-PoshPath {
     [CmdletBinding()]
     [OutputType([object])]
 
@@ -72,7 +72,7 @@ function Resolve-PSPath {
                         $_.Exception.InnerException,
                         "MethodException",
                         [ErrorCategory]::InvalidOperation,
-                        $Item
+                        $Object
                     )
                 )
                 continue Main
