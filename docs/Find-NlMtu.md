@@ -1,6 +1,6 @@
 ---
-external help file:
-Module Name:
+external help file: PoshToolbox-help.xml
+Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Find-NlMtu.md
 schema: 2.0.0
 ---
@@ -84,3 +84,5 @@ Returns a result object for each specified computer name.
 ## NOTES
 
 ## RELATED LINKS
+
+[None]()

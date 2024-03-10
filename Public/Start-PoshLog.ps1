@@ -28,19 +28,17 @@ function Start-PoshLog {
             ValueFromPipeline,
             ParameterSetName = "PathNoClobber"
         )]
-        [ValidateScript({ # Validate IsFileSystem
-                if ((Resolve-PoshPath -Path $_ -Provider).Name -ne "FileSystem") {
-                    throw "The argument specified must resolve to a valid path on the FileSystem provider."
-                } else {
+        [ValidateScript({
+                if ((Resolve-PoshPath -Path $_ -Provider).Name -eq "FileSystem") {
                     $true
                 }
+                throw "The argument specified must resolve to a valid path on the FileSystem provider."
             })]
-        [ValidateScript({ # Validate IsPath
+        [ValidateScript({
                 if (Test-Path -Path $_ -IsValid) {
                     $true
-                } else {
-                    throw "The argument specified must resolve to a valid file or folder path."
                 }
+                throw "The argument specified must resolve to a valid file or folder path."
             })]
         [string[]]
         $Path = [Environment]::GetFolderPath("MyDocuments"),
@@ -61,19 +59,17 @@ function Start-PoshLog {
             ParameterSetName = "LiteralPathNoClobber"
         )]
         [Alias("PSPath")]
-        [ValidateScript({ # Validate IsFileSystem
-                if ((Resolve-PoshPath -LiteralPath $_ -Provider).Name -ne "FileSystem") {
-                    throw "The argument specified must resolve to a valid path on the FileSystem provider."
-                } else {
+        [ValidateScript({
+                if ((Resolve-PoshPath -LiteralPath $_ -Provider).Name -eq "FileSystem") {
                     $true
                 }
+                throw "The argument specified must resolve to a valid path on the FileSystem provider."
             })]
-        [ValidateScript({ # Validate IsPath
+        [ValidateScript({
                 if (Test-Path -LiteralPath $_ -IsValid) {
                     $true
-                } else {
-                    throw "The argument specified must resolve to a valid file or folder path."
                 }
+                throw "The argument specified must resolve to a valid file or folder path."
             })]
         [string[]]
         $LiteralPath,
@@ -117,13 +113,13 @@ function Start-PoshLog {
     process {
         $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | ?: { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
 
-        foreach ($Item in $Process) {
+        foreach ($Object in $Process) {
             try {
-                if (-not ($LogDir = [DirectoryInfo] (Split-Path $Item -Parent)).Exists) {
+                if (-not ($LogDir = [DirectoryInfo] (Split-Path $Object -Parent)).Exists) {
                     $LogDir = [Directory]::CreateDirectory($LogDir.FullName)
                 }
 
-                if (-not ($LogFile = [FileInfo] (Split-Path $Item -Leaf)).Extension) {
+                if (-not ($LogFile = [FileInfo] (Split-Path $Object -Leaf)).Extension) {
                     $LogDir = [Directory]::CreateDirectory($LogDir.FullName + "\" + $LogFile.Name)
 
                     $LogFile = [FileInfo] ("PowerShell_log.{0}.{1:$( $Format[2] )}.txt" -f ([guid]::NewGuid() -isplit "-")[0], $DateTime.($Format[1]).Invoke())

@@ -38,39 +38,39 @@ function Write-PoshLog {
     ## BEGIN ##################################################################
     begin {
         if (-not $PSLogDetails) {
-            New-PSInvalidOperationException -Message "An error occurred writing the log: The host is not currently logging." -Throw
-        } else {
-            $TypeMap = @{
-                Log         = "LOG"
-                Information = "INFO"
-                Warning     = "WARN"
-                Error       = "ERROR"
-            }
+            $PSCmdlet.ThrowTerminatingError((New-PSInvalidOperationException -Message "An error occurred stopping the log: The host is not currently logging."))
+        }
 
-            $Template = {
-                "{0:$( $Format[0] )}`t[{1}]`t{2}" -f $DateTime.($Format[1]).Invoke(), $TypeMap.$Type, $Message
-            }
+        $TypeMap = @{
+            Log         = "LOG"
+            Information = "INFO"
+            Warning     = "WARN"
+            Error       = "ERROR"
+        }
 
-            if ($PSEventArgs) {
-                $DateTime = $PSEventArgs.TimeGenerated
+        $Template = {
+            "{0:$( $Format[0] )}`t[{1}]`t{2}" -f $DateTime.($Format[1]).Invoke(), $TypeMap.$Type, $Message
+        }
 
-                switch ($PSEventArgs.SourceIdentifier) {
-                    "PSLogInformation" {
-                        $Type = "Information"
-                        $Message = $PSEventArgs.SourceEventArgs.NewItems.MessageData
-                    }
-                    "PSLogWarning" {
-                        $Type = "Warning"
-                        $Message = $PSEventArgs.SourceEventArgs.NewItems.Message
-                    }
-                    "PSLogError" {
-                        $Type = "Error"
-                        $Message = $PSEventArgs.SourceEventArgs.NewItems.Exception.Message
-                    }
+        if ($PSEventArgs) {
+            $DateTime = $PSEventArgs.TimeGenerated
+
+            switch ($PSEventArgs.SourceIdentifier) {
+                "PSLogInformation" {
+                    $Type = "Information"
+                    $Message = $PSEventArgs.SourceEventArgs.NewItems.MessageData
                 }
-            } else {
-                $DateTime = [datetime]::Now
+                "PSLogWarning" {
+                    $Type = "Warning"
+                    $Message = $PSEventArgs.SourceEventArgs.NewItems.Message
+                }
+                "PSLogError" {
+                    $Type = "Error"
+                    $Message = $PSEventArgs.SourceEventArgs.NewItems.Exception.Message
+                }
             }
+        } else {
+            $DateTime = [datetime]::Now
         }
     }
 

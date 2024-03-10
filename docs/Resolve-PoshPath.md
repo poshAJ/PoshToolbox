@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Resolve-PoshPath.md
@@ -24,6 +24,8 @@ Resolve-PoshPath -LiteralPath <String[]> [-Provider] [<CommonParameters>]
 
 ## DESCRIPTION
 The Resolve-PoshPath cmdlet resolves a drive or provider qualified absolute or relative path that may contain wildcard characters into one or more provider-internal paths.
+
+## EXAMPLES
 
 ## PARAMETERS
 
@@ -92,5 +94,6 @@ Returns a ProviderInfo object if you specify the Provider parameter.
 This cmdlet is designed to work with the data exposed by any provider. To list the providers available in your session, type Get-PSProvider. For more information, see [about_Providers](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_providers).
 
 ## RELATED LINKS
+
 [https://docs.microsoft.com/en-us/dotnet/api/system.management.automation.pathintrinsics.getresolvedproviderpathfrompspath]()
 [https://docs.microsoft.com/en-us/dotnet/api/system.management.automation.pathintrinsics.getunresolvedproviderpathfrompspath]()

@@ -1,7 +1,7 @@
 Describe "Use-Object" {
     BeforeAll {
         ## SOURCE #############################################################
-        Import-Module "$PSScriptRoot\..\PoshToolbox.psm1"
+        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
 
         ## SETUP ##############################################################
     }
