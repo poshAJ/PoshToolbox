@@ -1,5 +1,5 @@
-# PoshFramework
-Simple framework that can be used to build PowerShell script and modules.
+# PoshToolbox
+Simple toolbox of functions that can be used to build PowerShell scripts and modules.
 
 ## Installation
 ```
