@@ -30,21 +30,25 @@ Describe "Get-FolderProperties" {
     Context "Success" {
         It "Path" {
             $Result = Get-FolderProperties -Path "."
+
             $Result | Should -BeLike $ComparatorMiB
         }
 
         It "LiteralPath" {
             $Result = Get-FolderProperties -LiteralPath "."
+
             $Result | Should -BeLike $ComparatorMiB
         }
 
         It "Path & Unit" {
             $Result = Get-FolderProperties -Path "." -Unit KB
+
             $Result | Should -BeLike $ComparatorKB
         }
 
         It "LiteralPath & Unit" {
             $Result = Get-FolderProperties -LiteralPath "." -Unit KB
+
             $Result | Should -BeLike $ComparatorKB
         }
     }
@@ -53,6 +57,7 @@ Describe "Get-FolderProperties" {
     Context "Failure" {
         It "UnauthorizedAccessException" {
             $Test = { Get-FolderProperties -Path "C:\Config.Msi\" -ErrorAction Stop }
+
             $Test | Should -Throw "Access to the path 'C:\Config.Msi\' is denied."
         }
     }

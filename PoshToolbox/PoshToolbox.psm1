@@ -1,51 +1,48 @@
 # Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
 # Copyright (c) 2015 Warren Frame, Modified "PowerShell Module Framework" (http://github.com/ramblingcookiemonster)
 
-using namespace System.IO
-using namespace System.Management.Automation
-
-$Classes = [FileInfo[]] (Get-ChildItem -Path "${PSScriptRoot}\Classes" -Filter *.ps1 -ErrorAction SilentlyContinue)
+$Classes = Get-ChildItem -Path "${PSScriptRoot}\Classes\*.ps1" -ErrorAction SilentlyContinue
 
 foreach ($Class in $Classes) {
     try {
         . $Class.FullName
     } catch {
-        throw [ErrorRecord]::new(
-            [FileLoadException] ("The class '{0}' was not loaded because an error occurred." -f $Class.BaseName),
-            "ClassUnavailable",
-            [ErrorCategory]::ResourceUnavailable,
-            $Class.FullName
-        )
+        throw ([System.Management.Automation.ErrorRecord]::new(
+                [System.IO.FileLoadException] ("The class '{0}' was not loaded because an error occurred." -f $Class.BaseName),
+                "ClassUnavailable",
+                [System.Management.Automation.ErrorCategory]::ResourceUnavailable,
+                $Class.FullName
+            ))
     }
 }
 
-$Exceptions = [FileInfo[]] (Get-ChildItem -Path "${PSScriptRoot}\Exceptions" -Filter *.ps1 -ErrorAction SilentlyContinue)
+$Exceptions = Get-ChildItem -Path "${PSScriptRoot}\Exceptions\*.ps1" -ErrorAction SilentlyContinue
 
 foreach ($Exception in $Exceptions) {
     try {
         . $Exception.FullName
     } catch {
-        throw [ErrorRecord]::new(
-            [FileLoadException] ("The exception '{0}' was not loaded because an error occurred." -f $Exception.BaseName),
-            "ExceptionUnavailable",
-            [ErrorCategory]::ResourceUnavailable,
-            $Exception.FullName
-        )
+        throw ([System.Management.Automation.ErrorRecord]::new(
+                [System.IO.FileLoadException] ("The exception '{0}' was not loaded because an error occurred." -f $Exception.BaseName),
+                "ExceptionUnavailable",
+                [System.Management.Automation.ErrorCategory]::ResourceUnavailable,
+                $Exception.FullName
+            ))
     }
 }
 
-$Public = [FileInfo[]] (Get-ChildItem -Path "${PSScriptRoot}\Public" -Filter *.ps1 -ErrorAction SilentlyContinue)
+$Public = Get-ChildItem -Path "${PSScriptRoot}\Public\*.ps1" -ErrorAction SilentlyContinue
 
 foreach ($Function in $Public) {
     try {
         . $Function.FullName
     } catch {
-        throw [ErrorRecord]::new(
-            [FileLoadException] ("The function '{0}' was not loaded because an error occurred." -f $Function.BaseName),
-            "FunctionUnavailable",
-            [ErrorCategory]::ResourceUnavailable,
-            $Function.FullName
-        )
+        throw ([System.Management.Automation.ErrorRecord]::new(
+                [System.IO.FileLoadException] ("The function '{0}' was not loaded because an error occurred." -f $Function.BaseName),
+                "FunctionUnavailable",
+                [System.Management.Automation.ErrorCategory]::ResourceUnavailable,
+                $Function.FullName
+            ))
     }
 }
 
