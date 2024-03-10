@@ -3,11 +3,18 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
+
 ## Unreleased
 
 ### Added
-+ Invoke-ExponentialBackoff
++ Invoke-ExponentialBackoff ([#15](https://github.com/PoshAJ/PoshToolbox/pull/15))
     > Executes a scriptblock implementing retries with exponential backoff.
+
+### Changed
++ **BREAKING** ConvertTo-Base64String ([#16](https://github.com/PoshAJ/PoshToolbox/pull/16))
+    > Refactor to align with other ConvertTo-* cmdlets.
++ **BREAKING** ConvertFrom-Base64String ([#16](https://github.com/PoshAJ/PoshToolbox/pull/16))
+    > Refactor to align with other ConvertFrom-* cmdlets.
 
 ## [3.0.0](https://www.powershellgallery.com/packages/PoshToolbox/3.0.0) - 2023-04-08
 
