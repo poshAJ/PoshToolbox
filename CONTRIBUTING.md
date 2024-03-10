@@ -2,10 +2,10 @@
 
 ## Git Workflow
 1. Fork the repository and create a branch from `main`.
-2. If added code should be tested, include tests.
-3. If functions have been changed, update documentation.
+2. If added code should be tested, include tests using [Pester](https://github.com/pester/Pester).
+3. If functions have been changed, update documentation with [PlatyPS](https://github.com/PowerShell/platyPS).
 4. Ensure the test suite passes.
-5. Make sure the code lints.
+5. Make sure the code lints using [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer).
 6. Submit the pull request.
 
 ## Coding Style
