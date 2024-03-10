@@ -1,7 +1,5 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
-using namespace System.IO
-
 function Split-File {
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([object])]
@@ -9,10 +7,10 @@ function Split-File {
     ## PARAMETERS #############################################################
     param (
         [Parameter(
-            Mandatory,
             Position = 0,
-            ValueFromPipelineByPropertyName,
+            Mandatory,
             ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
             ParameterSetName = "Path"
         )]
         [ValidateScript({
@@ -24,12 +22,12 @@ function Split-File {
         [string[]]
         $Path,
 
+        [Alias("PSPath")]
         [Parameter(
             Mandatory,
             ValueFromPipelineByPropertyName,
             ParameterSetName = "LiteralPath"
         )]
-        [Alias("PSPath")]
         [ValidateScript({
                 if (Test-Path -LiteralPath $_ -PathType Leaf) {
                     return $true
@@ -59,7 +57,7 @@ function Split-File {
 
     ## BEGIN ##################################################################
     begin {
-        $DestinationInfo = [FileInfo] (Resolve-PoshPath -LiteralPath $Destination).ProviderPath
+        $DestinationInfo = [System.IO.FileInfo] (Resolve-PoshPath -LiteralPath $Destination).ProviderPath
     }
 
     ## PROCESS ################################################################
@@ -72,10 +70,10 @@ function Split-File {
                     New-ArgumentException "The argument specified must resolve to a valid path on the FileSystem provider." -Throw
                 }
 
-                $File = [FileInfo] $Object.ProviderPath
+                $File = [System.IO.FileInfo] $Object.ProviderPath
 
                 Write-Verbose ("READ {0}" -f $File)
-                Use-Object ($Reader = [File]::OpenRead($File)) {
+                Use-Object ($Reader = [System.IO.File]::OpenRead($File)) {
                     $Buffer = [byte[]]::new($Size)
                     $Count = 1
 
@@ -89,11 +87,11 @@ function Split-File {
                         $SplitFile = "{0}.{1}split" -f $CalculatedDestination, $Count
                         if ($PSCmdlet.ShouldProcess($SplitFile, "Write Content")) {
                             if (-not ($Directory = $DestinationInfo.Extension | ?: { $DestinationInfo.Directory } { $DestinationInfo }).Exists) {
-                                $null = [Directory]::CreateDirectory($Directory)
+                                $null = [System.IO.Directory]::CreateDirectory($Directory)
                             }
 
                             Write-Verbose ("WRITE {0}" -f $SplitFile)
-                            [File]::WriteAllBytes($SplitFile, $Buffer)
+                            [System.IO.File]::WriteAllBytes($SplitFile, $Buffer)
                         }
 
                         $Count++
@@ -102,6 +100,7 @@ function Split-File {
                     # sort to fix ChildItem number sorting
                     Write-Output (Get-ChildItem -Path ("{0}.*split" -f $CalculatedDestination) | Sort-Object -Property @{e = { [int32] [regex]::Match($_.FullName, "\.(\d+)split$").Groups[1].Value } })
                 }
+
                 ## EXCEPTIONS #################################################
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))

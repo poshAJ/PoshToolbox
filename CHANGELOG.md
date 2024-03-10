@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Fixed
 + Updated Code Formatting for `Use-Object` ([#17](https://github.com/PoshAJ/PoshToolbox/pull/17))
 + Updated Code Logic for `Resolve-PoshPath` ([#18](https://github.com/PoshAJ/PoshToolbox/pull/18))
++ Updated Repository Structure and Refactored to reduce `using namespace` ([#19](https://github.com/PoshAJ/PoshToolbox/pull/19))
 
 ### Changed
 + **BREAKING** ConvertTo-Base64String ([#16](https://github.com/PoshAJ/PoshToolbox/pull/16))

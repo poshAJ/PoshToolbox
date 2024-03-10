@@ -1,7 +1,5 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
-using namespace System.IO
-
 function Write-PoshLog {
     [CmdletBinding(
         DefaultParameterSetName = "Type"
@@ -42,10 +40,10 @@ function Write-PoshLog {
         }
 
         $TypeMap = @{
-            Log         = "LOG"
-            Information = "INFO"
-            Warning     = "WARN"
-            Error       = "ERROR"
+            'Log'         = "LOG"
+            'Information' = "INFO"
+            'Warning'     = "WARN"
+            'Error'       = "ERROR"
         }
 
         $Template = {
@@ -80,7 +78,7 @@ function Write-PoshLog {
             try {
                 $Format = $PSLog.Utc | ?: { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime" }
 
-                Use-Object ($File = [File]::AppendText($PSLog.Path)) {
+                Use-Object ($File = [System.IO.File]::AppendText($PSLog.Path)) {
                     $File.WriteLine($Template.Invoke()[0])
                 }
 
