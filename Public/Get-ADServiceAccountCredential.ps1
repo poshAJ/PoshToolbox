@@ -1,36 +1,5 @@
-<#PSScriptInfo
-
-    .VERSION 1.0.1
-
-    .GUID c8c8065c-fa7f-435f-a796-c22cd9397bde
-
-    .AUTHOR Anthony J. Raymond
-
-    .COMPANYNAME
-
-    .COPYRIGHT (c) 2022 Anthony J. Raymond
-
-    .TAGS gmsa service credential
-
-    .LICENSEURI https://github.com/CodeAJGit/posh/blob/master/LICENSE
-
-    .PROJECTURI https://github.com/CodeAJGit/posh
-
-    .ICONURI
-
-    .EXTERNALMODULEDEPENDENCIES
-
-    .REQUIREDSCRIPTS
-
-    .EXTERNALSCRIPTDEPENDENCIES
-
-    .RELEASENOTES
-        20220921-AJR: 1.0.0 - Initial Release
-        20221027-AJR: 1.0.1 - Fixed bug for ADServiceAccount dropping out of scope
-
-    .PRIVATEDATA
-
-#>
+# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
+# Copyright (c) 2021 Ryan Ephgrave, Modified Get-GMSACredential.ps1 (https://github.com/Ryan2065/gMSACredentialModule)
 
 using namespace System.Security
 using namespace System.Runtime.InteropServices
@@ -41,9 +10,6 @@ using namespace System.DirectoryServices.ActiveDirectory
 function Get-ADServiceAccountCredential {
     [CmdletBinding()]
     [OutputType([pscredential])]
-
-    # MIT License ~ Copyright (c) 2021 Ryan Ephgrave
-    # Modified Get-GMSACredential.ps1 from GMSACredential (https://github.com/Ryan2065/gMSACredentialModule)
 
     ## PARAMETERS #############################################################
     param (
