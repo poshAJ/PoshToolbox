@@ -27,7 +27,7 @@ function Use-NullCoalescing {
     ## PROCESS ################################################################
     process {
         # wrapping in an array to handle $null as input
-        :Main foreach ($Object in @($InputObject)) {
+        foreach ($Object in @($InputObject)) {
             try {
                 if ($null -eq $Object) {
                     . $IfNull
@@ -36,7 +36,6 @@ function Use-NullCoalescing {
                 }
             } catch {
                 $PSCmdlet.WriteError($_)
-                continue Main
             }
         }
     }

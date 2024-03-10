@@ -2,7 +2,6 @@
 
 using namespace System.IO
 using namespace System.Text
-using namespace System.Management.Automation
 using namespace System.Collections.ObjectModel
 
 function Start-PoshLog {
@@ -118,7 +117,7 @@ function Start-PoshLog {
     process {
         $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | ?: { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
 
-        :Main foreach ($Item in $Process) {
+        foreach ($Item in $Process) {
             try {
                 if (-not ($LogDir = [DirectoryInfo] (Split-Path $Item -Parent)).Exists) {
                     $LogDir = [Directory]::CreateDirectory($LogDir.FullName)
@@ -143,21 +142,12 @@ function Start-PoshLog {
                 }
 
                 $Global:PSLogDetails += @(@{ Path = $File.Name; Utc = $AsUtc })
-                Write-Information -InformationAction Continue -MessageData "Log started, output file is '$( $File.Name )'" -InformationVariable null
+                Write-Information -InformationAction Continue -MessageData ("Log started, output file is '{0}'" -f $File.Name) -InformationVariable null
                 ## EXCEPTIONS #################################################
             } catch [MethodInvocationException] {
-                $PSCmdlet.WriteError(
-                    [ErrorRecord]::new(
-                        $_.Exception.InnerException,
-                        "MethodException",
-                        [ErrorCategory]::InvalidOperation,
-                        $Item
-                    )
-                )
-                continue Main
+                $PSCmdlet.WriteError((New-MethodInvocationException -Exception $_.Exception.InnerException))
             } catch {
                 $PSCmdlet.WriteError($_)
-                continue Main
             }
         }
     }
