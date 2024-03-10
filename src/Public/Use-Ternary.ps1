@@ -39,11 +39,11 @@ function Use-Ternary {
                 if ($Object -and ($IfTrue -is [scriptblock])) {
                     . $IfTrue
                 } elseif ($Object) {
-                    Write-Output $IfTrue -NoEnumerate
+                    Write-Output (, $IfTrue)
                 } elseif ($IfFalse -is [scriptblock]) {
                     . $IfFalse
                 } else {
-                    Write-Output $IfFalse -NoEnumerate
+                    Write-Output (, $IfFalse)
                 }
             } catch {
                 $PSCmdlet.WriteError($_)

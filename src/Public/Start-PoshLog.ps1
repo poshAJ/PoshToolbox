@@ -1,6 +1,6 @@
 function Start-PoshLog {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification='As designed to receive log events.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidGlobalVars', '', Justification = 'As designed to receive log events.')]
 
     [CmdletBinding(DefaultParameterSetName = "Path")]
     [OutputType([void])]
@@ -157,7 +157,7 @@ function Start-PoshLog {
         }
 
         if ($PassThru) {
-            Write-Output $PSLogDetails.Path -NoEnumerate
+            Write-Output (, $PSLogDetails.Path)
         }
     }
 }

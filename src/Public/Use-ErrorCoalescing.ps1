@@ -14,9 +14,9 @@ function Use-ErrorCoalescing {
         $InputObject,
 
         [Parameter(
-            Position = 0,
-            Mandatory
+            Position = 0
         )]
+        [AllowNull()]
         [object]
         $IfError
     )
@@ -31,7 +31,7 @@ function Use-ErrorCoalescing {
                 if ($IfError -is [scriptblock]) {
                     . $IfError
                 } else {
-                    Write-Output $IfError -NoEnumerate
+                    Write-Output (, $IfError)
                 }
             }
         }
