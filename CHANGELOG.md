@@ -3,6 +3,11 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
+## Unreleased
+
+### Added
++ Invoke-ExponentialBackoff
+    > Executes a scriptblock implementing retries with exponential backoff.
 
 ## [3.0.0](https://www.powershellgallery.com/packages/PoshToolbox/3.0.0) - 2023-04-08
 

@@ -4,6 +4,21 @@
 using namespace System.IO
 using namespace System.Management.Automation
 
+$Classes = [FileInfo[]] (Get-ChildItem -Path "${PSScriptRoot}\Classes" -Filter *.ps1 -ErrorAction SilentlyContinue)
+
+foreach ($Class in $Classes) {
+    try {
+        . $Class.FullName
+    } catch {
+        throw [ErrorRecord]::new(
+            [FileLoadException] ("The class '{0}' was not loaded because an error occurred." -f $Class.BaseName),
+            "ClassUnavailable",
+            [ErrorCategory]::ResourceUnavailable,
+            $Class.FullName
+        )
+    }
+}
+
 $Exceptions = [FileInfo[]] (Get-ChildItem -Path "${PSScriptRoot}\Exceptions" -Filter *.ps1 -ErrorAction SilentlyContinue)
 
 foreach ($Exception in $Exceptions) {
