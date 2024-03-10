@@ -7,6 +7,8 @@ Install-Module -Name PoshToolbox
 ```
 
 ## Functions
+[ConvertFrom-Base64String](docs/ConvertFrom-Base64String.md)
+[ConvertTo-Base64String](docs/ConvertTo-Base64String.md)
 [Find-NlMtu](docs/Find-NlMtu.md)
 [Get-ADServiceAccountCredential](docs/Get-ADServiceAccountCredential.md)
 [Get-FolderProperties](docs/Get-FolderProperties.md)
