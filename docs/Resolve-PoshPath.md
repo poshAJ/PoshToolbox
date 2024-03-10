@@ -23,7 +23,7 @@ Resolve-PoshPath -LiteralPath <String[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Resolve-PoshPath cmdlet resolves a drive or provider qualified absolute or relative path that may contain wildcard characters into one or more provider-internal paths.
+The `Resolve-PoshPath` cmdlet resolves a drive or provider qualified absolute or relative path that may contain wildcard characters into one or more provider-internal paths.
 
 ## EXAMPLES
 

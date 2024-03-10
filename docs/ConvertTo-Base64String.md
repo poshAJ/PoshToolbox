@@ -17,7 +17,7 @@ ConvertTo-Base64String -InputObject <Object> [-Depth <Int32>] [<CommonParameters
 ```
 
 ## DESCRIPTION
-The ConvertTo-Base64String cmdlet returns a Base-64 string that represents an object. You can then use the ConvertFrom-Base64String cmdlet to recreate objects from the Base-64 strings.
+The `ConvertTo-Base64String` cmdlet returns a Base-64 string that represents an object. You can then use the `ConvertFrom-Base64String` cmdlet to recreate objects from the Base-64 strings.
 
 ## EXAMPLES
 
@@ -77,7 +77,7 @@ You can pipe any object to this cmdlet.
 This cmdlet returns a string representing the input object converted to a Base-64 string.
 
 ## NOTES
-The ConvertTo-Base64String cmdlet is implemented using [System.Management.Automation.PSSerializer](https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.psserializer).
+The `ConvertTo-Base64String` cmdlet is implemented using [System.Management.Automation.PSSerializer](https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.psserializer).
 
 ## RELATED LINKS
 

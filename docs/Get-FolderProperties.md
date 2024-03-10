@@ -23,7 +23,7 @@ Get-FolderProperties -LiteralPath <String[]> [-Unit <String>] [<CommonParameters
 ```
 
 ## DESCRIPTION
-The Get-FolderProperties cmdlet creates a result object for the specified folder path(s). The information displayed replicates the Microsoft Windows Explorer file folder properties window.
+The `Get-FolderProperties` cmdlet creates a result object for the specified folder path(s). The information displayed replicates the Microsoft Windows Explorer file folder properties window.
 
 ## EXAMPLES
 

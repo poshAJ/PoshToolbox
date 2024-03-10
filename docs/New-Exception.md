@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/New-Exception.md
@@ -17,7 +17,7 @@ New-Exception [-Message] <String> [-Throw] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The New-Exception cmdlet creates an ErrorRecord object for an exception with the specified message.
+The `New-Exception` cmdlet creates an ErrorRecord object for an exception with the specified message.
 
 ## EXAMPLES
 

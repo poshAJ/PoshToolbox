@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Use-NullCoalescing.md
@@ -8,7 +8,7 @@ schema: 2.0.0
 # Use-NullCoalescing
 
 ## SYNOPSIS
-Impliments the Null-coalescing operator (??).
+Implements the Null-coalescing operator (??).
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Use-NullCoalescing -InputObject <Object> [-IfNull] <ScriptBlock> [<CommonParamet
 ```
 
 ## DESCRIPTION
-The Use-NullCoalescing cmdlet simulates the effect of the null-coalescing operator for earlier versions of PowerShell before it was introduced.
+The `Use-NullCoalescing` cmdlet simulates the effect of the null-coalescing operator for earlier versions of PowerShell before it was introduced.
 
 The null-coalescing operator ?? returns the value of its left-hand operand if it isn't null. Otherwise, it evaluates the right-hand operand and returns its result. The ?? operator doesn't evaluate its right-hand operand if the left-hand operand evaluates to non-null.
 

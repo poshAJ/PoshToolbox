@@ -24,7 +24,7 @@ Split-File -LiteralPath <String[]> [-Destination <String>] -Size <Int32> [-WhatI
 ```
 
 ## DESCRIPTION
-The Split-File cmdlet separates a file into parts of the specified size.
+The `Split-File` cmdlet separates a file into parts of the specified size.
 
 ## EXAMPLES
 
@@ -106,8 +106,7 @@ Accept wildcard characters: False
 ```
 
 ### -WhatIf
-Shows what would happen if the cmdlet runs.
-The cmdlet is not run.
+Shows what would happen if the cmdlet runs. The cmdlet is not run.
 
 ```yaml
 Type: SwitchParameter
