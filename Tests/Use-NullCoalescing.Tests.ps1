@@ -2,8 +2,6 @@ Describe "Use-NullCoalescing" {
     BeforeAll {
         ## SOURCE #############################################################
         Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
-
-        ## SETUP ##############################################################
     }
 
     ## SUCCESS ################################################################
@@ -17,13 +15,5 @@ Describe "Use-NullCoalescing" {
             $Test = "VALUE" | ?? { 1 / 0 }
             $Test | Should -Be "VALUE"
         }
-    }
-
-    ## FAILURE ################################################################
-    Context "Failure" {
-    }
-
-    AfterAll {
-        ## CLEAN UP ###########################################################
     }
 }

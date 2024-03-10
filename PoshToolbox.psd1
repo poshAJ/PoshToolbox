@@ -4,7 +4,7 @@
     RootModule        = 'PoshToolbox.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '2.1.0'
+    ModuleVersion     = '3.0.0'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -64,9 +64,11 @@
     FunctionsToExport = @(
         'Find-NlMtu'
         'Get-ADServiceAccountCredential'
-        'Get-FileFolder'
+        'Get-FolderProperties'
+        'Join-File'
         'New-Exception'
         'Resolve-PoshPath'
+        'Split-File'
         'Start-PoshLog'
         'Stop-PoshLog'
         'Use-NullCoalescing'
@@ -84,7 +86,7 @@
     # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
     AliasesToExport   = @(
         '??'
-        ':?'
+        '?:'
     )
 
     # DSC resources to export from this module
