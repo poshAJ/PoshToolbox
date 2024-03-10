@@ -22,7 +22,7 @@ function New-Exception {
     ## PROCESS ################################################################
     process {
         $ErrorRecord = [System.Management.Automation.ErrorRecord]::new(
-            [System.Management.Automation.Exception]::new($Message),
+            [System.Exception]::new($Message),
             "System.Exception",
             [System.Management.Automation.ErrorCategory]::NotSpecified,
             $null
