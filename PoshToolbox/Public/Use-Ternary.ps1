@@ -47,6 +47,3 @@ function Use-Ternary {
         }
     }
 }
-
-
-Set-Alias -Name ?: -Value Use-Ternary

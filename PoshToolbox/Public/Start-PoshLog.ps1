@@ -81,8 +81,8 @@ function Start-PoshLog {
     begin {
         $DateTime = [datetime]::Now
 
-        $Format = $AsUtc | ?: { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime", "yyyyMMdd\-HHmmss\Z" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime", "yyyyMMdd\-HHmmss" }
-        $FileMode = $Append | ?: { [System.IO.FileMode]::Append } { $NoClobber | ?: { [System.IO.FileMode]::CreateNew } { [System.IO.FileMode]::Create } }
+        $Format = $AsUtc | Use-Ternary { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime", "yyyyMMdd\-HHmmss\Z" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime", "yyyyMMdd\-HHmmss" }
+        $FileMode = $Append | Use-Ternary { [System.IO.FileMode]::Append } { $NoClobber | Use-Ternary { [System.IO.FileMode]::CreateNew } { [System.IO.FileMode]::Create } }
 
         $Template = {
             "**********************"
@@ -95,7 +95,7 @@ function Start-PoshLog {
 
     ## PROCESS ################################################################
     process {
-        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | ?: { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
+        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | Use-Ternary { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
 
         foreach ($Object in $Process) {
             try {
@@ -105,7 +105,7 @@ function Start-PoshLog {
 
                 $FileInfo = [System.IO.FileInfo] $Object.ProviderPath
 
-                if (-not ($Directory = $FileInfo.Extension | ?: { $FileInfo.Directory } { $FileInfo }).Exists) {
+                if (-not ($Directory = $FileInfo.Extension | Use-Ternary { $FileInfo.Directory } { $FileInfo }).Exists) {
                     $null = [System.IO.Directory]::CreateDirectory($Directory)
                 }
 

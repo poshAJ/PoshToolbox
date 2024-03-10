@@ -59,13 +59,13 @@ function Get-FolderProperties {
             [char] "Y" = 8 # yotta
         }
 
-        $Base = $Unit.Contains("i") | ?: { 1024 } { 1000 }
+        $Base = $Unit.Contains("i") | Use-Ternary { 1024 } { 1000 }
         $Divisor = [System.Math]::Pow($Base, $Prefix[$Unit[0]])
     }
 
     ## PROCESS ################################################################
     process {
-        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | ?: { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
+        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | Use-Ternary { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
 
         foreach ($Object in $Process) {
             try {
