@@ -32,4 +32,4 @@ Install-Module -Name PoshToolbox
 
 ## RELATED LINKS
 
-[https://www.powershellgallery.com/packages/PoshToolbox]()
+[PowerShell Gallery](https://www.powershellgallery.com/packages/PoshToolbox)
