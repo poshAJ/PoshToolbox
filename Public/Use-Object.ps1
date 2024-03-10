@@ -43,6 +43,3 @@ function Use-Object {
         }
     }
 }
-
-
-Set-Alias -Name using -Value Use-Object
