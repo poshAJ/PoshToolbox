@@ -48,8 +48,8 @@ function Stop-PoshLog {
 
                 Write-Information -InformationAction Continue -MessageData ("Log stopped, output file is '{0}'" -f $PSLog.Path) -InformationVariable null
                 ## EXCEPTIONS #################################################
-            } catch [MethodInvocationException] {
-                $PSCmdlet.WriteError((New-MethodInvocationException -Exception $_.Exception.InnerException))
+            } catch [System.Management.Automation.MethodInvocationException] {
+                $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
             }
