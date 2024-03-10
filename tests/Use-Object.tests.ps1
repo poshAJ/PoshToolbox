@@ -1,0 +1,22 @@
+Describe "Use-Object" {
+    ## SUCCESS ################################################################
+    Context "Success" {
+        It "IDisposable" {
+            $Test = {
+                Use-Object ($Disposable = [System.IO.File]::OpenRead($PSCommandPath)) {}
+                $Disposable.ReadByte()
+            }
+
+            $Test | Should -Throw "*""Cannot access a closed Stream."""
+        }
+
+        It "ComObject" {
+            $Test = {
+                Use-Object ($ComObject = New-Object -ComObject WScript.Shell) {}
+                $ComObject
+            }
+
+            $Test | Should -Throw "COM object that has been separated from its underlying RCW cannot be used."
+        }
+    }
+}

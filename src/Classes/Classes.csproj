@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+  <Target Name="Rename" AfterTargets="AfterBuild">
+    <Move SourceFiles="$(OutDir)/$(ProjectName).dll" DestinationFiles="$(OutDir)/$(Module).dll" />
+  </Target>
+  <Target Name="Delete" AfterTargets="Rename">
+    <Delete Files="$(OutDir)/$(ProjectName).pdb" />
+    <Delete Files="$(OutDir)/$(ProjectName).deps.json" />
+  </Target>
+  <Target Name="DirectoryClean" AfterTargets="Clean">
+    <RemoveDir Directories="$(BaseOutputPath)" />
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+  </Target>
+</Project>
