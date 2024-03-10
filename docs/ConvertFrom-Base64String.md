@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://gitlab.com/PoshAJ/PoshToolbox/-/blob/main/docs/ConvertFrom-Base64String.md
