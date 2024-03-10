@@ -21,6 +21,7 @@ Install-Module -Name PoshToolbox
 [Split-File](docs/Split-File.md)
 [Start-PoshLog](docs/Start-PoshLog.md)
 [Stop-PoshLog](docs/Stop-PoshLog.md)
+[Use-ErrorCoalescing](docs/Use-ErrorCoalescing.md)
 [Use-NullCoalescing](docs/Use-NullCoalescing.md)
 [Use-Object](docs/Use-Object.md)
 [Use-Ternary](docs/Use-Ternary.md)

@@ -8,21 +8,25 @@ schema: 2.0.0
 # Resolve-PoshPath
 
 ## SYNOPSIS
+
 Resolves a path with wildcard support.
 
 ## SYNTAX
 
 ### Path
+
 ```
 Resolve-PoshPath [-Path] <String[]> [<CommonParameters>]
 ```
 
 ### LiteralPath
+
 ```
 Resolve-PoshPath -LiteralPath <String[]> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
+
 The `Resolve-PoshPath` cmdlet resolves a drive or provider qualified absolute or relative path that may contain wildcard characters into one or more provider-internal paths.
 
 ## EXAMPLES
@@ -30,6 +34,7 @@ The `Resolve-PoshPath` cmdlet resolves a drive or provider qualified absolute or
 ## PARAMETERS
 
 ### -LiteralPath
+
 Specifies the path to be resolved. The value of the LiteralPath parameter is used exactly as typed. No characters are interpreted as wildcard character
 
 ```yaml
@@ -45,6 +50,7 @@ Accept wildcard characters: False
 ```
 
 ### -Path
+
 Specifies the PowerShell path to resolve.
 
 ```yaml
@@ -60,19 +66,23 @@ Accept wildcard characters: False
 ```
 
 ### CommonParameters
+
 This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### String
+
 You can pipe a string that contains a path to this cmdlet.
 
 ## OUTPUTS
 
 ### PSObject
+
 Returns a result object for each resolved path.
 
 ## NOTES
+
 This cmdlet is designed to work with the data exposed by any provider. To list the providers available in your session, type Get-PSProvider. For more information, see [about_Providers](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_providers).
 
 ## RELATED LINKS

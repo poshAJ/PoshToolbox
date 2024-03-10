@@ -56,7 +56,7 @@ task BuildLibrary {
 }
 
 task BuildModule {
-    $ModuleFile = New-Item -ItemType "File" -Path "./${RootModule}/${ModuleVersion}/${RootModule}.psm1" -Force
+    $Script:ModuleFile = New-Item -ItemType "File" -Path "./${RootModule}/${ModuleVersion}/${RootModule}.psm1" -Force
 
     Add-Content -Path $ModuleFile -Value "#region: Exceptions"
     foreach ($Exception in Get-ChildItem -Path "./src/Exceptions/*.ps1") {
@@ -86,6 +86,7 @@ task BuildHelp {
 task BuildModuleManifest {
     $Script:ModuleManifest.ModuleVersion = $ModuleVersion
     $Script:ModuleManifest.FunctionsToExport = $FunctionsToExport
+    $Script:ModuleManifest.AliasesToExport = [string[]] (Import-Module $ModuleFile -PassThru).ExportedAliases.Keys
     $Script:ModuleManifest.ReleaseNotes = $ReleaseNotes | Out-String
 
     New-ModuleManifest @ModuleManifest -Path "./${RootModule}/${ModuleVersion}/${RootModule}.psd1"

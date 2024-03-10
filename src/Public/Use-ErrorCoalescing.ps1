@@ -1,7 +1,7 @@
-function Use-NullCoalescing {
+function Use-ErrorCoalescing {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
-    [Alias("??")]
+    [Alias("?!")]
     [OutputType([object])]
 
     ## PARAMETERS #############################################################
@@ -10,10 +10,7 @@ function Use-NullCoalescing {
             Mandatory,
             ValueFromPipeline
         )]
-        [AllowNull()]
-        [AllowEmptyString()]
-        [AllowEmptyCollection()]
-        [object]
+        [scriptblock]
         $InputObject,
 
         [Parameter(
@@ -21,7 +18,7 @@ function Use-NullCoalescing {
             Mandatory
         )]
         [object]
-        $IfNull
+        $IfError
     )
 
     ## PROCESS ################################################################
@@ -29,15 +26,13 @@ function Use-NullCoalescing {
         # wrapping in an array to handle $null as input
         foreach ($Object in @($InputObject)) {
             try {
-                if (($null -eq $Object) -and ($IfNull -is [scriptblock])) {
-                    . $IfNull
-                } elseif ($null -eq $Object) {
-                    Write-Output $IfNull -NoEnumerate
-                } else {
-                    Write-Output $Object -NoEnumerate
-                }
+                . $Object
             } catch {
-                $PSCmdlet.WriteError($_)
+                if ($IfError -is [scriptblock]) {
+                    . $IfError
+                } else {
+                    Write-Output $IfError -NoEnumerate
+                }
             }
         }
     }
