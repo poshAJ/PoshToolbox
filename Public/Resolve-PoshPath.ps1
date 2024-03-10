@@ -40,7 +40,7 @@ function Resolve-PoshPath {
                         $Leaf = Split-Path $_.Exception.InnerException.ItemName -Leaf
 
                         if ($Parent) {
-                            $Object = $PSCmdlet.SessionState.Path.GetResolvedPSPathFromPSPath($Parent).ForEach({ $_.TrimEnd("\") + "\" + $Leaf })
+                            $Object = $PSCmdlet.SessionState.Path.GetResolvedPSPathFromPSPath($Parent).ForEach({ "{0}\{1}" -f $_.Path, $Leaf })
                         } else {
                             throw $_
                         }
