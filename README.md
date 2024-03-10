@@ -14,6 +14,7 @@ Install-Module -Name PoshToolbox
 [Resolve-PoshPath](docs/Resolve-PoshPath.md)
 [Use-NullCoalescing](docs/Use-NullCoalescing.md)
 [Use-Ternary](docs/Use-Ternary.md)
+[Find-NlMtu](docs/Find-NlMtu.md)
 
 ## RELATED LINKS
 [https://www.powershellgallery.com/packages/PoshToolbox]()
