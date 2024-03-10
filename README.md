@@ -16,4 +16,4 @@ Install-Module -Name ScriptFramework
 [Use-Ternary](/docs/Use-Ternary.md)
 
 ## RELATED LINKS
-[https://www.powershellgallery.com/packages/ScriptFramework]()
+[https://www.powershellgallery.com/packages/PoshToolbox]()
