@@ -1,3 +1,4 @@
 /PoshToolbox
-bin/
-obj/
+/testResults.xml
+/src/Classes/bin/
+/src/Classes/obj/

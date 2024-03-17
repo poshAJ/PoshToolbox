@@ -13,7 +13,7 @@ Implements the Ternary operator (?:).
 
 ## SYNTAX
 
-```
+```powershell
 Use-Ternary -InputObject <Object> [-IfTrue] <Object> [-IfFalse] <Object> [<CommonParameters>]
 ```
 

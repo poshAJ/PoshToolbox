@@ -10,28 +10,28 @@ function Split-File {
             Mandatory,
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
-            ParameterSetName = "Path"
+            ParameterSetName = 'Path'
         )]
         [ValidateScript({
                 if (Test-Path -Path $_ -PathType Leaf) {
                     return $true
                 }
-                throw "The argument specified must resolve to a valid file path."
+                throw 'The argument specified must resolve to a valid file path.'
             })]
         [string[]]
         $Path,
 
-        [Alias("PSPath")]
+        [Alias('PSPath')]
         [Parameter(
             Mandatory,
             ValueFromPipelineByPropertyName,
-            ParameterSetName = "LiteralPath"
+            ParameterSetName = 'LiteralPath'
         )]
         [ValidateScript({
                 if (Test-Path -LiteralPath $_ -PathType Leaf) {
                     return $true
                 }
-                throw "The argument specified must resolve to a valid file path."
+                throw 'The argument specified must resolve to a valid file path.'
             })]
         [string[]]
         $LiteralPath,
@@ -41,7 +41,7 @@ function Split-File {
                 if (Test-Path -LiteralPath $_ -IsValid) {
                     return $true
                 }
-                throw "The argument specified must resolve to a valid file or folder path."
+                throw 'The argument specified must resolve to a valid file or folder path.'
             })]
         [string]
         $Destination = (Get-Location -PSProvider FileSystem).ProviderPath,
@@ -61,35 +61,35 @@ function Split-File {
 
     ## PROCESS ################################################################
     process {
-        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | Use-Ternary { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
+        $Process = ($PSCmdlet.ParameterSetName -cmatch '^LiteralPath') | Use-Ternary { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
 
         foreach ($Object in $Process) {
             try {
-                if ($Object.Provider.Name -ne "FileSystem") {
-                    New-ArgumentException "The argument specified must resolve to a valid path on the FileSystem provider." -Throw
+                if ($Object.Provider.Name -ne 'FileSystem') {
+                    New-ArgumentException 'The argument specified must resolve to a valid path on the FileSystem provider.' -Throw
                 }
 
                 $File = [System.IO.FileInfo] $Object.ProviderPath
 
-                Write-Verbose ("READ {0}" -f $File)
+                Write-Verbose ('READ {0}' -f $File)
                 Use-Object ($Reader = [System.IO.File]::OpenRead($File)) {
                     $Buffer = [byte[]]::new($Size)
                     $Count = 1
 
-                    $CalculatedDestination = $DestinationInfo.Extension | Use-Ternary { "{0}\{1}" -f $DestinationInfo.Directory.FullName, $File.Name } { "{0}\{1}" -f $DestinationInfo.FullName.TrimEnd("\"), $File.Name }
+                    $CalculatedDestination = $DestinationInfo.Extension | Use-Ternary { '{0}/{1}' -f $DestinationInfo.Directory.FullName, $File.Name } { '{0}/{1}' -f $DestinationInfo.FullName.TrimEnd('\/'), $File.Name }
 
                     while ($Read = $Reader.Read($Buffer, 0, $Buffer.Length)) {
                         if ($Read -ne $Buffer.Length) {
                             [array]::Resize([ref] $Buffer, $Read)
                         }
 
-                        $SplitFile = "{0}.{1}split" -f $CalculatedDestination, $Count
-                        if ($PSCmdlet.ShouldProcess($SplitFile, "Write Content")) {
+                        $SplitFile = '{0}.{1}split' -f $CalculatedDestination, $Count
+                        if ($PSCmdlet.ShouldProcess($SplitFile, 'Write Content')) {
                             if (-not ($Directory = $DestinationInfo.Extension | Use-Ternary { $DestinationInfo.Directory } { $DestinationInfo }).Exists) {
                                 $null = [System.IO.Directory]::CreateDirectory($Directory)
                             }
 
-                            Write-Verbose ("WRITE {0}" -f $SplitFile)
+                            Write-Verbose ('WRITE {0}' -f $SplitFile)
                             [System.IO.File]::WriteAllBytes($SplitFile, $Buffer)
                         }
 
@@ -97,7 +97,7 @@ function Split-File {
                     }
 
                     # sort to fix ChildItem number sorting
-                    Write-Output (Get-ChildItem -Path ("{0}.*split" -f $CalculatedDestination) | Sort-Object -Property @{e = { [int32] [regex]::Match($_.FullName, "\.(\d+)split$").Groups[1].Value } })
+                    Write-Output (Get-ChildItem -Path ('{0}.*split' -f $CalculatedDestination) | Sort-Object -Property @{e = { [int32] [regex]::Match($_.FullName, '\.(\d+)split$').Groups[1].Value } })
                 }
 
                 ## EXCEPTIONS #################################################

@@ -13,7 +13,7 @@ Creates an IPAddress object.
 
 ## SYNTAX
 
-```
+```powershell
 New-IPAddress [-IPAddress] <String[]> [<CommonParameters>]
 ```
 

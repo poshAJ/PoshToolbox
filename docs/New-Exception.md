@@ -13,7 +13,7 @@ Creates an instance of ErrorRecord.
 
 ## SYNTAX
 
-```
+```powershell
 New-Exception [-Message] <String> [-Throw] [<CommonParameters>]
 ```
 

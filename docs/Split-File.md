@@ -15,13 +15,13 @@ Splits large files into several smaller files.
 
 ### Path
 
-```
+```powershell
 Split-File [-Path] <String[]> [-Destination <String>] -Size <Int32> [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### LiteralPath
 
-```
+```powershell
 Split-File -LiteralPath <String[]> [-Destination <String>] -Size <Int32> [-WhatIf] [-Confirm]
  [<CommonParameters>]
 ```

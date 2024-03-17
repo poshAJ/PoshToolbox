@@ -25,7 +25,7 @@ function ConvertTo-Base64String {
                 $Bytes = [byte[]] $InputObject
             } catch {
                 $Serialize = [System.Management.Automation.PSSerializer]::Serialize($InputObject, $Depth)
-                $Bytes = [byte[]] $Serialize.ToCharArray()
+                $Bytes = [byte[]] ($Serialize -replace '\r').ToCharArray()
             }
 
             Write-Output ([System.Convert]::ToBase64String($Bytes))

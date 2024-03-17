@@ -13,7 +13,7 @@ Discovers the network layer maximum transmission unit (MTU) size.
 
 ## SYNTAX
 
-```
+```powershell
 Find-NlMtu [-ComputerName] <String[]> [-Timeout <Int32>] [-MaxHops <Int32>] [<CommonParameters>]
 ```
 

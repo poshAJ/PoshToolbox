@@ -15,37 +15,37 @@ Creates a log for the PowerShell session.
 
 ### Path (Default)
 
-```
+```powershell
 Start-PoshLog [[-Path] <String[]>] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### PathNoClobber
 
-```
+```powershell
 Start-PoshLog [[-Path] <String[]>] [-NoClobber] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### PathAppend
 
-```
+```powershell
 Start-PoshLog [[-Path] <String[]>] [-Append] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### LiteralPathNoClobber
 
-```
+```powershell
 Start-PoshLog -LiteralPath <String[]> [-NoClobber] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### LiteralPathAppend
 
-```
+```powershell
 Start-PoshLog -LiteralPath <String[]> [-Append] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### LiteralPath
 
-```
+```powershell
 Start-PoshLog -LiteralPath <String[]> [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 

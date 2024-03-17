@@ -13,7 +13,7 @@ Provides a convenient syntax that ensures the correct use of IDisposable and COM
 
 ## SYNTAX
 
-```
+```powershell
 Use-Object [-InputObject] <Object> [-ScriptBlock] <ScriptBlock> [<CommonParameters>]
 ```
 

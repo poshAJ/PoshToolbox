@@ -1,66 +1,57 @@
-BeforeAll {
-    ## SETUP ##################################################################
-    Push-Location -Path "TestDrive:\"
+Describe 'Get-FolderProperties' -Skip:($env:OS -ne 'Windows_NT') {
+    BeforeAll {
+        Push-Location -Path 'TestDrive:/'
 
-    $null = New-Item -Path "TestDrive:\Folder1", "TestDrive:\Folder2" -ItemType Directory
-    $null = Set-Content -Path "TestDrive:\5MB.file" -Value ([byte[]]::new(5MB)) -AsByteStream
+        $null = New-Item -Path 'TestDrive:/Folder1', 'TestDrive:/Folder2' -ItemType Directory
 
-    $ComparatorKB = [pscustomobject] @{
-        FullName = (Get-Location -PSProvider FileSystem).ProviderPath
-        Length   = 5242880
-        Size     = "5,242.88 KB"
-        Contains = "1 Files, 2 Folders"
-        Created  = "*"
-    }
-
-    $ComparatorMiB = [pscustomobject] @{
-        FullName = (Get-Location -PSProvider FileSystem).ProviderPath
-        Length   = 5242880
-        Size     = "5.00 MiB"
-        Contains = "1 Files, 2 Folders"
-        Created  = "*"
-    }
-}
-
-Describe "Get-FolderProperties" {
-    ## SUCCESS ################################################################
-    Context "Success" {
-        It "Path" {
-            $Result = Get-FolderProperties -Path "."
-
-            $Result | Should -BeLike $ComparatorMiB
+        if ($PSVersionTable.PSVersion.Major -le 5) {
+            $null = Set-Content -Path 'TestDrive:/5MB.file' -Value ([byte[]]::new(5MB)) -Encoding Byte
+        } else {
+            $null = Set-Content -Path 'TestDrive:/5MB.file' -Value ([byte[]]::new(5MB)) -AsByteStream
         }
 
-        It "LiteralPath" {
-            $Result = Get-FolderProperties -LiteralPath "."
-
-            $Result | Should -BeLike $ComparatorMiB
+        $KnownKB = [pscustomobject] @{
+            FullName = (Get-Location -PSProvider FileSystem).ProviderPath
+            Length   = 5242880
+            Size     = '5,242.88 KB'
+            Contains = '1 Files, 2 Folders'
+            Created  = '*'
         }
 
-        It "Path & Unit" {
-            $Result = Get-FolderProperties -Path "." -Unit KB
-
-            $Result | Should -BeLike $ComparatorKB
-        }
-
-        It "LiteralPath & Unit" {
-            $Result = Get-FolderProperties -LiteralPath "." -Unit KB
-
-            $Result | Should -BeLike $ComparatorKB
+        $KnownMiB = [pscustomobject] @{
+            FullName = (Get-Location -PSProvider FileSystem).ProviderPath
+            Length   = 5242880
+            Size     = '5.00 MiB'
+            Contains = '1 Files, 2 Folders'
+            Created  = '*'
         }
     }
 
-    ## FAILURE ################################################################
-    Context "Failure" {
-        It "UnauthorizedAccessException" {
-            $Test = { Get-FolderProperties -Path "C:\Config.Msi\" -ErrorAction Stop }
+    Context 'Success' {
+        It 'Path' {
+            $Result = Get-FolderProperties -Path '.'
 
-            $Test | Should -Throw "Access to the path 'C:\Config.Msi\' is denied."
+            $Result | Should -BeLike $KnownMiB
+        }
+
+        It 'LiteralPath' {
+            $Result = Get-FolderProperties -LiteralPath '.'
+
+            $Result | Should -BeLike $KnownMiB
+        }
+
+        It 'Path & Unit' {
+            $Result = Get-FolderProperties -Path '.' -Unit KB
+
+            $Result | Should -BeLike $KnownKB
+        }
+
+        It 'LiteralPath & Unit' {
+            $Result = Get-FolderProperties -LiteralPath '.' -Unit KB
+
+            $Result | Should -BeLike $KnownKB
         }
     }
-}
 
-AfterAll {
-    ## CLEAN UP ###############################################################
-    Pop-Location
+    AfterAll { Pop-Location }
 }

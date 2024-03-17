@@ -1,29 +1,24 @@
-BeforeAll {
-    ## SETUP ##################################################################
-    Push-Location "${PSScriptRoot}"
+Describe 'Resolve-PoshPath' {
+    BeforeAll {
+        Push-Location -Path 'TestDrive:/'
 
-    $Path = Get-Item "*"
-    $LiteralPath = Get-Item -LiteralPath "."
-}
+        $Path = Get-Item '*'
+        $LiteralPath = Get-Item -LiteralPath '.'
+    }
 
-Describe "Resolve-PoshPath" {
-    ## SUCCESS ################################################################
-    Context "Success" {
-        It "Path" {
-            $Result = Resolve-PoshPath -Path "*"
+    Context 'Success' {
+        It 'Path' {
+            $Result = Resolve-PoshPath -Path '*'
 
             $Result.ProviderPath | Should -Be $Path.FullName
         }
 
-        It "LiteralPath" {
-            $Result = Resolve-PoshPath -LiteralPath "."
+        It 'LiteralPath' {
+            $Result = Resolve-PoshPath -LiteralPath '.'
 
             $Result.ProviderPath | Should -Be $LiteralPath.FullName
         }
     }
-}
 
-AfterAll {
-    ## CLEAN UP ###############################################################
-    Pop-Location
+    AfterAll { Pop-Location }
 }

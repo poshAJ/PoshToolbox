@@ -1,25 +1,23 @@
-Describe "New-IPAddress" {
-    ## SUCCESS ################################################################
-    Context "Success" {
-        It "IPAddress" {
-            $Result = New-IPAddress -IPAddress "169.254.0.0", "fe80::" | Get-Member
+Describe 'New-IPAddress' {
+    Context 'Success' {
+        It 'IPAddress' {
+            $Result = New-IPAddress -IPAddress '169.254.0.0', 'fe80::'
 
-            $Result.TypeName | Should -BeLikeExactly "System.Net.IPAddress"
+            $Result | Should -BeOfType [System.Net.IPAddress]
         }
 
-        It "Pipeline" {
-            $Result = "169.254.0.0", "fe80::" | New-IPAddress | Get-Member
+        It 'Pipeline' {
+            $Result = '169.254.0.0', 'fe80::' | New-IPAddress
 
-            $Result.TypeName | Should -BeLikeExactly "System.Net.IPAddress"
+            $Result | Should -BeOfType [System.Net.IPAddress]
         }
     }
 
-    ## FAILURE ################################################################
-    Context "Failure" {
-        It "FormatException" {
-            $Test = { New-IPAddress -IPAddress "ThrowError" -ErrorAction Stop }
+    Context 'Failure' {
+        It 'FormatException' {
+            $Test = { New-IPAddress -IPAddress 'ThrowError' -ErrorAction Stop }
 
-            $Test | Should -Throw "An invalid IP address was specified."
+            $Test | Should -Throw 'An invalid IP address was specified.'
         }
     }
 }

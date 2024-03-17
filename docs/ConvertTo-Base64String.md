@@ -13,7 +13,7 @@ Converts an object to a Base-64 string.
 
 ## SYNTAX
 
-```
+```powershell
 ConvertTo-Base64String -InputObject <Object> [-Depth <Int32>] [<CommonParameters>]
 ```
 

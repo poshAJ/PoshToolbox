@@ -13,7 +13,7 @@ Executes a scriptblock implementing retries with exponential backoff.
 
 ## SYNTAX
 
-```
+```powershell
 Invoke-ExponentialBackoff [-ScriptBlock] <ScriptBlock> [-RetryCount <Int32>] [-Base <Int32>] [-Scalar <Int32>]
  [<CommonParameters>]
 ```
