@@ -4,7 +4,7 @@ function Use-ErrorCoalescing {
     [Alias('?!')]
     [OutputType([object])]
 
-    ## PARAMETERS #############################################################
+    ## PARAMETERS ##############################################################
     param (
         [Parameter(
             Mandatory,
@@ -21,27 +21,22 @@ function Use-ErrorCoalescing {
         $IfError
     )
 
-    ## PROCESS ################################################################
+    ## PROCESS #################################################################
     process {
-        # wrapping in an array to handle $null as input
         foreach ($Object in , $InputObject) {
             try {
-                . $Object
+                $Object.InvokeReturnAsIs()
             } catch {
                 $Exception = $_.Exception
 
-                if ($IfError -is [scriptblock]) {
-                    . $IfError
-                } elseif ($IfError -is [hashtable]) {
+                if ($IfError -is [hashtable]) {
                     foreach ($Catch in $IfError.GetEnumerator()) {
-                        if (($Condition = $Exception -is $Catch.Name) -and ($Catch.Value -is [scriptblock])) {
-                            . $Catch.Value
-                        } elseif ($Condition) {
-                            Write-Output (, $Catch.Value)
+                        if ($Exception -is $Catch.Name) {
+                            Write_Object $Catch.Value
                         }
                     }
                 } else {
-                    Write-Output (, $IfError)
+                    Write_Object $IfError
                 }
             }
         }

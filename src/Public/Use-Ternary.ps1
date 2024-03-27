@@ -1,10 +1,10 @@
 function Use-Ternary {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
-    [Alias("?:")]
+    [Alias('?:')]
     [OutputType([object])]
 
-    ## PARAMETERS #############################################################
+    ## PARAMETERS ##############################################################
     param (
         [Parameter(
             Mandatory,
@@ -31,19 +31,14 @@ function Use-Ternary {
         $IfFalse
     )
 
-    ## PROCESS ################################################################
+    ## PROCESS #################################################################
     process {
-        # wrapping in an array to handle $null as input
-        foreach ($Object in @($InputObject)) {
+        foreach ($Object in , $InputObject) {
             try {
-                if ($Object -and ($IfTrue -is [scriptblock])) {
-                    . $IfTrue
-                } elseif ($Object) {
-                    Write-Output (, $IfTrue)
-                } elseif ($IfFalse -is [scriptblock]) {
-                    . $IfFalse
+                if ($Object) {
+                    Write_Object $IfTrue
                 } else {
-                    Write-Output (, $IfFalse)
+                    Write_Object $IfFalse
                 }
             } catch {
                 $PSCmdlet.WriteError($_)
