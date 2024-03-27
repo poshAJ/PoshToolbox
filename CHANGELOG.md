@@ -10,6 +10,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 - Fix Linux Compatibility and Test Suite [!35](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/35)
 
+### Changed
+
+- Use-ErrorCoalescing [!36](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/36)
+  > Allow specific error branching utilizing hashtable input.
+
 ## [4.2.2](https://www.powershellgallery.com/packages/PoshToolbox/4.2.2) - 2024-03-07
 
 ### Fixed
