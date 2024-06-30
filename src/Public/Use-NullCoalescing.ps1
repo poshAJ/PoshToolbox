@@ -3,8 +3,6 @@ function Use-NullCoalescing {
     [CmdletBinding()]
     [Alias('??')]
     [OutputType([object])]
-
-    ## PARAMETERS ##############################################################
     param (
         [Parameter(
             Mandatory,
@@ -13,18 +11,16 @@ function Use-NullCoalescing {
         [AllowNull()]
         [AllowEmptyString()]
         [AllowEmptyCollection()]
-        [object]
-        $InputObject,
+        [object] $InputObject,
 
         [Parameter(
-            Position = 0,
-            Mandatory
+            Mandatory,
+            Position = 0
         )]
-        [object]
-        $IfNull
+        [object] $IfNull
     )
 
-    ## END #####################################################################
+    ## LOGIC ###################################################################
     end {
         if (-not ($InputObject = $input)) {
             $InputObject = , $null
@@ -35,7 +31,7 @@ function Use-NullCoalescing {
                 if ($null -eq $Object) {
                     Write_Object $IfNull
                 } else {
-                    Write-Output (, $Object)
+                    $PSCmdlet.WriteObject($Object)
                 }
             } catch {
                 $PSCmdlet.WriteError($_)

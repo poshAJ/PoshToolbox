@@ -3,8 +3,6 @@ function Use-Ternary {
     [CmdletBinding()]
     [Alias('?:')]
     [OutputType([object])]
-
-    ## PARAMETERS ##############################################################
     param (
         [Parameter(
             Mandatory,
@@ -13,25 +11,22 @@ function Use-Ternary {
         [AllowNull()]
         [AllowEmptyString()]
         [AllowEmptyCollection()]
-        [object]
-        $InputObject,
+        [object] $InputObject,
 
         [Parameter(
-            Position = 0,
-            Mandatory
+            Mandatory,
+            Position = 0
         )]
-        [object]
-        $IfTrue,
+        [object] $IfTrue,
 
         [Parameter(
-            Position = 1,
-            Mandatory
+            Mandatory,
+            Position = 1
         )]
-        [object]
-        $IfFalse
+        [object] $IfFalse
     )
 
-    ## PROCESS #################################################################
+    ## LOGIC ###################################################################
     process {
         foreach ($Object in , $InputObject) {
             try {

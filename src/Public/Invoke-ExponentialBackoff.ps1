@@ -2,43 +2,38 @@ function Invoke-ExponentialBackoff {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
     [OutputType([object])]
-
-    ## PARAMETERS #############################################################
     param (
         [Parameter(
-            Position = 0,
-            Mandatory
+            Mandatory,
+            Position = 0
         )]
-        [scriptblock]
-        $ScriptBlock,
+        [scriptblock] $ScriptBlock,
 
         [Parameter()]
-        [int]
-        $RetryCount = 3,
+        [int32] $RetryCount = 3,
 
         [Parameter()]
-        [int]
-        $Base = 2,
+        [int32] $Base = 2,
 
         [Parameter()]
-        [int]
-        $Scalar = 1
+        [int32] $Scalar = 1
     )
 
-    ## PROCESS ################################################################
-    process {
-        for ([int] $i = 0; $i -lt $RetryCount; $i++) {
+    ## LOGIC ###################################################################
+    end {
+        for ([int32] $i = 0; $i -lt $RetryCount; $i++) {
             try {
                 . $ScriptBlock
-                break
+
+                return
             } catch {
                 $PSCmdlet.WriteError($_)
 
                 if (($i + 1) -ge $RetryCount) {
-                    $PSCmdlet.ThrowTerminatingError(( New-LimitException -Message ("The operation has reached the limit of {0} retries." -f $RetryCount) ))
+                    $PSCmdlet.ThrowTerminatingError(( New_LimitException -Message "The operation has reached the limit of ${RetryCount} retries." ))
                 }
 
-                Start-Sleep -Milliseconds ((Get-Random -Maximum 1000) * $Scalar * [System.Math]::Pow($Base, $i))
+                Start-Sleep -Milliseconds ((Get-Random -Maximum 1000) * $Scalar * [bigint]::Pow($Base, $i))
             }
         }
     }

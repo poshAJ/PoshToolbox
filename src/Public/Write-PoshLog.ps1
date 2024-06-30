@@ -1,48 +1,46 @@
 function Write-PoshLog {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding(
-        DefaultParameterSetName = "Type"
+        DefaultParameterSetName = 'Type'
     )]
     [OutputType([void])]
-
-    ## PARAMETERS #############################################################
     param (
         [Parameter(
             Mandatory,
             DontShow,
-            ParameterSetName = "PSEventArgs"
+            ParameterSetName = 'PSEventArgs'
         )]
         [ValidateNotNullOrEmpty()]
         [System.Management.Automation.PSEventArgs]
         $PSEventArgs,
 
         [Parameter(
-            ParameterSetName = "Type"
+            ParameterSetName = 'Type'
         )]
-        [ValidateSet("Log", "Information", "Warning", "Error")]
+        [ValidateSet('Log', 'Information', 'Warning', 'Error')]
         [string]
-        $Type = "Log",
+        $Type = 'Log',
 
         [Parameter(
-            Position = 0,
             Mandatory,
-            ParameterSetName = "Type"
+            Position = 0,
+            ParameterSetName = 'Type'
         )]
         [string]
         $Message
     )
 
-    ## BEGIN ##################################################################
-    begin {
+    ## LOGIC ###################################################################
+    end {
         if (-not $PSLogDetails) {
-            $PSCmdlet.ThrowTerminatingError(( New-PSInvalidOperationException -Message "An error occurred writing the log: The host is not currently logging." ))
+            $PSCmdlet.ThrowTerminatingError(( New_PSInvalidOperationException -Message 'An error occurred writing the log: The host is not currently logging.' ))
         }
 
         $TypeMap = @{
-            'Log'         = "LOG"
-            'Information' = "INFO"
-            'Warning'     = "WARN"
-            'Error'       = "ERROR"
+            'Log'         = 'LOG'
+            'Information' = 'INFO'
+            'Warning'     = 'WARN'
+            'Error'       = 'ERROR'
         }
 
         $Template = {
@@ -53,44 +51,37 @@ function Write-PoshLog {
             $DateTime = $PSEventArgs.TimeGenerated
 
             switch ($PSEventArgs.SourceIdentifier) {
-                "PSLogInformation" {
-                    $Type = "Information"
+                'PSLogInformation' {
+                    $Type = 'Information'
                     $Message = $PSEventArgs.SourceEventArgs.NewItems.MessageData
                 }
-                "PSLogWarning" {
-                    $Type = "Warning"
+                'PSLogWarning' {
+                    $Type = 'Warning'
                     $Message = $PSEventArgs.SourceEventArgs.NewItems.Message
                 }
-                "PSLogError" {
-                    $Type = "Error"
+                'PSLogError' {
+                    $Type = 'Error'
                     $Message = $PSEventArgs.SourceEventArgs.NewItems.Exception.Message
                 }
             }
         } else {
             $DateTime = [datetime]::Now
         }
-    }
 
-    ## PROCESS ################################################################
-    process {
         foreach ($PSLog in $PSLogDetails) {
             try {
-                $Format = $PSLog.Utc | Use-Ternary { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime" }
+                $Format = $PSLog.Utc | Use-Ternary ('yyyy\-MM\-dd HH:mm:ss\Z', 'ToUniversalTime') ('yyyy\-MM\-dd HH:mm:ss', 'ToLocalTime')
 
                 Use-Object ($File = [System.IO.File]::AppendText($PSLog.Path)) {
                     $File.WriteLine($Template.Invoke()[0])
                 }
 
-                ## EXCEPTIONS #################################################
+                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodInvocationException] {
-                $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
+                $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
             }
         }
-    }
-
-    ## END ####################################################################
-    end {
     }
 }

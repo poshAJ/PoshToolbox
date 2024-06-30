@@ -1,114 +1,108 @@
 function Get-FolderProperties {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '', Justification='Named to match Windows context menu.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '',
+        Justification = 'Named to match Windows context menu.')]
 
     [CmdletBinding()]
     [OutputType([object])]
-
-    ## PARAMETERS #############################################################
     param (
         [Parameter(
-            Position = 0,
             Mandatory,
+            Position = 0,
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
-            ParameterSetName = "Path"
+            ParameterSetName = 'Path'
         )]
         [ValidateScript({
-                if (Test-Path -Path $_ -PathType Container) {
+                if (Test-Path -Path $_ -PathType 'Container') {
                     return $true
                 }
-                throw "The argument specified must resolve to a valid folder path."
+                throw 'The argument specified must resolve to a valid folder path.'
             })]
-        [string[]]
-        $Path,
+        [string[]] $Path,
 
-        [Alias("PSPath")]
+        [Alias('PSPath')]
         [Parameter(
             Mandatory,
             ValueFromPipelineByPropertyName,
-            ParameterSetName = "LiteralPath"
+            ParameterSetName = 'LiteralPath'
         )]
         [ValidateScript({
-                if (Test-Path -LiteralPath $_ -PathType Container) {
+                if (Test-Path -LiteralPath $_ -PathType 'Container') {
                     return $true
                 }
-                throw "The argument specified must resolve to a valid folder path."
+                throw 'The argument specified must resolve to a valid folder path.'
             })]
-        [string[]]
-        $LiteralPath,
+        [string[]] $LiteralPath,
 
         [Parameter()]
         [ValidateSet(
-            "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB", # Decimal Metric (Base 10)
-            "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB" # Binary IEC (Base 2)
+            'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB', # Decimal Metric (Base 10)
+            'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB' # Binary IEC (Base 2)
         )]
-        [string]
-        $Unit = "MiB"
+        [string] $Unit = 'MiB'
     )
 
-    ## BEGIN ##################################################################
+    ## LOGIC ###################################################################
     begin {
-        $Prefix = @{
-            [char] "K" = 1 # kilo
-            [char] "M" = 2 # mega
-            [char] "G" = 3 # giga
-            [char] "T" = 4 # tera
-            [char] "P" = 5 # peta
-            [char] "E" = 6 # exa
-            [char] "Z" = 7 # zetta
-            [char] "Y" = 8 # yotta
+        [hashtable] $Prefix = @{
+            [char] 'K' = 1 # kilo
+            [char] 'M' = 2 # mega
+            [char] 'G' = 3 # giga
+            [char] 'T' = 4 # tera
+            [char] 'P' = 5 # peta
+            [char] 'E' = 6 # exa
+            [char] 'Z' = 7 # zetta
+            [char] 'Y' = 8 # yotta
         }
 
-        $Base = $Unit.Contains("i") | Use-Ternary { 1024 } { 1000 }
-        $Divisor = [System.Math]::Pow($Base, $Prefix[$Unit[0]])
+        [int32] $Base = $Unit.Contains('i') | Use-Ternary 1024 1000
+        [double] $Divisor = [double]::Pow($Base, $Prefix[$Unit[0]])
     }
 
-    ## PROCESS ################################################################
     process {
-        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | Use-Ternary { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
+        [hashtable] $Splat = @{ $PSCmdlet.ParameterSetName = $PSBoundParameters[$PSCmdlet.ParameterSetName] }
+        [object] $Process = Resolve-PoshPath @Splat
 
         foreach ($Object in $Process) {
             try {
-                if ($Object.Provider.Name -ne "FileSystem") {
-                    New-ArgumentException "The argument specified must resolve to a valid path on the FileSystem provider." -Throw
+                if ($Object.Provider.Name -ne 'FileSystem') {
+                    New_ArgumentException 'The argument specified must resolve to a valid path on the FileSystem provider.' -Throw
                 }
 
-                $Folder = [System.IO.DirectoryInfo] $Object.ProviderPath
+                [System.IO.DirectoryInfo] $Folder = $Object.ProviderPath
+                $PSCmdlet.WriteVerbose("GET ${Folder}")
 
-                Write-Verbose ("GET {0}" -f $Folder)
-                $Dirs = $Files = $Bytes = 0
+                [int32] $Dirs = [int32] $Files = [int32] $Bytes = 0
                 # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy
-                $Result = robocopy $Folder.FullName.TrimEnd("\") \\null /l /e /np /xj /r:0 /w:0 /bytes /nfl /ndl
+                [string[]] $Result = robocopy $Folder.FullName.TrimEnd('\') \\null /l /e /np /xj /r:0 /w:0 /bytes /nfl /ndl
 
-                if (($LASTEXITCODE -eq 16) -and ($Result[-2] -eq "Access is denied.")) {
-                    New-UnauthorizedAccessException -Message ("Access to the path '{0}' is denied." -f $Folder) -Throw
+                if (($LASTEXITCODE -eq 16) -and ($Result[-2] -eq 'Access is denied.')) {
+                    New_UnauthorizedAccessException -Message "Access to the path '${Folder}' is denied." -Throw
                 } elseif ($LASTEXITCODE -eq 16) {
-                    New-ArgumentException -Message ("The specified path '{0}' is invalid." -f $Folder) -Throw
+                    New_ArgumentException -Message "The specified path '${Folder}' is invalid." -Throw
                 }
 
                 switch -Regex ($Result) {
-                    "Dirs :\s+(\d+)" { $Dirs = [double] $Matches[1] - 1 }
-                    "Files :\s+(\d+)" { $Files = [double] $Matches[1] }
-                    "Bytes :\s+(\d+)" { $Bytes = [double] $Matches[1] }
+                    'Dirs :\s+(?<match>\d+)' { $Dirs = [int32] $Matches.match - 1 }
+                    'Files :\s+(?<match>\d+)' { $Files = [int32] $Matches.match }
+                    'Bytes :\s+(?<match>\d+)' { $Bytes = [int64] $Matches.match }
                 }
 
-                Write-Output ([pscustomobject] @{
+                $PSCmdlet.WriteObject(
+                    [pscustomobject] @{
                         FullName = $Folder.FullName
                         Length   = $Bytes
-                        Size     = "{0:n2} {1}" -f ($Bytes / $Divisor), $Unit
-                        Contains = "{0} Files, {1} Folders" -f $Files, $Dirs
-                        Created  = "{0:F}" -f $Folder.CreationTime
-                    })
+                        Size     = "{0:n2} ${Unit}" -f ($Bytes / $Divisor)
+                        Contains = "${Files} Files, ${Dirs} Folders"
+                        Created  = '{0:F}' -f $Folder.CreationTime
+                    }
+                )
 
-                ## EXCEPTIONS #################################################
+                ## EXCEPTIONS ##################################################
             } catch {
                 $PSCmdlet.WriteError($_)
             }
         }
-    }
-
-    ## END ####################################################################
-    end {
     }
 }

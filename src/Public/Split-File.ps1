@@ -2,24 +2,21 @@ function Split-File {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding(SupportsShouldProcess)]
     [OutputType([object])]
-
-    ## PARAMETERS #############################################################
     param (
         [Parameter(
-            Position = 0,
             Mandatory,
+            Position = 0,
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
             ParameterSetName = 'Path'
         )]
         [ValidateScript({
-                if (Test-Path -Path $_ -PathType Leaf) {
+                if (Test-Path -Path $_ -PathType 'Leaf') {
                     return $true
                 }
                 throw 'The argument specified must resolve to a valid file path.'
             })]
-        [string[]]
-        $Path,
+        [string[]] $Path,
 
         [Alias('PSPath')]
         [Parameter(
@@ -28,13 +25,12 @@ function Split-File {
             ParameterSetName = 'LiteralPath'
         )]
         [ValidateScript({
-                if (Test-Path -LiteralPath $_ -PathType Leaf) {
+                if (Test-Path -LiteralPath $_ -PathType 'Leaf') {
                     return $true
                 }
                 throw 'The argument specified must resolve to a valid file path.'
             })]
-        [string[]]
-        $LiteralPath,
+        [string[]] $LiteralPath,
 
         [Parameter()]
         [ValidateScript({
@@ -44,52 +40,53 @@ function Split-File {
                 throw 'The argument specified must resolve to a valid file or folder path.'
             })]
         [string]
-        $Destination = (Get-Location -PSProvider FileSystem).ProviderPath,
+        $Destination = (Get-Location -PSProvider 'FileSystem').ProviderPath,
 
         [Parameter (
             Mandatory
         )]
         [ValidateRange(0, [int32]::MaxValue)]
-        [int32]
-        $Size
+        [int32] $Size
     )
 
-    ## BEGIN ##################################################################
+    ## LOGIC ###################################################################
     begin {
-        $DestinationInfo = [System.IO.FileInfo] (Resolve-PoshPath -LiteralPath $Destination).ProviderPath
+        [System.IO.FileInfo] $DestinationInfo = (Resolve-PoshPath -LiteralPath $Destination).ProviderPath
     }
 
-    ## PROCESS ################################################################
     process {
-        $Process = ($PSCmdlet.ParameterSetName -cmatch '^LiteralPath') | Use-Ternary { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
+        [hashtable] $Splat = @{ $PSCmdlet.ParameterSetName = $PSBoundParameters[$PSCmdlet.ParameterSetName] }
+        [object] $Process = Resolve-PoshPath @Splat
 
         foreach ($Object in $Process) {
             try {
                 if ($Object.Provider.Name -ne 'FileSystem') {
-                    New-ArgumentException 'The argument specified must resolve to a valid path on the FileSystem provider.' -Throw
+                    New_ArgumentException 'The argument specified must resolve to a valid path on the FileSystem provider.' -Throw
                 }
 
-                $File = [System.IO.FileInfo] $Object.ProviderPath
+                [System.IO.FileInfo] $File = $Object.ProviderPath
 
-                Write-Verbose ('READ {0}' -f $File)
-                Use-Object ($Reader = [System.IO.File]::OpenRead($File)) {
-                    $Buffer = [byte[]]::new($Size)
-                    $Count = 1
+                $PSCmdlet.WriteVerbose("READ ${File}")
 
-                    $CalculatedDestination = $DestinationInfo.Extension | Use-Ternary { '{0}/{1}' -f $DestinationInfo.Directory.FullName, $File.Name } { '{0}/{1}' -f $DestinationInfo.FullName.TrimEnd('\/'), $File.Name }
+                Use-Object ([System.IO.FileStream] $Reader = [System.IO.File]::OpenRead($File)) {
+                    [byte[]] $Buffer = [byte[]]::new($Size)
+                    [int32] $Count = 1
 
-                    while ($Read = $Reader.Read($Buffer, 0, $Buffer.Length)) {
+                    [string] $CalculatedDestination = $DestinationInfo.Extension | Use-Ternary "$( $DestinationInfo.Directory.FullName )/$( $File.Name )" "$( $DestinationInfo.FullName.TrimEnd('\/') )/$( $File.Name )"
+
+                    while ([int32] $Read = $Reader.Read($Buffer, 0, $Buffer.Length)) {
                         if ($Read -ne $Buffer.Length) {
                             [array]::Resize([ref] $Buffer, $Read)
                         }
 
-                        $SplitFile = '{0}.{1}split' -f $CalculatedDestination, $Count
+                        [string] $SplitFile = "${CalculatedDestination}.${Count}split"
                         if ($PSCmdlet.ShouldProcess($SplitFile, 'Write Content')) {
-                            if (-not ($Directory = $DestinationInfo.Extension | Use-Ternary { $DestinationInfo.Directory } { $DestinationInfo }).Exists) {
+                            if (-not ([string] $Directory = $DestinationInfo.Extension | Use-Ternary $DestinationInfo.Directory $DestinationInfo).Exists) {
                                 $null = [System.IO.Directory]::CreateDirectory($Directory)
                             }
 
-                            Write-Verbose ('WRITE {0}' -f $SplitFile)
+                            $PSCmdlet.WriteVerbose("WRITE ${SplitFile}")
+
                             [System.IO.File]::WriteAllBytes($SplitFile, $Buffer)
                         }
 
@@ -97,19 +94,15 @@ function Split-File {
                     }
 
                     # sort to fix ChildItem number sorting
-                    Write-Output (Get-ChildItem -Path ('{0}.*split' -f $CalculatedDestination) | Sort-Object -Property @{e = { [int32] [regex]::Match($_.FullName, '\.(\d+)split$').Groups[1].Value } })
+                    $PSCmdlet.WriteObject(( Get-ChildItem -Path "${CalculatedDestination}.*split" | Sort-Object -Property { [int32] [regex]::Match($_.FullName, '\.(?<match>\d+)split$').Groups['match'].Value } ))
                 }
 
-                ## EXCEPTIONS #################################################
+                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodInvocationException] {
-                $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
+                $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
             }
         }
-    }
-
-    ## END ####################################################################
-    end {
     }
 }
