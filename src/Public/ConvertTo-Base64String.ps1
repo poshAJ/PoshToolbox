@@ -17,22 +17,39 @@ function ConvertTo-Base64String {
     ## LOGIC ###################################################################
     process {
         try {
+            [System.Collections.Generic.Dictionary[string, System.IDisposable]] $Disposable = @{}
+
+            $Disposable.MemoryStream = [System.IO.MemoryStream]::new()
+
             try {
-                [byte[]] $Bytes = $InputObject
+                $Disposable.MemoryStream.Write($InputObject -as [byte[]])
             } catch {
                 [xml] $Serialize = [System.Management.Automation.PSSerializer]::Serialize($InputObject, $Depth)
-                [byte[]] $Bytes = $Serialize.OuterXml.ToCharArray()
 
-                $PSCmdlet.WriteDebug($Serialize.OuterXml)
+                $Disposable.MemoryStream.Write([System.Text.Encoding]::Unicode.GetBytes($Serialize.OuterXml))
             }
 
-            $PSCmdlet.WriteObject([System.Convert]::ToBase64String($Bytes))
+            $Disposable.MemoryStream.Flush()
+            $Disposable.MemoryStream.Position = 0
 
-            ## EXCEPTIONS ######################################################
+            $Disposable.CryptoStream = [System.Security.Cryptography.CryptoStream]::new(
+                $Disposable.MemoryStream,
+                [System.Security.Cryptography.ToBase64Transform]::new(),
+                [System.Security.Cryptography.CryptoStreamMode]::Read
+            )
+
+            $Disposable.StreamReader = [System.IO.StreamReader]::new(
+                $Disposable.CryptoStream,
+                [System.Console]::OutputEncoding
+            )
+
+            $PSCmdlet.WriteObject($Disposable.StreamReader.ReadToEnd())
         } catch [System.Management.Automation.MethodInvocationException] {
             $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
         } catch {
             $PSCmdlet.WriteError($_)
+        } finally {
+            $Disposable.Values.Dispose()
         }
     }
 }

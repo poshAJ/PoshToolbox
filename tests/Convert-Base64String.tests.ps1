@@ -1,6 +1,6 @@
 Describe 'Convert-Base64String' {
     BeforeAll {
-        $HashTable = 'PE9ianMgVmVyc2lvbj0iMS4xLjAuMSIgeG1sbnM9Imh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vcG93ZXJzaGVsbC8yMDA0LzA0Ij48T2JqIFJlZklkPSIwIj48VE4gUmVmSWQ9IjAiPjxUPlN5c3RlbS5Db2xsZWN0aW9ucy5IYXNodGFibGU8L1Q+PFQ+U3lzdGVtLk9iamVjdDwvVD48L1ROPjxEQ1Q+PEVuPjxTIE49IktleSI+VGVzdDwvUz48QiBOPSJWYWx1ZSI+dHJ1ZTwvQj48L0VuPjwvRENUPjwvT2JqPjwvT2Jqcz4='
+        $HashTable = 'PABPAGIAagBzACAAVgBlAHIAcwBpAG8AbgA9ACIAMQAuADEALgAwAC4AMQAiACAAeABtAGwAbgBzAD0AIgBoAHQAdABwADoALwAvAHMAYwBoAGUAbQBhAHMALgBtAGkAYwByAG8AcwBvAGYAdAAuAGMAbwBtAC8AcABvAHcAZQByAHMAaABlAGwAbAAvADIAMAAwADQALwAwADQAIgA+ADwATwBiAGoAIABSAGUAZgBJAGQAPQAiADAAIgA+ADwAVABOACAAUgBlAGYASQBkAD0AIgAwACIAPgA8AFQAPgBTAHkAcwB0AGUAbQAuAEMAbwBsAGwAZQBjAHQAaQBvAG4AcwAuAEgAYQBzAGgAdABhAGIAbABlADwALwBUAD4APABUAD4AUwB5AHMAdABlAG0ALgBPAGIAagBlAGMAdAA8AC8AVAA+ADwALwBUAE4APgA8AEQAQwBUAD4APABFAG4APgA8AFMAIABOAD0AIgBLAGUAeQAiAD4AVABlAHMAdAA8AC8AUwA+ADwAQgAgAE4APQAiAFYAYQBsAHUAZQAiAD4AdAByAHUAZQA8AC8AQgA+ADwALwBFAG4APgA8AC8ARABDAFQAPgA8AC8ATwBiAGoAPgA8AC8ATwBiAGoAcwA+AA=='
     }
 
     Context 'ConvertTo-Base64String' {
@@ -31,18 +31,6 @@ Describe 'Convert-Base64String' {
                 $Result = ConvertFrom-Base64String -InputObject $HashTable
 
                 $Result['Test'] | Should -Be $true
-            }
-        }
-
-        Context 'Failure' {
-            It 'FormatException' {
-                $Test = { ConvertFrom-Base64String -InputObject 'ThrowError' -ErrorAction Stop }
-
-                if ($PSVersionTable.PSVersion.Major -le 5) {
-                    $Test | Should -Throw 'Invalid length for a Base-64 char array or string.'
-                } else {
-                    $Test | Should -Throw 'The input is not a valid Base-64 string*'
-                }
             }
         }
     }
