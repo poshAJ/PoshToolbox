@@ -39,8 +39,6 @@ function New-IPSubnet {
                 }
 
                 $PSCmdlet.WriteObject([System.Net.IPSubnet]::Parse($IPAddress, $IPPrefix))
-
-                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodException] {
                 $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {

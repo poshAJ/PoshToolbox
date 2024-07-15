@@ -59,13 +59,13 @@ task BuildLibrary {
 task BuildModule {
     [System.IO.FileInfo] $Script:ModuleFile = New-Item -ItemType 'File' -Path "./${RootModule}/${ModuleVersion}/${RootModule}.psm1" -Force
 
-    [object[]] $Groups = Get-ChildItem -Path './src/*/*.ps1' | Group-Object { $_.Directory.BaseName }
-    [string[]] $Script:FunctionsToExport = $Groups | Where-Object Name -eq 'Public' | ForEach-Object { $_.Group.BaseName }
+    [object[]] $Functions = Get-ChildItem -Path './src/*/*.ps1' | Group-Object { $_.Directory.BaseName }
+    [string[]] $Script:FunctionsToExport = $Functions | Where-Object -Property 'Name' -EQ 'Public' | & { Process { $_.Group.BaseName } }
 
-    foreach ($Group in $Groups) {
+    foreach ($Function in $Functions) {
         Add-Content -Path $ModuleFile -Value "#region: $( $Group.Name )"
 
-        foreach ($File in $Group.Group) {
+        foreach ($File in $Function.Group) {
             Add-Content -Path $ModuleFile -Value "#region: $( Resolve-Path -Path $File -Relative )"
             Add-Content -Path $ModuleFile -Value (Get-Content -Path $File)
             Add-Content -Path $ModuleFile -Value '#endregion'
@@ -135,7 +135,7 @@ task TestModule {
     # https://gitlab.com/gitlab-org/gitlab/-/issues/25098
 
     [System.IO.FileInfo] $Results = Get-Item -Path $Configuration.TestResult.OutputPath.Value
-    [xml] $xml = ''
+    [xml] $xml = [xml]::new()
 
     $xml.Load($Results.FullName)
     $xml.SelectNodes('//failure').ForEach{ $_.'#text' = $_.message }

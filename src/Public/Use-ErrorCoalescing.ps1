@@ -23,16 +23,22 @@ function Use-ErrorCoalescing {
             try {
                 . $Object
             } catch {
-                $Exception = $_.Exception
+                [System.Management.Automation.ErrorRecord] $ErrorRecord = $_
 
-                if ($IfError -is [System.Collections.IDictionary]) {
-                    foreach ($Catch in $IfError.GetEnumerator()) {
-                        if ($Exception -is $Catch.Name) {
-                            Write_Object $Catch.Value
-                        }
-                    }
+                [object] $Output = if ($IfError -is [System.Collections.IDictionary]) {
+                    $IfError.GetEnumerator().Where{ $ErrorRecord.Exception -is $_.Key }[0].Value
                 } else {
-                    Write_Object $IfError
+                    $IfError
+                }
+
+                if ($Output -is [scriptblock]) {
+                    $Output.InvokeWithContext(
+                        $null,
+                        [psvariable]::new('_', $ErrorRecord),
+                        $null
+                    )
+                } else {
+                    $PSCmdlet.WriteObject($Output)
                 }
             }
         }

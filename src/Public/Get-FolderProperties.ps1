@@ -57,7 +57,7 @@ function Get-FolderProperties {
         }
 
         [int32] $Base = $Unit.Contains('i') | Use-Ternary 1024 1000
-        [double] $Divisor = [double]::Pow($Base, $Prefix[$Unit[0]])
+        [double] $Divisor = [System.Math]::Pow($Base, $Prefix[$Unit[0]])
     }
 
     process {
@@ -98,8 +98,6 @@ function Get-FolderProperties {
                         Created  = '{0:F}' -f $Folder.CreationTime
                     }
                 )
-
-                ## EXCEPTIONS ##################################################
             } catch {
                 $PSCmdlet.WriteError($_)
             }

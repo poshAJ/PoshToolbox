@@ -30,10 +30,12 @@ function Use-Ternary {
     process {
         foreach ($Object in , $InputObject) {
             try {
-                if ($Object) {
-                    Write_Object $IfTrue
+                [object] $Output = if ($Object) { $IfTrue } else { $IfFalse }
+
+                if ($Output -is [scriptblock]) {
+                    . $Output
                 } else {
-                    Write_Object $IfFalse
+                    $PSCmdlet.WriteObject($Output)
                 }
             } catch {
                 $PSCmdlet.WriteError($_)
