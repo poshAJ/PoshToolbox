@@ -4,7 +4,7 @@ function New-IPAddress {
         Justification = 'Function does not change system state.')]
 
     [CmdletBinding()]
-    [OutputType([object])]
+    [OutputType([System.Net.IPAddress])]
     param (
         [Alias('Address')]
         [Parameter(

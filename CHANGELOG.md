@@ -6,11 +6,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## Unreleased
 
+### Added
+
+- Add OutputType for `Find-NlMtu`, `Get-FolderProperties`, and `Resolve-PoshPath` [#37](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/37)
+
+### Fixed
+
+- Fix OutputType for `Join-File`, `Split-File`, `New-IPAddress` and `New-IPSubnet` [#37](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/37)
+
 ### Changed
 
 - Use-Ternary [#33](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/33)
   > `IfTrue` and `IfFalse` parameters are no longer mandatory.
-
 - Get-FolderProperties [!42](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/42)
   > `Unit` parameter is no longer mandatory.
 

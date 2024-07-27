@@ -55,7 +55,7 @@ You can pipe an IP Address as a string to this cmdlet.
 
 ### System.Net.IPAddress
 
-Returns an object representing the IP Address.
+Returns an IPAddress object for each resolved address.
 
 ## NOTES
 
