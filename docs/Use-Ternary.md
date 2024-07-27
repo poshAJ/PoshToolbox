@@ -19,7 +19,7 @@ Use-Ternary -InputObject <Object> [[-IfTrue] <Object>] [[-IfFalse] <Object>] [<C
 
 ## DESCRIPTION
 
-The `Use-Ternary` cmdlet simulates the effect of the ternary operator for earlier versions of PowerShell before it was introduced.
+The `Use-Ternary` function simulates the effect of the ternary operator for earlier versions of PowerShell before it was introduced.
 
 You can use the ternary operator as a replacement for the if-else statement in simple conditional cases.
 
@@ -77,7 +77,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

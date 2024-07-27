@@ -27,7 +27,7 @@ Get-FolderProperties -LiteralPath <String[]> [-Unit <String>] [<CommonParameters
 
 ## DESCRIPTION
 
-The `Get-FolderProperties` cmdlet creates a result object for the specified folder path(s). The information displayed replicates the Microsoft Windows Explorer file folder properties window.
+The `Get-FolderProperties` function creates a result object for the specified folder path(s). The information displayed replicates the Microsoft Windows Explorer file folder properties window.
 
 ## EXAMPLES
 
@@ -84,13 +84,13 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### String
 
-You can pipe a string that contains a folder path to this cmdlet.
+You can pipe a string that contains a folder path to this function.
 
 ## OUTPUTS
 

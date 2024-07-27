@@ -19,7 +19,7 @@ ConvertFrom-Base64String -InputObject <String[]> [<CommonParameters>]
 
 ## DESCRIPTION
 
-The `ConvertFrom-Base64String` cmdlet returns an object that represents a Base-64 string. You can use the `ConvertTo-Base64String` cmdlet to create Base-64 strings from objects.
+The `ConvertFrom-Base64String` function returns an object that represents a Base-64 string. You can use the `ConvertTo-Base64String` function to create Base-64 strings from objects.
 
 ## EXAMPLES
 
@@ -55,23 +55,23 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### String
 
-You can pipe a Base-64 string to this cmdlet.
+You can pipe a Base-64 string to this function.
 
 ## OUTPUTS
 
 ### PSObject
 
-This cmdlet returns an object representing the input Base-64 string converted to an object.
+This function returns an object representing the input Base-64 string converted to an object.
 
 ## NOTES
 
-The `ConvertTo-Base64String` cmdlet is implemented using [System.Management.Automation.PSSerializer](https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.psserializer).
+The `ConvertTo-Base64String` function is implemented using [System.Management.Automation.PSSerializer](https://learn.microsoft.com/en-us/dotnet/api/system.management.automation.psserializer).
 
 ## RELATED LINKS
 

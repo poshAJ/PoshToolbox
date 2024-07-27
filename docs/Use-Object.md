@@ -19,9 +19,9 @@ Use-Object [-InputObject] <Object> [-ScriptBlock] <ScriptBlock> [<CommonParamete
 
 ## DESCRIPTION
 
-The `Use-Object` cmdlet simulates the effect of the using statement found in C# with added support for ComObjects.
+The `Use-Object` function simulates the effect of the using statement found in C# with added support for ComObjects.
 
-When the lifetime of an IDisposable or ComObject is limited to a single method, you should declare and instantiate it in the `Use-Object` cmdlet. The `Use-Object` cmdlet calls the Dispose or ReleaseComObject method on the object in the correct way when it goes out of scope. The `Use-Object` cmdlet ensures that Dispose or ReleaseComObject is called even if an exception occurs within the using block.
+When the lifetime of an IDisposable or ComObject is limited to a single method, you should declare and instantiate it in the `Use-Object` function. The `Use-Object` function calls the Dispose or ReleaseComObject method on the object in the correct way when it goes out of scope. The `Use-Object` function ensures that Dispose or ReleaseComObject is called even if an exception occurs within the using block.
 
 ## EXAMPLES
 
@@ -61,13 +61,13 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### None
 
-You cannot pipe input to this cmdlet.
+You cannot pipe input to this function.
 
 ## OUTPUTS
 

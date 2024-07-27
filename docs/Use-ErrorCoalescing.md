@@ -19,7 +19,7 @@ Use-ErrorCoalescing -InputObject <ScriptBlock> [[-IfError] <Object>] [<CommonPar
 
 ## DESCRIPTION
 
-The `Use-ErrorCoalescing` cmdlet simulates the effect of an error-coalescing operator.
+The `Use-ErrorCoalescing` function simulates the effect of an error-coalescing operator.
 
 An error-coalescing operator ?! returns the value of its left-hand operand if it isn't an error. Otherwise, it evaluates the right-hand operand and returns its result. The ?! operator doesn't evaluate its right-hand operand if the left-hand operand evaluates without error.
 
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

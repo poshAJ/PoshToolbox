@@ -20,7 +20,7 @@ Invoke-ExponentialBackoff [-ScriptBlock] <ScriptBlock> [-RetryCount <Int32>] [-B
 
 ## DESCRIPTION
 
-The `Invoke-ExponentialBackoff` cmdlet Retries with exponential backoff is a technique that retries an operation, with an exponentially increasing wait time, up to a maximum retry count has been reached.
+The `Invoke-ExponentialBackoff` function Retries with exponential backoff is a technique that retries an operation, with an exponentially increasing wait time, up to a maximum retry count has been reached.
 
 > Jitter &times; Scalar &times; Base <sup>Iteration</sup>
 
@@ -94,13 +94,13 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### None
 
-You cannot pipe input to this cmdlet.
+You cannot pipe input to this function.
 
 ## OUTPUTS
 

@@ -19,7 +19,7 @@ Find-NlMtu [-ComputerName] <String[]> [-Timeout <Int32>] [-MaxHops <Int32>] [<Co
 
 ## DESCRIPTION
 
-The `Find-NlMtu` cmdlet creates a result object for the specified computer name(s) by evaluating the response to Internet Control Message Protocol (ICMP) echo request packets.
+The `Find-NlMtu` function creates a result object for the specified computer name(s) by evaluating the response to Internet Control Message Protocol (ICMP) echo request packets.
 
 ## EXAMPLES
 
@@ -75,13 +75,13 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### String
 
-You can pipe a computer name as a string to this cmdlet.
+You can pipe a computer name as a string to this function.
 
 ## OUTPUTS
 
