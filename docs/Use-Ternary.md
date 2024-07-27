@@ -14,7 +14,7 @@ Implements the Ternary operator (?:).
 ## SYNTAX
 
 ```powershell
-Use-Ternary -InputObject <Object> [-IfTrue] <Object> [-IfFalse] <Object> [<CommonParameters>]
+Use-Ternary -InputObject <Object> [[-IfTrue] <Object>] [[-IfFalse] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +36,7 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 1
 Default value: None
 Accept pipeline input: False
@@ -52,7 +52,7 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: False
