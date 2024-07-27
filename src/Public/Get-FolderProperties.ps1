@@ -40,24 +40,22 @@ function Get-FolderProperties {
             'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB', # Decimal Metric (Base 10)
             'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB' # Binary IEC (Base 2)
         )]
-        [string] $Unit = 'MiB'
+        [string] $Unit
     )
 
     ## LOGIC ###################################################################
     begin {
-        [hashtable] $Prefix = @{
-            [char] 'K' = 1 # kilo
-            [char] 'M' = 2 # mega
-            [char] 'G' = 3 # giga
-            [char] 'T' = 4 # tera
-            [char] 'P' = 5 # peta
-            [char] 'E' = 6 # exa
-            [char] 'Z' = 7 # zetta
-            [char] 'Y' = 8 # yotta
-        }
-
-        [int32] $Base = $Unit.Contains('i') | Use-Ternary 1024 1000
-        [double] $Divisor = [System.Math]::Pow($Base, $Prefix[$Unit[0]])
+        [string[]] $Suffixes = @(
+            'B' # byte
+            'KB'   # kilo
+            'MB'   # mega
+            'GB'   # giga
+            'TB'   # tera
+            'PB'   # peta
+            'EB'   # exa
+            'ZB'   # zetta
+            'YB'   # yotta
+        )
     }
 
     process {
@@ -73,7 +71,7 @@ function Get-FolderProperties {
                 [System.IO.DirectoryInfo] $Folder = $Object.ProviderPath
                 $PSCmdlet.WriteVerbose("GET ${Folder}")
 
-                [int32] $Dirs = [int32] $Files = [int32] $Bytes = 0
+                [int32] $Dirs = [int32] $Files = [int64] $Bytes = 0
                 # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy
                 [string[]] $Result = robocopy $Folder.FullName.TrimEnd('\') \\null /l /e /np /xj /r:0 /w:0 /bytes /nfl /ndl
 
@@ -84,18 +82,33 @@ function Get-FolderProperties {
                 }
 
                 switch -Regex ($Result) {
-                    'Dirs :\s+(?<match>\d+)' { $Dirs = [int32] $Matches.match - 1 }
-                    'Files :\s+(?<match>\d+)' { $Files = [int32] $Matches.match }
-                    'Bytes :\s+(?<match>\d+)' { $Bytes = [int64] $Matches.match }
+                    'Dirs :\s+(?<match>\d+)' { $Dirs = $Matches.match - 1 }
+                    'Files :\s+(?<match>\d+)' { $Files = $Matches.match }
+                    'Bytes :\s+(?<match>\d+)' { $Bytes = $Matches.match }
                 }
+
+                # Copyright (c) 2021 Santiago Squarzon, https://github.com/santisq/PSTree
+                # Modified "_FormattingInternals.cs" by Anthony J. Raymond
+                [double] $Size = $Bytes
+                [int32] $Base = if ($Unit -match 'i') { 1024 } else { 1000 }
+                [int32] $Index = 0
+                [int32] $StopIndex = $Suffixes.IndexOf($Unit -replace 'i')
+
+                while ((($StopIndex -eq -1) -and ($Size -ge $Base)) -or (($StopIndex -ne -1) -and ($Index -lt $StopIndex))) {
+                    $Size /= $Base
+
+                    $Index++
+                }
+
+                [string] $Suffix = if ($Unit) { $Unit } else { $Suffixes[$Index] }
 
                 $PSCmdlet.WriteObject(
                     [pscustomobject] @{
                         FullName = $Folder.FullName
                         Length   = $Bytes
-                        Size     = "{0:n2} ${Unit}" -f ($Bytes / $Divisor)
+                        Size     = "$( $Size.ToString('N2') ) ${Suffix}"
                         Contains = "${Files} Files, ${Dirs} Folders"
-                        Created  = '{0:F}' -f $Folder.CreationTime
+                        Created  = $Folder.CreationTime.ToString('F')
                     }
                 )
             } catch {
