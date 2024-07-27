@@ -95,5 +95,5 @@ You can use the PSCredential object that `Get-ADServiceAccountCredential` create
 
 ## RELATED LINKS
 
-[Ryan Ephgrave's GMSACredential](https://github.com/Ryan2065/gMSACredentialModule)
-[Introduction to Active Directory Service Accounts](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/service-accounts-group-managed)
+[https://github.com/Ryan2065/gMSACredentialModule]()
+[https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/service-accounts-group-managed]()

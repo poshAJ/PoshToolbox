@@ -29,7 +29,7 @@ You can use the ternary operator as a replacement for the if-else statement in s
 
 ### -IfFalse
 
-Specifies the expression to be executed if the <condition> expression is false.
+Specifies the expression to be executed if the \<condition\> expression is false.
 
 ```yaml
 Type: Object
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 
 ### -IfTrue
 
-Specifies the expression to be executed if the <condition> expression is true.
+Specifies the expression to be executed if the \<condition\> expression is true.
 
 ```yaml
 Type: Object
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 
 ### -InputObject
 
-Specifies the <condition> expression to be evaluated and converted to a boolean.
+Specifies the \<condition\> expression to be evaluated and converted to a boolean.
 
 ```yaml
 Type: Object
