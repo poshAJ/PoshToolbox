@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Fixed
 
 - Fix OutputType for `Join-File`, `Split-File`, `New-IPAddress` and `New-IPSubnet` [#37](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/37)
+- Fix Inconsistent Output `ConvertFrom-Base64String` [!46](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/46)
 
 ### Changed
 
