@@ -16,7 +16,8 @@ function Split-File {
                 }
                 throw 'The argument specified must resolve to a valid file path.'
             })]
-        [string[]] $Path,
+        [PoshToolbox.FileSystemPathTransformation()]
+        [System.IO.FileInfo[]] $Path,
 
         [Alias('PSPath')]
         [Parameter(
@@ -30,17 +31,13 @@ function Split-File {
                 }
                 throw 'The argument specified must resolve to a valid file path.'
             })]
-        [string[]] $LiteralPath,
+        [PoshToolbox.FileSystemLiteralPathTransformation()]
+        [System.IO.FileInfo[]] $LiteralPath,
 
         [Parameter()]
-        [ValidateScript({
-                if (Test-Path -LiteralPath $_ -IsValid) {
-                    return $true
-                }
-                throw 'The argument specified must resolve to a valid file or folder path.'
-            })]
-        [string]
-        $Destination = (Get-Location -PSProvider 'FileSystem').ProviderPath,
+        [PoshToolbox.ReturnFirstOrInputTransformation()]
+        [PoshToolbox.FileSystemLiteralPathTransformation()]
+        [System.IO.DirectoryInfo] $Destination = (Get-Location -PSProvider 'FileSystem').Path,
 
         [Parameter (
             Mandatory
@@ -50,31 +47,18 @@ function Split-File {
     )
 
     ## LOGIC ###################################################################
-    begin {
-        [System.IO.FileInfo] $DestinationInfo = (Resolve-PoshPath -LiteralPath $Destination).ProviderPath
-    }
-
     process {
-        [hashtable] $Splat = @{ $PSCmdlet.ParameterSetName = $PSBoundParameters[$PSCmdlet.ParameterSetName] }
-        [object] $Process = Resolve-PoshPath @Splat
-
-        foreach ($Object in $Process) {
+        foreach ($Object in $PSBoundParameters[$PSCmdlet.ParameterSetName]) {
             try {
-                if ($Object.Provider.Name -ne 'FileSystem') {
-                    New_ArgumentException 'The argument specified must resolve to a valid path on the FileSystem provider.' -Throw
-                }
-
                 [System.Collections.Generic.Dictionary[string, System.IDisposable]] $Disposable = @{}
 
-                [System.IO.FileInfo] $File = $Object.ProviderPath
+                $PSCmdlet.WriteVerbose("READ ${Object}")
 
-                $PSCmdlet.WriteVerbose("READ ${File}")
-
-                $Disposable.Reader = [System.IO.File]::OpenRead($File)
+                $Disposable.Reader = [System.IO.File]::OpenRead($Object)
                 [byte[]] $Buffer = [byte[]]::new($Size)
                 [int32] $Count = 1
 
-                [string] $CalculatedDestination = if ($DestinationInfo.Extension) { "$( $DestinationInfo.Directory.FullName )/$( $File.Name )" } else { "$( $DestinationInfo.FullName.TrimEnd('\/') )/$( $File.Name )" }
+                [string] $CalculatedDestination = if ($Destination.Extension) { "$( $Destination.Parent.FullName )/$( $Object.Name )" } else { "$( $Destination.FullName.TrimEnd('/\') )/$( $Object.Name )" }
 
                 while ([int32] $Read = $Disposable.Reader.Read($Buffer, 0, $Buffer.Length)) {
                     if ($Read -ne $Buffer.Length) {
@@ -83,7 +67,7 @@ function Split-File {
 
                     [string] $SplitFile = "${CalculatedDestination}.${Count}split"
                     if ($PSCmdlet.ShouldProcess($SplitFile, 'Write Content')) {
-                        [string] $Directory = if ($DestinationInfo.Extension) { $DestinationInfo.Directory } else { $DestinationInfo }
+                        [string] $Directory = if ($Destination.Extension) { $Destination.Parent } else { $Destination }
 
                         if (-not $Directory.Exists) { $null = [System.IO.Directory]::CreateDirectory($Directory) }
 

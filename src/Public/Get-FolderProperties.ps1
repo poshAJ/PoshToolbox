@@ -19,7 +19,8 @@ function Get-FolderProperties {
                 }
                 throw 'The argument specified must resolve to a valid folder path.'
             })]
-        [string[]] $Path,
+        [PoshToolbox.FileSystemPathTransformation()]
+        [System.IO.DirectoryInfo[]] $Path,
 
         [Alias('PSPath')]
         [Parameter(
@@ -33,7 +34,8 @@ function Get-FolderProperties {
                 }
                 throw 'The argument specified must resolve to a valid folder path.'
             })]
-        [string[]] $LiteralPath,
+        [PoshToolbox.FileSystemLiteralPathTransformation()]
+        [System.IO.DirectoryInfo[]] $LiteralPath,
 
         [Parameter()]
         [ValidateSet(
@@ -59,26 +61,18 @@ function Get-FolderProperties {
     }
 
     process {
-        [hashtable] $Splat = @{ $PSCmdlet.ParameterSetName = $PSBoundParameters[$PSCmdlet.ParameterSetName] }
-        [object] $Process = Resolve-PoshPath @Splat
-
-        foreach ($Object in $Process) {
+        foreach ($Object in $PSBoundParameters[$PSCmdlet.ParameterSetName]) {
             try {
-                if ($Object.Provider.Name -ne 'FileSystem') {
-                    New_ArgumentException 'The argument specified must resolve to a valid path on the FileSystem provider.' -Throw
-                }
-
-                [System.IO.DirectoryInfo] $Folder = $Object.ProviderPath
-                $PSCmdlet.WriteVerbose("GET ${Folder}")
+                $PSCmdlet.WriteVerbose("GET ${Object}")
 
                 [int32] $Dirs = [int32] $Files = [int64] $Bytes = 0
                 # https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/robocopy
-                [string[]] $Result = robocopy $Folder.FullName.TrimEnd('\') \\null /l /e /np /xj /r:0 /w:0 /bytes /nfl /ndl
+                [string[]] $Result = robocopy $Object.FullName.TrimEnd('/\') \\null /l /e /np /xj /r:0 /w:0 /bytes /nfl /ndl
 
                 if (($LASTEXITCODE -eq 16) -and ($Result[-2] -eq 'Access is denied.')) {
-                    New_UnauthorizedAccessException -Message "Access to the path '${Folder}' is denied." -Throw
+                    New_UnauthorizedAccessException -Message "Access to the path '${Object}' is denied." -Throw
                 } elseif ($LASTEXITCODE -eq 16) {
-                    New_ArgumentException -Message "The specified path '${Folder}' is invalid." -Throw
+                    New_ArgumentException -Message "The specified path '${Object}' is invalid." -Throw
                 }
 
                 switch -Regex ($Result) {
@@ -87,8 +81,8 @@ function Get-FolderProperties {
                     'Bytes :\s+(?<match>\d+)' { $Bytes = $Matches.match }
                 }
 
-                # Copyright (c) 2021 Santiago Squarzon, https://github.com/santisq/PSTree
-                # Modified "_FormattingInternals.cs" by Anthony J. Raymond
+                # Copyright (c) 2021 Santiago Squarzon, https://github.com/santisq/PSTree, MIT License
+                # Modified "src/PSTree/Internal/_FormattingInternals.cs" by Anthony J. Raymond
                 [double] $Size = $Bytes
                 [int32] $Base = if ($Unit -match 'i') { 1024 } else { 1000 }
                 [int32] $Index = 0
@@ -104,11 +98,11 @@ function Get-FolderProperties {
 
                 $PSCmdlet.WriteObject(
                     [PoshToolbox.GetFolderPropertiesCommand+FolderPropertiesInfo]::new(
-                        $Folder.FullName,
+                        $Object.FullName,
                         $Bytes,
                         "$( $Size.ToString('N2') ) ${Suffix}",
                         "${Files} Files, ${Dirs} Folders",
-                        $Folder.CreationTime
+                        $Object.CreationTime
                     )
                 )
             } catch {
