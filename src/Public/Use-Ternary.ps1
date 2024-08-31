@@ -3,6 +3,7 @@ function Use-Ternary {
     [CmdletBinding()]
     [Alias('?:')]
     [OutputType([object])]
+
     param (
         [Parameter(
             Mandatory,

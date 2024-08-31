@@ -2,10 +2,12 @@ function ConvertTo-Base64String {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
     [OutputType([string])]
+
     param (
         [Parameter(
             Mandatory,
-            ValueFromPipeline
+            ValueFromPipeline,
+            Position = 0
         )]
         [ValidateNotNullOrEmpty()]
         [object] $InputObject,

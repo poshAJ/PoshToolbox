@@ -5,6 +5,7 @@ function New-Exception {
 
     [CmdletBinding()]
     [OutputType([System.Management.Automation.ErrorRecord])]
+
     param(
         [Parameter(
             Mandatory,

@@ -3,6 +3,7 @@ function Use-NullCoalescing {
     [CmdletBinding()]
     [Alias('??')]
     [OutputType([object])]
+
     param (
         [Parameter(
             Mandatory,

@@ -5,11 +5,12 @@ function New-IPSubnet {
 
     [CmdletBinding()]
     [OutputType([System.Net.IPSubnet])]
+
     param (
         [Parameter(
             Mandatory,
-            Position = 0,
             ValueFromPipeline,
+            Position = 0,
             ParameterSetName = 'InputObject'
         )]
         [string[]] $InputObject,

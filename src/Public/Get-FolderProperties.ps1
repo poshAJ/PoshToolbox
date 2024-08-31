@@ -3,14 +3,15 @@ function Get-FolderProperties {
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseSingularNouns', '',
         Justification = 'Named to match Windows context menu.')]
 
-    [CmdletBinding()]
+    [CmdletBinding(DefaultParameterSetName = 'Path')]
     [OutputType([PoshToolbox.GetFolderPropertiesCommand+FolderPropertiesInfo])]
+
     param (
         [Parameter(
             Mandatory,
-            Position = 0,
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
+            Position = 0,
             ParameterSetName = 'Path'
         )]
         [ValidateScript({
