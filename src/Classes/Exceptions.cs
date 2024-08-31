@@ -2,10 +2,8 @@
 
 using System;
 
-namespace PoshToolbox
-{
-    public class LimitException : Exception
-    {
-        public LimitException(string Message) : base(Message) { }
+namespace PoshToolbox {
+    public class LimitException : Exception {
+        public LimitException (string Message) : base(Message) { }
     }
 }
