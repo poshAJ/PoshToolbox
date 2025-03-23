@@ -30,13 +30,13 @@ function Start-PoshLog {
         )]
         [ValidateScript({
                 if ((Resolve-PoshPath -Path $_ -Provider).Name -eq "FileSystem") {
-                    $true
+                    return $true
                 }
                 throw "The argument specified must resolve to a valid path on the FileSystem provider."
             })]
         [ValidateScript({
                 if (Test-Path -Path $_ -IsValid) {
-                    $true
+                    return $true
                 }
                 throw "The argument specified must resolve to a valid file or folder path."
             })]
@@ -61,13 +61,13 @@ function Start-PoshLog {
         [Alias("PSPath")]
         [ValidateScript({
                 if ((Resolve-PoshPath -LiteralPath $_ -Provider).Name -eq "FileSystem") {
-                    $true
+                    return $true
                 }
                 throw "The argument specified must resolve to a valid path on the FileSystem provider."
             })]
         [ValidateScript({
                 if (Test-Path -LiteralPath $_ -IsValid) {
-                    $true
+                    return $true
                 }
                 throw "The argument specified must resolve to a valid file or folder path."
             })]
@@ -140,8 +140,8 @@ function Start-PoshLog {
                 $Global:PSLogDetails += @(@{ Path = $File.Name; Utc = $AsUtc })
                 Write-Information -InformationAction Continue -MessageData ("Log started, output file is '{0}'" -f $File.Name) -InformationVariable null
                 ## EXCEPTIONS #################################################
-            } catch [MethodInvocationException] {
-                $PSCmdlet.WriteError((New-MethodInvocationException -Exception $_.Exception.InnerException))
+            } catch [System.Management.Automation.MethodInvocationException] {
+                $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
             }
