@@ -35,7 +35,7 @@ task LoadChangeLog {
     [string[]] $ReleaseNotes = Get-Content -Path './CHANGELOG.md' -TotalCount ($Latest[1].LineNumber - 1) |
         Select-Object -Skip $Latest[0].LineNumber
 
-    [string[]] $Script:ReleaseNotes = $ReleaseNotes -replace '\[!\d+\]\(.*$'
+    [string[]] $Script:ReleaseNotes = $ReleaseNotes -replace '\[.\d+\]\(.*$'
 }
 
 
