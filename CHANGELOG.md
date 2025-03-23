@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## [3.0.0] - 2023-04-08
+## [3.0.0](https://www.powershellgallery.com/packages/PoshToolbox/3.0.0) - 2023-04-08
 
 ### Added
 + New-Exception ([#7](https://github.com/PoshAJ/PoshToolbox/pull/7))
@@ -33,7 +33,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 + Stop-PoshLog ([#13](https://github.com/PoshAJ/PoshToolbox/pull/13))
     > Refactor for Resolve-PoshPath changes.
 
-## [2.0.0] - 2023-04-02
+## [2.0.0](https://www.powershellgallery.com/packages/PoshToolbox/2.0.0) - 2023-04-02
 Project name change, previous versions known as `ScriptFramework`.
 
 ### Added
