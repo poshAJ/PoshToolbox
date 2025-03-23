@@ -31,9 +31,9 @@ function Get-ADServiceAccountCredential {
     ## BEGIN ##################################################################
     begin {
         $Properties = @(
-            @{n = "sAMAccountName"; e = { $_.Properties."samaccountname" } }
-            @{n = "Length"; e = { $_.Properties."msds-managedpassword".Length } }
-            @{n = "ManagedPassword"; e = {
+            @{ n = "sAMAccountName"; e = { $_.Properties."samaccountname" } }
+            @{ n = "Length"; e = { $_.Properties."msds-managedpassword".Length } }
+            @{ n = "ManagedPassword"; e = {
                     $Length = $_.Properties."msds-managedpassword".Length
                     Write-Output ($IntPtr = [Marshal]::AllocHGlobal($Length))
                     [Marshal]::Copy([byte[]] $_.Properties."msds-managedpassword".ForEach({ $_ }), 0, $IntPtr, $Length)
@@ -79,7 +79,7 @@ function Get-ADServiceAccountCredential {
                 Write-Output ([pscredential]::new($ADServiceAccount.sAMAccountName, $SecureString))
                 ## EXCEPTIONS #################################################
             } catch [SetValueInvocationException] {
-                $PSCmdlet.WriteError((New-ActiveDirectoryServerDownException -Message "Unable to contact the server. This may be because this server does not exist, it is currently down, or it does not have the Active Directory Services running."))
+                $PSCmdlet.WriteError(( New-ActiveDirectoryServerDownException -Message "Unable to contact the server. This may be because this server does not exist, it is currently down, or it does not have the Active Directory Services running." ))
             } catch {
                 $PSCmdlet.WriteError($_)
             } finally {

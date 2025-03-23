@@ -4,7 +4,7 @@
     RootModule        = 'PoshToolbox.psm1'
 
     # Version number of this module.
-    ModuleVersion     = '3.0.0'
+    ModuleVersion     = '0.0.0.0'
 
     # Supported PSEditions
     # CompatiblePSEditions = @()
@@ -67,6 +67,7 @@
         'Find-NlMtu'
         'Get-ADServiceAccountCredential'
         'Get-FolderProperties'
+        'Invoke-ExponentialBackoff'
         'Join-File'
         'New-Exception'
         'Resolve-PoshPath'
@@ -86,10 +87,7 @@
     # VariablesToExport = @()
 
     # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
-    AliasesToExport   = @(
-        '??'
-        '?:'
-    )
+    AliasesToExport   = @()
 
     # DSC resources to export from this module
     # DscResourcesToExport = @()
@@ -118,7 +116,7 @@
             # IconUri = ''
 
             # ReleaseNotes of this module
-            ReleaseNotes = 'https://github.com/PoshAJ/PoshToolbox/blob/main/CHANGELOG.md'
+            ReleaseNotes = ''
 
             # Prerelease string of this module
             # Prerelease = ''

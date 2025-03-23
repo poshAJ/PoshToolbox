@@ -87,7 +87,7 @@ function ConvertTo-Base64String {
     ## PROCESS ################################################################
     process {
         $Process = switch -Regex ($PSCmdlet.ParameterSetName) {
-            "InputObject" { @{Bytes = $InputObject } }
+            "InputObject" { @{ Bytes = $InputObject } }
             "LiteralPath" { Resolve-PoshPath -LiteralPath $LiteralPath }
             default { Resolve-PoshPath -Path $Path }
         }
