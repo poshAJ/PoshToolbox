@@ -77,9 +77,9 @@ You can pipe a string that contains a path to this cmdlet.
 
 ## OUTPUTS
 
-### PSObject
+### PoshToolbox.ResolvePoshPathCommand+PoshPathInfo
 
-Returns a result object for each resolved path.
+Returns a PoshPathInfo object for each resolved path.
 
 ## NOTES
 

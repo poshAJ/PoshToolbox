@@ -94,9 +94,9 @@ You can pipe a string that contains a folder path to this cmdlet.
 
 ## OUTPUTS
 
-### PSObject
+### PoshToolbox.GetFolderPropertiesCommand+FolderPropertiesInfo
 
-Returns a result object for each specified folder.
+Returns a FolderPropertiesInfo object for each specified folder.
 
 ## NOTES
 

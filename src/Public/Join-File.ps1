@@ -1,7 +1,7 @@
 function Join-File {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding(SupportsShouldProcess)]
-    [OutputType([object])]
+    [OutputType([System.IO.FileInfo])]
     param (
         [Parameter(
             Mandatory,

@@ -1,7 +1,7 @@
 function Resolve-PoshPath {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
-    [OutputType([object])]
+    [OutputType([PoshToolbox.ResolvePoshPathCommand+PoshPathInfo])]
     param (
         [Parameter(
             Mandatory,
@@ -40,11 +40,12 @@ function Resolve-PoshPath {
                     [string] $ProviderPath = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($String, [ref] $Provider, [ref] $Drive)
 
                     $PSCmdlet.WriteObject(
-                        [pscustomobject] @{
-                            ProviderPath = $ProviderPath
-                            Provider     = $Provider
-                            Drive        = $Drive
-                        }
+                        [PoshToolbox.ResolvePoshPathCommand+PoshPathInfo]::new(
+                            $String,
+                            $ProviderPath,
+                            $Provider,
+                            $Drive
+                        )
                     )
                 }
             } catch [System.Management.Automation.MethodInvocationException] {

@@ -4,7 +4,7 @@ function Find-NlMtu {
         Justification = 'Assignment Operator is intended.')]
 
     [CmdletBinding()]
-    [OutputType([object])]
+    [OutputType([PoshToolbox.FindNlMtuCommand+NlMtuInfo])]
     param (
         [Alias('Hostname', 'IPAddress', 'Address')]
         [Parameter(
@@ -43,7 +43,7 @@ function Find-NlMtu {
                 [uint16] $UpperBound = 65535
                 [uint16] $LowerBound = 1
 
-                [uint16] $Size = 9000
+                [int32] $Size = 9000
                 [byte[]] $Buffer = [byte[]]::new($Size)
 
                 [System.Collections.Generic.List[System.Net.NetworkInformation.PingReply]] $Result = @()
@@ -80,14 +80,13 @@ function Find-NlMtu {
                 }
 
                 $PSCmdlet.WriteObject(
-                    [pscustomobject] @{
-                        ComputerName = $Computer
-                        ReplyFrom    = $Result.Where{ $_.Status -eq 'Success' }[-1].Address
-                        'Time(ms)'   = [int32] ($Result.Where{ $_.Status -eq 'Success' }.RoundtripTime | Measure-Object -Average).Average
-                        Hops         = $Hops
-                        # IP Header (20 bytes) + ICMP Header (8 bytes) = 28 bytes
-                        MTU          = $Size + 28
-                    }
+                    [PoshToolbox.FindNlMtuCommand+NlMtuInfo]::new(
+                        $Computer,
+                        $Result.Where{ $_.Status -eq 'Success' }[-1].Address,
+                        [int64] ($Result.Where{ $_.Status -eq 'Success' }.RoundtripTime | Measure-Object -Average).Average,
+                        $Hops,
+                        $Size + 28 # IP Header (20 bytes) + ICMP Header (8 bytes) = 28 bytes
+                    )
                 )
             } catch {
                 $PSCmdlet.WriteError($_)

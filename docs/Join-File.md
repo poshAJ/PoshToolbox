@@ -126,9 +126,9 @@ You can pipe a string that contains a folder path to this cmdlet.
 
 ## OUTPUTS
 
-### PSObject
+### System.IO.FileInfo
 
-Returns a result object for each specified folder.
+Returns a FileInfo object for each joined file.
 
 ## NOTES
 

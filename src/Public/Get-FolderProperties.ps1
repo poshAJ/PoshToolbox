@@ -4,7 +4,7 @@ function Get-FolderProperties {
         Justification = 'Named to match Windows context menu.')]
 
     [CmdletBinding()]
-    [OutputType([object])]
+    [OutputType([PoshToolbox.GetFolderPropertiesCommand+FolderPropertiesInfo])]
     param (
         [Parameter(
             Mandatory,
@@ -103,13 +103,13 @@ function Get-FolderProperties {
                 [string] $Suffix = if ($Unit) { $Unit } else { $Suffixes[$Index] }
 
                 $PSCmdlet.WriteObject(
-                    [pscustomobject] @{
-                        FullName = $Folder.FullName
-                        Length   = $Bytes
-                        Size     = "$( $Size.ToString('N2') ) ${Suffix}"
-                        Contains = "${Files} Files, ${Dirs} Folders"
-                        Created  = $Folder.CreationTime.ToString('F')
-                    }
+                    [PoshToolbox.GetFolderPropertiesCommand+FolderPropertiesInfo]::new(
+                        $Folder.FullName,
+                        $Bytes,
+                        "$( $Size.ToString('N2') ) ${Suffix}",
+                        "${Files} Files, ${Dirs} Folders",
+                        $Folder.CreationTime
+                    )
                 )
             } catch {
                 $PSCmdlet.WriteError($_)

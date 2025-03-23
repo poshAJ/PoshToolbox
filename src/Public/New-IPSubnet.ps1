@@ -4,7 +4,7 @@ function New-IPSubnet {
         Justification = 'Function does not change system state.')]
 
     [CmdletBinding()]
-    [OutputType([object])]
+    [OutputType([System.Net.IPSubnet])]
     param (
         [Parameter(
             Mandatory,

@@ -142,9 +142,9 @@ You can pipe a string that contains a file path to this cmdlet.
 
 ## OUTPUTS
 
-### PSObject
+### System.IO.FileInfo
 
-Returns a result object for each specified file.
+Returns a FileInfo object for each split file.
 
 ## NOTES
 

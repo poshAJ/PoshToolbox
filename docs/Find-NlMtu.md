@@ -85,9 +85,9 @@ You can pipe a computer name as a string to this cmdlet.
 
 ## OUTPUTS
 
-### PSObject
+### PoshToolbox.FindNlMtuCommand+NlMtuInfo
 
-Returns a result object for each specified computer name.
+Returns a NlMtuInfo object for each specified computer name.
 
 ## NOTES
 

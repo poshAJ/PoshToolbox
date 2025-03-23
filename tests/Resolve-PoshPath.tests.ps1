@@ -7,6 +7,12 @@ Describe 'Resolve-PoshPath' {
     }
 
     Context 'Success' {
+        It 'Type' {
+            $Result = Resolve-PoshPath -Path '.'
+
+            $Result | Should -BeOfType [PoshToolbox.ResolvePoshPathCommand+PoshPathInfo]
+        }
+
         It 'Path' {
             $Result = Resolve-PoshPath -Path '*'
 
