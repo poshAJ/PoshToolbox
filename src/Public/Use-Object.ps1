@@ -22,7 +22,11 @@ function Use-Object {
     ## LOGIC ###################################################################
     end {
         try {
-            . $ScriptBlock
+            $ScriptBlock.InvokeWithContext(
+                $null,
+                [psvariable]::new('_', $InputObject),
+                $null
+            )
         } catch {
             throw $_
         } finally {

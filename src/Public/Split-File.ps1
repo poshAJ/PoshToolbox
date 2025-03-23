@@ -64,44 +64,45 @@ function Split-File {
                     New_ArgumentException 'The argument specified must resolve to a valid path on the FileSystem provider.' -Throw
                 }
 
+                [System.Collections.Generic.Dictionary[string, System.IDisposable]] $Disposable = @{}
+
                 [System.IO.FileInfo] $File = $Object.ProviderPath
 
                 $PSCmdlet.WriteVerbose("READ ${File}")
 
-                Use-Object ([System.IO.FileStream] $Reader = [System.IO.File]::OpenRead($File)) {
-                    [byte[]] $Buffer = [byte[]]::new($Size)
-                    [int32] $Count = 1
+                $Disposable.Reader = [System.IO.File]::OpenRead($File)
+                [byte[]] $Buffer = [byte[]]::new($Size)
+                [int32] $Count = 1
 
-                    [string] $CalculatedDestination = $DestinationInfo.Extension | Use-Ternary "$( $DestinationInfo.Directory.FullName )/$( $File.Name )" "$( $DestinationInfo.FullName.TrimEnd('\/') )/$( $File.Name )"
+                [string] $CalculatedDestination = if ($DestinationInfo.Extension) { "$( $DestinationInfo.Directory.FullName )/$( $File.Name )" } else { "$( $DestinationInfo.FullName.TrimEnd('\/') )/$( $File.Name )" }
 
-                    while ([int32] $Read = $Reader.Read($Buffer, 0, $Buffer.Length)) {
-                        if ($Read -ne $Buffer.Length) {
-                            [array]::Resize([ref] $Buffer, $Read)
-                        }
-
-                        [string] $SplitFile = "${CalculatedDestination}.${Count}split"
-                        if ($PSCmdlet.ShouldProcess($SplitFile, 'Write Content')) {
-                            if (-not ([string] $Directory = $DestinationInfo.Extension | Use-Ternary $DestinationInfo.Directory $DestinationInfo).Exists) {
-                                $null = [System.IO.Directory]::CreateDirectory($Directory)
-                            }
-
-                            $PSCmdlet.WriteVerbose("WRITE ${SplitFile}")
-
-                            [System.IO.File]::WriteAllBytes($SplitFile, $Buffer)
-                        }
-
-                        $Count++
+                while ([int32] $Read = $Disposable.Reader.Read($Buffer, 0, $Buffer.Length)) {
+                    if ($Read -ne $Buffer.Length) {
+                        [array]::Resize([ref] $Buffer, $Read)
                     }
 
-                    # sort to fix ChildItem number sorting
-                    $PSCmdlet.WriteObject(( Get-ChildItem -Path "${CalculatedDestination}.*split" | Sort-Object -Property { [int32] [regex]::Match($_.FullName, '\.(?<match>\d+)split$').Groups['match'].Value } ))
+                    [string] $SplitFile = "${CalculatedDestination}.${Count}split"
+                    if ($PSCmdlet.ShouldProcess($SplitFile, 'Write Content')) {
+                        [string] $Directory = if ($DestinationInfo.Extension) { $DestinationInfo.Directory } else { $DestinationInfo }
+
+                        if (-not $Directory.Exists) { $null = [System.IO.Directory]::CreateDirectory($Directory) }
+
+                        $PSCmdlet.WriteVerbose("WRITE ${SplitFile}")
+
+                        [System.IO.File]::WriteAllBytes($SplitFile, $Buffer)
+                    }
+
+                    $Count++
                 }
 
-                ## EXCEPTIONS ##################################################
+                # sort to fix ChildItem number sorting
+                $PSCmdlet.WriteObject(( Get-ChildItem -Path "${CalculatedDestination}.*split" | Sort-Object -Property { [int32] [regex]::Match($_.FullName, '\.(?<match>\d+)split$').Groups['match'].Value } ))
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
+            } finally {
+                $Disposable.Values.Dispose()
             }
         }
     }

@@ -29,7 +29,11 @@ function Use-NullCoalescing {
         foreach ($Object in $InputObject) {
             try {
                 if ($null -eq $Object) {
-                    Write_Object $IfNull
+                    if ($IfNull -is [scriptblock]) {
+                        . $IfNull
+                    } else {
+                        $PSCmdlet.WriteObject($IfNull)
+                    }
                 } else {
                     $PSCmdlet.WriteObject($Object)
                 }

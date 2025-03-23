@@ -47,8 +47,6 @@ function Resolve-PoshPath {
                         }
                     )
                 }
-
-                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {

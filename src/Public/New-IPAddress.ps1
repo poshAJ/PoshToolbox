@@ -20,8 +20,6 @@ function New-IPAddress {
         foreach ($Address in $IPAddress) {
             try {
                 $PSCmdlet.WriteObject([System.Net.IPAddress]::Parse($Address))
-
-                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
