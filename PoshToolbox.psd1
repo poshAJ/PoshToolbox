@@ -97,19 +97,19 @@
         PSData = @{
 
             # Tags applied to this module. These help with module discovery in online galleries.
-            Tags       = 'script', 'module', 'framework', 'toolbox', 'logging'
+            Tags         = 'script', 'module', 'framework', 'toolbox', 'logging'
 
             # A URL to the license for this module.
-            LicenseUri = 'https://github.com/PoshAJ/PoshToolbox/blob/main/LICENSE'
+            LicenseUri   = 'https://github.com/PoshAJ/PoshToolbox/blob/main/LICENSE'
 
             # A URL to the main website for this project.
-            ProjectUri = 'https://github.com/PoshAJ/PoshToolbox'
+            ProjectUri   = 'https://github.com/PoshAJ/PoshToolbox'
 
             # A URL to an icon representing this module.
             # IconUri = ''
 
             # ReleaseNotes of this module
-            # ReleaseNotes = ''
+            ReleaseNotes = 'https://github.com/PoshAJ/PoshToolbox/blob/main/CHANGELOG.md'
 
             # Prerelease string of this module
             # Prerelease = ''
