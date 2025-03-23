@@ -22,11 +22,11 @@ function ConvertTo-Base64String {
             $Disposable.MemoryStream = [System.IO.MemoryStream]::new()
 
             try {
-                $Disposable.MemoryStream.Write($InputObject -as [byte[]])
+                $Disposable.MemoryStream.Write(([byte[]] $Buffer = $InputObject), 0, $Buffer.Length)
             } catch {
                 [xml] $Serialize = [System.Management.Automation.PSSerializer]::Serialize($InputObject, $Depth)
 
-                $Disposable.MemoryStream.Write([System.Text.Encoding]::Unicode.GetBytes($Serialize.OuterXml))
+                $Disposable.MemoryStream.Write(([byte[]] $Buffer = [System.Text.Encoding]::Unicode.GetBytes($Serialize.OuterXml)), 0, $Buffer.Length)
             }
 
             $Disposable.MemoryStream.Flush()

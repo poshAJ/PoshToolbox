@@ -25,7 +25,7 @@ function ConvertFrom-Base64String {
 
                 $Disposable.MemoryStream = [System.IO.MemoryStream]::new()
 
-                $Disposable.MemoryStream.Write([System.Console]::InputEncoding.GetBytes($Object))
+                $Disposable.MemoryStream.Write(([byte[]] $Buffer = [System.Console]::InputEncoding.GetBytes($Object)), 0, $Buffer.Length)
 
                 $Disposable.MemoryStream.Flush()
                 $Disposable.MemoryStream.Position = 0
