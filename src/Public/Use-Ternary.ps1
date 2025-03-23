@@ -20,14 +20,14 @@ function Use-Ternary {
             Position = 0,
             Mandatory
         )]
-        [scriptblock]
+        [object]
         $IfTrue,
 
         [Parameter(
             Position = 1,
             Mandatory
         )]
-        [scriptblock]
+        [object]
         $IfFalse
     )
 
@@ -36,10 +36,14 @@ function Use-Ternary {
         # wrapping in an array to handle $null as input
         foreach ($Object in @($InputObject)) {
             try {
-                if ($Object) {
+                if ($Object -and ($IfTrue -is [scriptblock])) {
                     . $IfTrue
-                } else {
+                } elseif ($Object) {
+                    Write-Output $IfTrue -NoEnumerate
+                } elseif ($IfFalse -is [scriptblock]) {
                     . $IfFalse
+                } else {
+                    Write-Output $IfFalse -NoEnumerate
                 }
             } catch {
                 $PSCmdlet.WriteError($_)
