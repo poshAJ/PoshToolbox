@@ -64,8 +64,7 @@ function Split-File {
 
     ## PROCESS ################################################################
     process {
-        $ParameterSet = @{ $PSCmdlet.ParameterSetName = $PSBoundParameters[$PSCmdlet.ParameterSetName] }
-        $Process = Resolve-PoshPath @ParameterSet
+        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | ?: { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
 
         foreach ($Object in $Process) {
             try {

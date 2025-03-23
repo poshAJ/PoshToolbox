@@ -13,7 +13,7 @@ function Stop-PoshLog {
     ## BEGIN ##################################################################
     begin {
         if (-not $PSLogDetails) {
-            $PSCmdlet.ThrowTerminatingError((New-PSInvalidOperationException -Message "An error occurred stopping the log: The host is not currently logging."))
+            $PSCmdlet.ThrowTerminatingError(( New-PSInvalidOperationException -Message "An error occurred stopping the log: The host is not currently logging." ))
         }
 
         if ($Events = Get-EventSubscriber | Where-Object SourceIdentifier -CMatch "^PSLog") {
