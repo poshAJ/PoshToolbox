@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Get-ADServiceAccountCredential.md
@@ -18,6 +18,8 @@ Get-ADServiceAccountCredential [-Identity] <String[]> [-Server <String>] [<Commo
 
 ## DESCRIPTION
 The Get-ADServiceAccountCredential cmdlet creates a credential object for a specified identity by retrieving the password from Active Directory. You can use the credential object in security operations.
+
+## EXAMPLES
 
 ## PARAMETERS
 
@@ -82,5 +84,6 @@ Returns a credential object for the specified identity.
 You can use the PSCredential object that Get-ADServiceAccountCredential creates in cmdlets that request user authentication, such as those with a Credential parameter.
 
 ## RELATED LINKS
+
 [Ryan Ephgrave's GMSACredential](https://github.com/Ryan2065/gMSACredentialModule)
 [Introduction to Active Directory Service Accounts](https://learn.microsoft.com/en-us/azure/active-directory/fundamentals/service-accounts-group-managed)

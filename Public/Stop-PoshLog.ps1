@@ -13,24 +13,24 @@ function Stop-PoshLog {
     ## BEGIN ##################################################################
     begin {
         if (-not $PSLogDetails) {
-            New-PSInvalidOperationException -Message "An error occurred stopping the log: The host is not currently logging." -Throw
-        } else {
-            if ($Events = Get-EventSubscriber | Where-Object SourceIdentifier -CMatch "^PSLog") {
-                $Events | Unregister-Event
+            $PSCmdlet.ThrowTerminatingError((New-PSInvalidOperationException -Message "An error occurred stopping the log: The host is not currently logging."))
+        }
 
-                $Global:PSDefaultParameterValues.Remove("Write-Information:InformationVariable")
-                $Global:PSDefaultParameterValues.Remove("Write-Warning:WarningVariable")
-                $Global:PSDefaultParameterValues.Remove("Write-Error:ErrorVariable")
-            }
+        if ($Events = Get-EventSubscriber | Where-Object SourceIdentifier -CMatch "^PSLog") {
+            $Events | Unregister-Event
 
-            $DateTime = [datetime]::Now
+            $Global:PSDefaultParameterValues.Remove("Write-Information:InformationVariable")
+            $Global:PSDefaultParameterValues.Remove("Write-Warning:WarningVariable")
+            $Global:PSDefaultParameterValues.Remove("Write-Error:ErrorVariable")
+        }
 
-            $Template = {
-                "**********************"
-                "Windows PowerShell log end"
-                "End time: {0:$( $Format[0] )}" -f $DateTime.($Format[1]).Invoke()
-                "**********************"
-            }
+        $DateTime = [datetime]::Now
+
+        $Template = {
+            "**********************"
+            "Windows PowerShell log end"
+            "End time: {0:$( $Format[0] )}" -f $DateTime.($Format[1]).Invoke()
+            "**********************"
         }
     }
 

@@ -1,22 +1,22 @@
 Describe "Get-FileFolder" {
     BeforeAll {
         ## SOURCE #############################################################
-        Import-Module "$PSScriptRoot\..\PoshToolbox.psm1"
+        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
 
         ## SETUP ##############################################################
-        Push-Location -Path "$PSScriptRoot\..\docs"
+        Push-Location -Path "${PSScriptRoot}\..\docs"
 
         $ComparatorKB = [pscustomobject] @{
             FullName = (Get-Location -PSProvider FileSystem).ProviderPath
-            Length   = 23107
-            Size     = "23.11 KB"
+            Length   = 24045
+            Size     = "24.05 KB"
             Contains = "10 Files, 0 Folders"
             Created  = "Thursday, March 30, 2023 7:13:49 AM"
         }
 
         $ComparatorMiB = [pscustomobject] @{
             FullName = (Get-Location -PSProvider FileSystem).ProviderPath
-            Length   = 23107
+            Length   = 24045
             Size     = "0.02 MiB"
             Contains = "10 Files, 0 Folders"
             Created  = "Thursday, March 30, 2023 7:13:49 AM"

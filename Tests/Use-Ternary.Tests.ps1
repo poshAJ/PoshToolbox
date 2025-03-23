@@ -1,7 +1,7 @@
 Describe "Use-Ternary" {
     BeforeAll {
         ## SOURCE #############################################################
-        Import-Module "$PSScriptRoot\..\PoshToolbox.psm1"
+        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
 
         ## SETUP ##############################################################
     }

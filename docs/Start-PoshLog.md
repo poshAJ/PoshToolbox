@@ -1,4 +1,4 @@
-﻿---
+---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Start-PoshLog.md
@@ -17,22 +17,22 @@ Creates a log for the PowerShell session.
 Start-PoshLog [[-Path] <String[]>] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
-### Path (NoClobber)
+### PathNoClobber
 ```
 Start-PoshLog [[-Path] <String[]>] [-NoClobber] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
-### Path (Append)
+### PathAppend
 ```
 Start-PoshLog [[-Path] <String[]>] [-Append] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
-### LiteralPath (NoClobber)
+### LiteralPathNoClobber
 ```
 Start-PoshLog -LiteralPath <String[]> [-NoClobber] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
-### LiteralPath (Append)
+### LiteralPathAppend
 ```
 Start-PoshLog -LiteralPath <String[]> [-Append] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
@@ -46,6 +46,8 @@ Start-PoshLog -LiteralPath <String[]> [-AsUtc] [-PassThru] [<CommonParameters>]
 The Start-PoshLog cmdlet creates a record of all or part of a PowerShell session to a text file. The log includes all output from the Write-PoshLog, Write-Information, Write-Warning, and Write-Error cmdlets.
 
 Files that are created by the Start-PoshLog cmdlet include random characters in names to prevent potential overwrites or duplication when two or more transcripts are started simultaneously.
+
+## EXAMPLES
 
 ## PARAMETERS
 
@@ -160,4 +162,5 @@ Write-Warning -WarningVariable null
 Write-Error -ErrorVariable null
 
 ## RELATED LINKS
+
 [None]()

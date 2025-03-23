@@ -1,7 +1,7 @@
 Describe "Use-NullCoalescing" {
     BeforeAll {
         ## SOURCE #############################################################
-        Import-Module "$PSScriptRoot\..\PoshToolbox.psm1"
+        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
 
         ## SETUP ##############################################################
     }
@@ -10,12 +10,12 @@ Describe "Use-NullCoalescing" {
     Context "Success" {
         It "Null" {
             $Test = $null | ?? { "VALUE" }
-            $Test | Should -be "VALUE"
+            $Test | Should -Be "VALUE"
         }
 
         It "Not Null" {
             $Test = "VALUE" | ?? { 1 / 0 }
-            $Test | Should -be "VALUE"
+            $Test | Should -Be "VALUE"
         }
     }
 
