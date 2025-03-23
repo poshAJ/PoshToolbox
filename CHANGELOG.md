@@ -10,6 +10,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 + Invoke-ExponentialBackoff ([#15](https://github.com/PoshAJ/PoshToolbox/pull/15))
     > Executes a scriptblock implementing retries with exponential backoff.
 
+### Fixed
++ Updated Code Formatting for `Use-Object` ([#17](https://github.com/PoshAJ/PoshToolbox/pull/17))
+
 ### Changed
 + **BREAKING** ConvertTo-Base64String ([#16](https://github.com/PoshAJ/PoshToolbox/pull/16))
     > Refactor to align with other ConvertTo-* cmdlets.
