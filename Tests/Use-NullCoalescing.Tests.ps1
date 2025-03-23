@@ -1,19 +1,19 @@
-Describe "Use-NullCoalescing" {
-    BeforeAll {
-        ## SOURCE #############################################################
-        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
-    }
+BeforeAll {
+    ## SOURCE #################################################################
+    Import-Module "${PSScriptRoot}\..\PoshToolbox\PoshToolbox.psm1"
+}
 
+Describe "Use-NullCoalescing" {
     ## SUCCESS ################################################################
     Context "Success" {
         It "Null" {
-            $Test = $null | ?? { "VALUE" }
-            $Test | Should -Be "VALUE"
+            $Result = $null | Use-NullCoalescing { "VALUE" }
+            $Result | Should -Be "VALUE"
         }
 
         It "Not Null" {
-            $Test = "VALUE" | ?? { 1 / 0 }
-            $Test | Should -Be "VALUE"
+            $Result = "VALUE" | Use-NullCoalescing { 1 / 0 }
+            $Result | Should -Be "VALUE"
         }
     }
 }

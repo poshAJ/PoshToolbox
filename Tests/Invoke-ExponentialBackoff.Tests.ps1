@@ -1,9 +1,9 @@
-Describe "Invoke-ExponentialBackoff" {
-    BeforeAll {
-        ## SOURCE #############################################################
-        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
-    }
+BeforeAll {
+    ## SOURCE #################################################################
+    Import-Module "${PSScriptRoot}\..\PoshToolbox\PoshToolbox.psm1"
+}
 
+Describe "Invoke-ExponentialBackoff" {
     ## SUCCESS ################################################################
     Context "Success" {
         BeforeEach {
@@ -11,25 +11,25 @@ Describe "Invoke-ExponentialBackoff" {
         }
 
         It "1 Retry" {
-            $Test = Invoke-ExponentialBackoff -ErrorAction SilentlyContinue -ScriptBlock {
+            $Result = Invoke-ExponentialBackoff -ErrorAction SilentlyContinue -ScriptBlock {
                 if ($Error.Count -lt 1) {
                     throw
                 }
 
                 $Error.Count
             }
-            $Test | Should -Be 1
+            $Result | Should -Be 1
         }
 
         It "2 Retry" {
-            $Test = Invoke-ExponentialBackoff -ErrorAction SilentlyContinue -ScriptBlock {
+            $Result = Invoke-ExponentialBackoff -ErrorAction SilentlyContinue -ScriptBlock {
                 if ($Error.Count -lt 2) {
                     throw
                 }
 
                 $Error.Count
             }
-            $Test | Should -Be 2
+            $Result | Should -Be 2
         }
     }
 

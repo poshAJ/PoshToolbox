@@ -1,9 +1,9 @@
-Describe "Use-Object" {
-    BeforeAll {
-        ## SOURCE #############################################################
-        Import-Module "${PSScriptRoot}\..\PoshToolbox.psm1"
-    }
+BeforeAll {
+    ## SOURCE #################################################################
+    Import-Module "${PSScriptRoot}\..\PoshToolbox\PoshToolbox.psm1"
+}
 
+Describe "Use-Object" {
     ## SUCCESS ################################################################
     Context "Success" {
         It "IDisposable" {
