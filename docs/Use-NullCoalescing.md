@@ -19,7 +19,7 @@ Use-NullCoalescing -InputObject <Object> [-IfNull] <Object> [<CommonParameters>]
 
 ## DESCRIPTION
 
-The `Use-NullCoalescing` cmdlet simulates the effect of the null-coalescing operator for earlier versions of PowerShell before it was introduced.
+The `Use-NullCoalescing` function simulates the effect of the null-coalescing operator for earlier versions of PowerShell before it was introduced.
 
 The null-coalescing operator ?? returns the value of its left-hand operand if it isn't null. Otherwise, it evaluates the right-hand operand and returns its result. The ?? operator doesn't evaluate its right-hand operand if the left-hand operand evaluates to non-null.
 
@@ -61,7 +61,7 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 

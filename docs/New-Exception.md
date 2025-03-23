@@ -19,7 +19,7 @@ New-Exception [-Message] <String> [-Throw] [<CommonParameters>]
 
 ## DESCRIPTION
 
-The `New-Exception` cmdlet creates an ErrorRecord object for an exception with the specified message.
+The `New-Exception` function creates an ErrorRecord object for an exception with the specified message.
 
 ## EXAMPLES
 
@@ -59,13 +59,13 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### None
 
-You cannot pipe input to this cmdlet.
+You cannot pipe input to this function.
 
 ## OUTPUTS
 

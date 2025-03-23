@@ -27,7 +27,7 @@ New-IPSubnet -IPAddress <String> -IPPrefix <Int32> [<CommonParameters>]
 
 ## DESCRIPTION
 
-The `New-IPSubnet` cmdlet creates an IPSubnet object that represents a set of IP addresses.
+The `New-IPSubnet` function creates an IPSubnet object that represents a set of IP addresses.
 
 ## EXAMPLES
 
@@ -83,13 +83,13 @@ Accept wildcard characters: False
 
 ### CommonParameters
 
-This cmdlet supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
+This function supports the common parameters: -Debug, -ErrorAction, -ErrorVariable, -InformationAction, -InformationVariable, -OutVariable, -OutBuffer, -PipelineVariable, -Verbose, -WarningAction, and -WarningVariable. For more information, see [about_CommonParameters](http://go.microsoft.com/fwlink/?LinkID=113216).
 
 ## INPUTS
 
 ### String
 
-You can pipe a string that contains an IP subnet in CIDR notation to this cmdlet.
+You can pipe a string that contains an IP subnet in CIDR notation to this function.
 
 ## OUTPUTS
 
