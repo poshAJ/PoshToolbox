@@ -12,6 +12,7 @@ Install-Module -Name PoshToolbox
 [Find-NlMtu](docs/Find-NlMtu.md)
 [Get-ADServiceAccountCredential](docs/Get-ADServiceAccountCredential.md)
 [Get-FolderProperties](docs/Get-FolderProperties.md)
+[Invoke-ExponentialBackoff](docs/Invoke-ExponentialBackoff.md)
 [Join-File](docs/Join-File.md)
 [New-Exception](docs/New-Exception.md)
 [Resolve-PoshPath](docs/Resolve-PoshPath.md)
