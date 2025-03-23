@@ -1,14 +1,12 @@
 param (
     [Parameter()]
-    [version]
-    $ModuleVersion = '0.0.0',
+    [version] $ModuleVersion = '0.0.0',
 
     [Parameter()]
-    [string]
-    $ApiKey
+    [string] $ApiKey
 )
 
-$Script:RootModule = 'PoshToolbox'
+[string] $Script:RootModule = 'PoshToolbox'
 
 
 task CleanModule {
@@ -31,20 +29,20 @@ task CleanLibrary {
 task LoadChangeLog {
     assert (Test-Path -Path './CHANGELOG.md')
 
-    $Latest = Select-String -Path './CHANGELOG.md' -Pattern '^## \[(\d\.\d\.\d)\]' |
+    [object[]] $Latest = Select-String -Path './CHANGELOG.md' -Pattern '^## \[(\d\.\d\.\d)\]' |
         Select-Object LineNumber -First 2
 
-    $ReleaseNotes = Get-Content -Path './CHANGELOG.md' -TotalCount ($Latest[1].LineNumber - 1) |
+    [string[]] $ReleaseNotes = Get-Content -Path './CHANGELOG.md' -TotalCount ($Latest[1].LineNumber - 1) |
         Select-Object -Skip $Latest[0].LineNumber
 
-    $Script:ReleaseNotes = $ReleaseNotes -replace '\[!\d+\]\(.*$'
+    [string[]] $Script:ReleaseNotes = $ReleaseNotes -replace '\[!\d+\]\(.*$'
 }
 
 
 task LoadModuleManifest {
     assert (Test-Path -Path "./src/${RootModule}.psd1")
 
-    $Script:ModuleManifest = Import-PowerShellDataFile -Path "./src/${RootModule}.psd1"
+    [hashtable] $Script:ModuleManifest = Import-PowerShellDataFile -Path "./src/${RootModule}.psd1"
 
     $Script:ModuleManifest += $ModuleManifest.PrivateData.PSData
     $Script:ModuleManifest.Remove('PrivateData')
@@ -59,10 +57,10 @@ task BuildLibrary {
 
 
 task BuildModule {
-    $Script:ModuleFile = New-Item -ItemType 'File' -Path "./${RootModule}/${ModuleVersion}/${RootModule}.psm1" -Force
+    [System.IO.FileInfo] $Script:ModuleFile = New-Item -ItemType 'File' -Path "./${RootModule}/${ModuleVersion}/${RootModule}.psm1" -Force
 
-    $Groups = Get-ChildItem -Path './src/*/*.ps1' | Group-Object { $_.Directory.BaseName }
-    $Script:FunctionsToExport = $Groups | Where-Object Name -eq 'Public' | ForEach-Object { $_.Group.BaseName }
+    [object[]] $Groups = Get-ChildItem -Path './src/*/*.ps1' | Group-Object { $_.Directory.BaseName }
+    [string[]] $Script:FunctionsToExport = $Groups | Where-Object Name -eq 'Public' | ForEach-Object { $_.Group.BaseName }
 
     foreach ($Group in $Groups) {
         Add-Content -Path $ModuleFile -Value "#region: $( $Group.Name )"
@@ -118,7 +116,7 @@ task UpdateHelp CleanModule, LoadModule, {
 task TestModule {
     assert (Test-Path -Path './tests/*.tests.ps1')
 
-    $Hashtable = @{
+    [object] $Configuration = New-PesterConfiguration -Hashtable @{
         Run        = @{
             Path     = Get-ChildItem -Path './tests/*.tests.ps1' -Force
             PassThru = $true
@@ -132,15 +130,12 @@ task TestModule {
         }
     }
 
-    $Configuration = New-PesterConfiguration -Hashtable $Hashtable
+    $null = Invoke-Pester -Configuration $Configuration
 
-    $Pester = Invoke-Pester -Configuration $Configuration
+    # https://gitlab.com/gitlab-org/gitlab/-/issues/25098
 
-    # * fix testResults.xml
-    # ? https://gitlab.com/gitlab-org/gitlab/-/issues/25098
-
-    $Results = Get-Item -Path './testResults.xml'
-    $xml = [xml]::new()
+    [System.IO.FileInfo] $Results = Get-Item -Path $Configuration.TestResult.OutputPath.Value
+    [xml] $xml = ''
 
     $xml.Load($Results.FullName)
     $xml.SelectNodes('//failure').ForEach{ $_.'#text' = $_.message }

@@ -1,31 +1,29 @@
 function New-IPAddress {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
-    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '', Justification='Function does not change system state.')]
+    [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseShouldProcessForStateChangingFunctions', '',
+        Justification = 'Function does not change system state.')]
 
     [CmdletBinding()]
     [OutputType([object])]
-
-    ## PARAMETERS #############################################################
     param (
-        [Alias("Address")]
+        [Alias('Address')]
         [Parameter(
-            Position = 0,
             Mandatory,
+            Position = 0,
             ValueFromPipeline
         )]
-        [string[]]
-        $IPAddress
+        [string[]] $IPAddress
     )
 
-    ## PROCESS ################################################################
+    ## LOGIC ###################################################################
     process {
         foreach ($Address in $IPAddress) {
             try {
-                Write-Output ([System.Net.IPAddress]::Parse($Address))
+                $PSCmdlet.WriteObject([System.Net.IPAddress]::Parse($Address))
 
-                ## EXCEPTIONS #################################################
+                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodInvocationException] {
-                $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
+                $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
             }

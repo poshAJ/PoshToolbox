@@ -2,57 +2,55 @@ function Resolve-PoshPath {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
     [OutputType([object])]
-
-    ## PARAMETERS #############################################################
     param (
         [Parameter(
-            Position = 0,
             Mandatory,
+            Position = 0,
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
-            ParameterSetName = "Path"
+            ParameterSetName = 'Path'
         )]
         [ValidateNotNullOrEmpty()]
-        [string[]]
-        $Path,
+        [string[]] $Path,
 
-        [Alias("PSPath")]
+        [Alias('PSPath')]
         [Parameter(
             Mandatory,
             ValueFromPipelineByPropertyName,
-            ParameterSetName = "LiteralPath"
+            ParameterSetName = 'LiteralPath'
         )]
         [ValidateNotNullOrEmpty()]
-        [string[]]
-        $LiteralPath
+        [string[]] $LiteralPath
     )
 
-    ## PROCESS ################################################################
+    ## LOGIC ###################################################################
     process {
         foreach ($PSPath in $PSBoundParameters[$PSCmdlet.ParameterSetName]) {
             try {
-                if ($PSCmdlet.ParameterSetName -eq "Path") {
+                if ($PSCmdlet.ParameterSetName -eq 'Path') {
                     try {
-                        $PSPath = $PSCmdlet.SessionState.Path.GetResolvedPSPathFromPSPath($PSPath)
+                        [string[]] $PSPath = $PSCmdlet.SessionState.Path.GetResolvedPSPathFromPSPath($PSPath)
                     } catch [System.Management.Automation.MethodInvocationException] {
-                        $PSPath = $_.Exception.InnerException.ItemName
+                        [string[]] $PSPath = $_.Exception.InnerException.ItemName
                     }
                 }
 
                 foreach ($String in $PSPath) {
-                    $Provider = $Drive = $null
-                    $ProviderPath = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($String, [ref] $Provider, [ref] $Drive)
+                    [System.Management.Automation.ProviderInfo] $Provider = [System.Management.Automation.PSDriveInfo] $Drive = $null
+                    [string] $ProviderPath = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($String, [ref] $Provider, [ref] $Drive)
 
-                    Write-Output ([pscustomobject] @{
+                    $PSCmdlet.WriteObject(
+                        [pscustomobject] @{
                             ProviderPath = $ProviderPath
                             Provider     = $Provider
                             Drive        = $Drive
-                        })
+                        }
+                    )
                 }
 
-                ## EXCEPTIONS #################################################
+                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodInvocationException] {
-                $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
+                $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
             }

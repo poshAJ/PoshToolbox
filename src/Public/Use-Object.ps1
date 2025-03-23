@@ -2,29 +2,25 @@ function Use-Object {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
     [OutputType([object])]
-
-    ## PARAMETERS #############################################################
     param (
         [Parameter(
-            Position = 0,
-            Mandatory
+            Mandatory,
+            Position = 0
         )]
         [AllowEmptyString()]
         [AllowEmptyCollection()]
         [AllowNull()]
-        [object]
-        $InputObject,
+        [object] $InputObject,
 
         [Parameter(
-            Position = 1,
-            Mandatory
+            Mandatory,
+            Position = 1
         )]
-        [scriptblock]
-        $ScriptBlock
+        [scriptblock] $ScriptBlock
     )
 
-    ## PROCESS ################################################################
-    process {
+    ## LOGIC ###################################################################
+    end {
         try {
             . $ScriptBlock
         } catch {

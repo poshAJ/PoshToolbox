@@ -3,33 +3,29 @@ function Use-ErrorCoalescing {
     [CmdletBinding()]
     [Alias('?!')]
     [OutputType([object])]
-
-    ## PARAMETERS ##############################################################
     param (
         [Parameter(
             Mandatory,
             ValueFromPipeline
         )]
-        [scriptblock]
-        $InputObject,
+        [scriptblock] $InputObject,
 
         [Parameter(
             Position = 0
         )]
         [AllowNull()]
-        [object]
-        $IfError
+        [object] $IfError
     )
 
-    ## PROCESS #################################################################
+    ## LOGIC ###################################################################
     process {
         foreach ($Object in , $InputObject) {
             try {
-                $Object.InvokeReturnAsIs()
+                . $Object
             } catch {
                 $Exception = $_.Exception
 
-                if ($IfError -is [hashtable]) {
+                if ($IfError -is [System.Collections.IDictionary]) {
                     foreach ($Catch in $IfError.GetEnumerator()) {
                         if ($Exception -is $Catch.Name) {
                             Write_Object $Catch.Value

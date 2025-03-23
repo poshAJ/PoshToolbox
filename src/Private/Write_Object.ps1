@@ -2,24 +2,21 @@ function Write_Object {
     # Copyright (c) 2024 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
     [OutputType([object])]
-
-    ## PARAMETERS ##############################################################
     param (
         [Parameter(
             Mandatory,
             Position = 0
         )]
         [ValidateNotNullOrEmpty()]
-        [object]
-        $InputObject
+        [object] $InputObject
     )
 
-    ## END #####################################################################
+    ## LOGIC ###################################################################
     end {
         if ($InputObject -is [scriptblock]) {
-            $InputObject.InvokeReturnAsIs()
+            . $InputObject
         } else {
-            Write-Output (, $InputObject)
+            $PSCmdlet.WriteObject($InputObject)
         }
     }
 }

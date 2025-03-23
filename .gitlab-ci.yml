@@ -12,8 +12,8 @@ build:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
-    - pwsh -c "Install-PSResource -RequiredResourceFile ./RequiredModules.psd1 -TrustRepository"
-    - pwsh -c "Invoke-Build -Task Build"
+    - pwsh -c "Install-PSResource -RequiredResourceFile './RequiredModules.psd1' -TrustRepository"
+    - pwsh -c "Invoke-Build -Task 'Build'"
   artifacts:
     untracked: true
 
@@ -24,8 +24,8 @@ test:
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
-    - pwsh -c "Install-PSResource -RequiredResourceFile ./RequiredModules.psd1 -TrustRepository"
-    - pwsh -c "Invoke-Build -Task Test"
+    - pwsh -c "Install-PSResource -RequiredResourceFile './RequiredModules.psd1' -TrustRepository"
+    - pwsh -c "Invoke-Build -Task 'Test'"
   artifacts:
     reports:
       junit: testResults.xml
@@ -36,8 +36,8 @@ publish:
   rules:
     - if: $CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TITLE =~ /^\d+\.\d+\.\d+$/
   script:
-    - pwsh -c "Install-PSResource -RequiredResourceFile ./RequiredModules.psd1 -TrustRepository"
-    - pwsh -c "Invoke-Build -Task Publish -ModuleVersion $CI_COMMIT_TITLE -ApiKey $ApiKey"
+    - pwsh -c "Install-PSResource -RequiredResourceFile './RequiredModules.psd1' -TrustRepository"
+    - pwsh -c "Invoke-Build -Task 'Publish' -ModuleVersion '$CI_COMMIT_TITLE' -ApiKey '$ApiKey'"
 
 release:
   stage: publish

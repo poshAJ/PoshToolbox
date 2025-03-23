@@ -2,35 +2,32 @@ function ConvertFrom-Base64String {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
     [OutputType([object])]
-
-    ## PARAMETERS #############################################################
     param (
         [Parameter(
             Mandatory,
             ValueFromPipeline
         )]
         [ValidateNotNullOrEmpty()]
-        [string[]]
-        $InputObject
+        [string[]] $InputObject
     )
 
-    ## PROCESS ################################################################
+    ## LOGIC ###################################################################
     process {
         foreach ($Object in $InputObject) {
             try {
-                $Bytes = [System.Convert]::FromBase64String($Object)
+                [byte[]] $Bytes = [System.Convert]::FromBase64String($Object)
 
                 try {
-                    $String = -join [char[]] $Bytes
+                    [string] $String = -join [char[]] $Bytes
 
-                    Write-Output ([System.Management.Automation.PSSerializer]::Deserialize($String))
+                    $PSCmdlet.WriteObject([System.Management.Automation.PSSerializer]::Deserialize($String))
                 } catch {
-                    Write-Output $Bytes
+                    $PSCmdlet.WriteObject($Bytes)
                 }
 
-                ## EXCEPTIONS #################################################
+                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodInvocationException] {
-                $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
+                $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
             }

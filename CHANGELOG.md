@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 ### Fixed
 
 - Fix Linux Compatibility and Test Suite [!35](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/35)
+- General Format and Consistency [!39](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/39)
 
 ### Changed
 

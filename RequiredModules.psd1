@@ -1,6 +1,6 @@
 @{
     'InvokeBuild'      = @{}
     'Pester'           = @{}
-    'PlatyPS'          = @{}
+    'platyPS'          = @{}
     'PSScriptAnalyzer' = @{}
 }
