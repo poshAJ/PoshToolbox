@@ -13,7 +13,7 @@ Stops the PowerShell session log.
 
 ## SYNTAX
 
-```
+```powershell
 Stop-PoshLog [<CommonParameters>]
 ```
 

@@ -15,13 +15,13 @@ Resolves a path with wildcard support.
 
 ### Path
 
-```
+```powershell
 Resolve-PoshPath [-Path] <String[]> [<CommonParameters>]
 ```
 
 ### LiteralPath
 
-```
+```powershell
 Resolve-PoshPath -LiteralPath <String[]> [<CommonParameters>]
 ```
 

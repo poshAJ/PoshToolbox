@@ -13,16 +13,8 @@ Writes a log message.
 
 ## SYNTAX
 
-### Type (Default)
-
-```
+```powershell
 Write-PoshLog [-Type <String>] [-Message] <String> [<CommonParameters>]
-```
-
-### PSEventArgs
-
-```
-Write-PoshLog [<CommonParameters>]
 ```
 
 ## DESCRIPTION

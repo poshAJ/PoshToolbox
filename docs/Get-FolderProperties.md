@@ -15,13 +15,13 @@ Displays folder properties.
 
 ### Path
 
-```
+```powershell
 Get-FolderProperties [-Path] <String[]> [-Unit <String>] [<CommonParameters>]
 ```
 
 ### LiteralPath
 
-```
+```powershell
 Get-FolderProperties -LiteralPath <String[]> [-Unit <String>] [<CommonParameters>]
 ```
 

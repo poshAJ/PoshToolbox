@@ -1,0 +1,44 @@
+{
+    "version": "2.0.0",
+    "windows": {
+        "options": {
+            "shell": {
+                "executable": "C:/Windows/system32/cmd.exe",
+                "args": [
+                    "/D",
+                    "/C",
+                ]
+            }
+        }
+    },
+    "linux": {
+        "options": {
+            "shell": {
+                "executable": "/usr/bin/bash",
+                "args": [
+                    "--noprofile",
+                    "--norc",
+                    "-c",
+                ]
+            }
+        }
+    },
+    "tasks": [
+        {
+            "label": "Build & Test (pwsh)",
+            "type": "shell",
+            "command": "pwsh -NoProfile -Command \"Invoke-Build -Task Build, Test\"",
+            "problemMatcher": [
+                "$pester"
+            ]
+        },
+        {
+            "label": "Build & Test (powershell)",
+            "type": "shell",
+            "command": "powershell -NoProfile -Command \"Invoke-Build -Task Build, Test\"",
+            "problemMatcher": [
+                "$pester"
+            ]
+        }
+    ]
+}

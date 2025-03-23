@@ -15,13 +15,13 @@ Combines split files into their larger source file.
 
 ### Path
 
-```
+```powershell
 Join-File [-Path] <String[]> [-Destination <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 
 ### LiteralPath
 
-```
+```powershell
 Join-File -LiteralPath <String[]> [-Destination <String>] [-WhatIf] [-Confirm] [<CommonParameters>]
 ```
 

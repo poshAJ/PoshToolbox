@@ -13,8 +13,8 @@ Implements an Error-coalescing operator (?!).
 
 ## SYNTAX
 
-```
-Use-ErrorCoalescing -InputObject <ScriptBlock> [-IfError] <Object> [<CommonParameters>]
+```powershell
+Use-ErrorCoalescing -InputObject <ScriptBlock> [[-IfError] <Object>] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -36,7 +36,7 @@ Type: Object
 Parameter Sets: (All)
 Aliases:
 
-Required: True
+Required: False
 Position: 0
 Default value: None
 Accept pipeline input: False

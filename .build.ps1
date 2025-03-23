@@ -1,43 +1,43 @@
 param (
     [Parameter()]
     [version]
-    $ModuleVersion = "0.0.0",
+    $ModuleVersion = '0.0.0',
 
     [Parameter()]
     [string]
     $ApiKey
 )
 
-$Script:RootModule = "PoshToolbox"
+$Script:RootModule = 'PoshToolbox'
 
 
 task CleanModule {
-    Remove-Module $RootModule -Force -ErrorAction "Ignore"
+    Remove-Module $RootModule -Force -ErrorAction 'Ignore'
 }
 
 
 task CleanFiles {
-    Remove-Item -Path "./${RootModule}/" -Recurse -Force -ErrorAction "Ignore"
+    Remove-Item -Path "./${RootModule}/" -Recurse -Force -ErrorAction 'Ignore'
 }
 
 
 task CleanLibrary {
-    assert (Test-Path -Path "./src/Classes/Classes.csproj")
+    assert (Test-Path -Path './src/Classes/Classes.csproj')
 
-    exec { dotnet clean "./src/Classes/Classes.csproj" }
+    exec { dotnet clean './src/Classes/Classes.csproj' }
 }
 
 
 task LoadChangeLog {
-    assert (Test-Path -Path "./CHANGELOG.md")
+    assert (Test-Path -Path './CHANGELOG.md')
 
-    $Latest = Select-String -Path "./CHANGELOG.md" -Pattern "^## \[(\d\.\d\.\d)\]" |
+    $Latest = Select-String -Path './CHANGELOG.md' -Pattern '^## \[(\d\.\d\.\d)\]' |
         Select-Object LineNumber -First 2
 
-    $ReleaseNotes = Get-Content -Path "./CHANGELOG.md" -TotalCount ($Latest[1].LineNumber - 1) |
+    $ReleaseNotes = Get-Content -Path './CHANGELOG.md' -TotalCount ($Latest[1].LineNumber - 1) |
         Select-Object -Skip $Latest[0].LineNumber
 
-    $Script:ReleaseNotes = $ReleaseNotes -replace "\[!\d+\]\(.*$"
+    $Script:ReleaseNotes = $ReleaseNotes -replace '\[!\d+\]\(.*$'
 }
 
 
@@ -47,22 +47,22 @@ task LoadModuleManifest {
     $Script:ModuleManifest = Import-PowerShellDataFile -Path "./src/${RootModule}.psd1"
 
     $Script:ModuleManifest += $ModuleManifest.PrivateData.PSData
-    $Script:ModuleManifest.Remove("PrivateData")
+    $Script:ModuleManifest.Remove('PrivateData')
 }
 
 
 task BuildLibrary {
-    assert (Test-Path -Path "./src/Classes/Classes.csproj")
+    assert (Test-Path -Path './src/Classes/Classes.csproj')
 
-    exec { dotnet build "./src/Classes/Classes.csproj" --output "./${RootModule}/${ModuleVersion}/" --property:Version="${ModuleVersion}" --property:Module="${RootModule}" --configuration "Release" }
+    exec { dotnet build './src/Classes/Classes.csproj' --output "./${RootModule}/${ModuleVersion}/" --property:Version="${ModuleVersion}" --property:Module="${RootModule}" --configuration 'Release' }
 }
 
 
 task BuildModule {
-    $Script:ModuleFile = New-Item -ItemType "File" -Path "./${RootModule}/${ModuleVersion}/${RootModule}.psm1" -Force
+    $Script:ModuleFile = New-Item -ItemType 'File' -Path "./${RootModule}/${ModuleVersion}/${RootModule}.psm1" -Force
 
-    $Groups = Get-ChildItem -Path "./src/*/*.ps1" | Group-Object { $_.Directory.BaseName }
-    $Script:FunctionsToExport = $Groups | Where-Object Name -eq "Public" | ForEach-Object { $_.Group.BaseName }
+    $Groups = Get-ChildItem -Path './src/*/*.ps1' | Group-Object { $_.Directory.BaseName }
+    $Script:FunctionsToExport = $Groups | Where-Object Name -eq 'Public' | ForEach-Object { $_.Group.BaseName }
 
     foreach ($Group in $Groups) {
         Add-Content -Path $ModuleFile -Value "#region: $( $Group.Name )"
@@ -70,18 +70,18 @@ task BuildModule {
         foreach ($File in $Group.Group) {
             Add-Content -Path $ModuleFile -Value "#region: $( Resolve-Path -Path $File -Relative )"
             Add-Content -Path $ModuleFile -Value (Get-Content -Path $File)
-            Add-Content -Path $ModuleFile -Value "#endregion"
+            Add-Content -Path $ModuleFile -Value '#endregion'
         }
 
-        Add-Content -Path $ModuleFile -Value "#endregion"
+        Add-Content -Path $ModuleFile -Value '#endregion'
     }
 }
 
 
 task BuildHelp {
-    assert (Test-Path -Path "./docs/")
+    assert (Test-Path -Path './docs/')
 
-    New-ExternalHelp -Path "./docs/" -OutputPath "./${RootModule}/${ModuleVersion}/en-US/" -Encoding ([System.Text.Encoding]::UTF8) -Force
+    New-ExternalHelp -Path './docs/' -OutputPath "./${RootModule}/${ModuleVersion}/en-US/" -Encoding ([System.Text.Encoding]::UTF8) -Force
 }
 
 
@@ -109,47 +109,78 @@ task AnalyzeModule {
 }
 
 
-task UpdateHelp LoadModule, {
-    New-MarkdownHelp -Module $RootModule -OutputFolder "./docs" -AlphabeticParamsOrder -ExcludeDontShow -Encoding ([System.Text.Encoding]::UTF8) -ErrorAction SilentlyContinue
-    Update-MarkdownHelp -Path "./docs" -AlphabeticParamsOrder -ExcludeDontShow -Encoding ([System.Text.Encoding]::UTF8) -Force
+task UpdateHelp CleanModule, LoadModule, {
+    New-MarkdownHelp -Module $RootModule -OutputFolder './docs' -AlphabeticParamsOrder -ExcludeDontShow -Encoding ([System.Text.Encoding]::UTF8) -ErrorAction SilentlyContinue
+    Update-MarkdownHelp -Path './docs' -AlphabeticParamsOrder -ExcludeDontShow -Encoding ([System.Text.Encoding]::UTF8) -Force
 }
 
 
 task TestModule {
-    assert (Test-Path -Path "./tests/")
+    assert (Test-Path -Path './tests/*.tests.ps1')
 
-    Invoke-Pester -Path "./tests/"
+    $Hashtable = @{
+        Run        = @{
+            Path     = Get-ChildItem -Path './tests/*.tests.ps1' -Force
+            PassThru = $true
+        }
+        TestResult = @{
+            Enabled      = $true
+            OutputFormat = 'JUnitXml'
+        }
+        Output     = @{
+            StackTraceVerbosity = 'None'
+        }
+    }
+
+    $Configuration = New-PesterConfiguration -Hashtable $Hashtable
+
+    $Pester = Invoke-Pester -Configuration $Configuration
+
+    # * fix testResults.xml
+    # ? https://gitlab.com/gitlab-org/gitlab/-/issues/25098
+
+    $Results = Get-Item -Path './testResults.xml'
+    $xml = [xml]::new()
+
+    $xml.Load($Results.FullName)
+    $xml.SelectNodes('//failure').ForEach{ $_.'#text' = $_.message }
+    $xml.Save($Results.FullName)
+
+    assert (Test-Path -Path './testResults.xml')
 }
 
 
 task PublishModule {
     assert (Test-Path -Path "./${RootModule}/${ModuleVersion}")
 
-    Publish-PSResource -Path "./${RootModule}/${ModuleVersion}" -Repository "PSGallery" -ApiKey $ApiKey
+    Publish-PSResource -Path "./${RootModule}/${ModuleVersion}" -Repository 'PSGallery' -ApiKey $ApiKey
 }
 
 
-task Clean `
-    CleanModule,
-    CleanFiles
+task Clean @(
+    'CleanModule'
+    'CleanFiles'
+)
 
-task Build `
-    LoadChangeLog,
-    LoadModuleManifest,
-    BuildLibrary,
-    BuildModule,
-    BuildHelp,
-    BuildModuleManifest,
-    CleanLibrary
+task Build @(
+    'LoadChangeLog'
+    'LoadModuleManifest'
+    'BuildLibrary'
+    'BuildModule'
+    'BuildHelp'
+    'BuildModuleManifest'
+    'CleanLibrary'
+)
 
-task Test `
-    LoadModule,
-    AnalyzeModule,
-    TestModule
+task Test @(
+    'LoadModule'
+    'TestModule'
+)
 
-task Publish `
-    Clean,
-    Build,
-    PublishModule
+task Publish @(
+    'Clean'
+    'Build'
+    'PublishModule'
+)
 
 task . {}

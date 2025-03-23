@@ -13,7 +13,7 @@ Gets a credential object based on a service account identity.
 
 ## SYNTAX
 
-```
+```powershell
 Get-ADServiceAccountCredential [-Identity] <String[]> [-Server <String>] [<CommonParameters>]
 ```
 

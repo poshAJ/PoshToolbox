@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+### Fixed
+
+- Fix Linux Compatibility and Test Suite [!35](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/35)
+
 ## [4.2.2](https://www.powershellgallery.com/packages/PoshToolbox/4.2.2) - 2024-03-07
 
 ### Fixed

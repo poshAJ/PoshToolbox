@@ -13,7 +13,7 @@ Implements the Null-coalescing operator (??).
 
 ## SYNTAX
 
-```
+```powershell
 Use-NullCoalescing -InputObject <Object> [-IfNull] <Object> [<CommonParameters>]
 ```
 

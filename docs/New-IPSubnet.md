@@ -15,13 +15,13 @@ Creates an IPSubnet object.
 
 ### InputObject
 
-```
+```powershell
 New-IPSubnet [-InputObject] <String[]> [<CommonParameters>]
 ```
 
 ### IPAddress
 
-```
+```powershell
 New-IPSubnet -IPAddress <String> -IPPrefix <Int32> [<CommonParameters>]
 ```
 
