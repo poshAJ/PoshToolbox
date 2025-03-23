@@ -1,10 +1,5 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
-using namespace System.IO
-using namespace System.Text
-using namespace System.Management.Automation
-using namespace System.Collections.ObjectModel
-
 function Start-PoshLog {
     [CmdletBinding(DefaultParameterSetName = "Path")]
     [OutputType([void])]
@@ -13,20 +8,20 @@ function Start-PoshLog {
     param (
         [Parameter(
             Position = 0,
-            ValueFromPipelineByPropertyName,
             ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
             ParameterSetName = "Path"
         )]
         [Parameter(
             Position = 0,
-            ValueFromPipelineByPropertyName,
             ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
             ParameterSetName = "PathAppend"
         )]
         [Parameter(
             Position = 0,
-            ValueFromPipelineByPropertyName,
             ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
             ParameterSetName = "PathNoClobber"
         )]
         [ValidateScript({
@@ -38,6 +33,7 @@ function Start-PoshLog {
         [string[]]
         $Path = [Environment]::GetFolderPath("MyDocuments"),
 
+        [Alias("PSPath")]
         [Parameter(
             Mandatory,
             ValueFromPipelineByPropertyName,
@@ -53,7 +49,6 @@ function Start-PoshLog {
             ValueFromPipelineByPropertyName,
             ParameterSetName = "LiteralPathNoClobber"
         )]
-        [Alias("PSPath")]
         [ValidateScript({
                 if (Test-Path -LiteralPath $_ -IsValid) {
                     return $true
@@ -87,7 +82,7 @@ function Start-PoshLog {
         $DateTime = [datetime]::Now
 
         $Format = $AsUtc | ?: { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime", "yyyyMMdd\-HHmmss\Z" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime", "yyyyMMdd\-HHmmss" }
-        $FileMode = $Append | ?: { [FileMode]::Append } { $NoClobber | ?: { [FileMode]::CreateNew } { [FileMode]::Create } }
+        $FileMode = $Append | ?: { [System.IO.FileMode]::Append } { $NoClobber | ?: { [System.IO.FileMode]::CreateNew } { [System.IO.FileMode]::Create } }
 
         $Template = {
             "**********************"
@@ -108,30 +103,31 @@ function Start-PoshLog {
                     New-ArgumentException "The argument specified must resolve to a valid path on the FileSystem provider." -Throw
                 }
 
-                $FileInfo = [FileInfo] $Object.ProviderPath
+                $FileInfo = [System.IO.FileInfo] $Object.ProviderPath
 
                 if (-not ($Directory = $FileInfo.Extension | ?: { $FileInfo.Directory } { $FileInfo }).Exists) {
-                    $null = [Directory]::CreateDirectory($Directory)
+                    $null = [System.IO.Directory]::CreateDirectory($Directory)
                 }
 
                 if (-not $FileInfo.Extension) {
-                    $FileInfo = [FileInfo] ("PowerShell_log.{0}.{1:$( $Format[2] )}.txt" -f ([guid]::NewGuid() -isplit "-")[0], $DateTime.($Format[1]).Invoke())
+                    $FileInfo = [System.IO.FileInfo] ("PowerShell_log.{0}.{1:$( $Format[2] )}.txt" -f ([guid]::NewGuid() -isplit "-")[0], $DateTime.($Format[1]).Invoke())
                 }
 
-                Use-Object ($File = [File]::Open($Directory.FullName + "\" + $FileInfo.Name, $FileMode)) {
+                Use-Object ($File = [System.IO.File]::Open($Directory.FullName + "\" + $FileInfo.Name, $FileMode)) {
                     if ($Append) {
-                        $NewLine = [Encoding]::UTF8.GetBytes([Environment]::NewLine)
+                        $NewLine = [System.Text.Encoding]::UTF8.GetBytes([System.Environment]::NewLine)
                         $File.Write($NewLine, 0, $NewLine.Length)
                     }
 
                     foreach ($Line in $Template.Invoke()) {
-                        $Bytes = [Encoding]::UTF8.GetBytes($Line + [Environment]::NewLine)
+                        $Bytes = [System.Text.Encoding]::UTF8.GetBytes($Line + [System.Environment]::NewLine)
                         $File.Write($Bytes, 0, $Bytes.Length)
                     }
                 }
 
                 $Global:PSLogDetails += @(@{ Path = $File.Name; Utc = $AsUtc })
                 Write-Information -InformationAction Continue -MessageData ("Log started, output file is '{0}'" -f $File.Name) -InformationVariable null
+
                 ## EXCEPTIONS #################################################
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
@@ -144,9 +140,9 @@ function Start-PoshLog {
     ## END ####################################################################
     end {
         if (-not (Get-EventSubscriber | Where-Object SourceIdentifier -CMatch "^PSLog") -and $PSLogDetails) {
-            $Global:PSLogInformation = [ObservableCollection[InformationRecord]]::new()
-            $Global:PSLogWarning = [ObservableCollection[WarningRecord]]::new()
-            $Global:PSLogError = [ObservableCollection[ErrorRecord]]::new()
+            $Global:PSLogInformation = [System.Collections.ObjectModel.ObservableCollection[System.Management.Automation.InformationRecord]]::new()
+            $Global:PSLogWarning = [System.Collections.ObjectModel.ObservableCollection[System.Management.Automation.WarningRecord]]::new()
+            $Global:PSLogError = [System.Collections.ObjectModel.ObservableCollection[System.Management.Automation.ErrorRecord]]::new()
 
             $Action = { Write-PoshLog -PSEventArgs $Event }
 

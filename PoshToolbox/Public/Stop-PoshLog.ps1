@@ -1,14 +1,11 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
-using namespace System.IO
-
 function Stop-PoshLog {
     [CmdletBinding()]
     [OutputType([void])]
 
     ## PARAMETERS #############################################################
-    param (
-    )
+    param ()
 
     ## BEGIN ##################################################################
     begin {
@@ -40,13 +37,14 @@ function Stop-PoshLog {
             try {
                 $Format = $PSLog.Utc | ?: { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime" }
 
-                Use-Object ($File = [File]::AppendText($PSLog.Path)) {
+                Use-Object ($File = [System.IO.File]::AppendText($PSLog.Path)) {
                     foreach ($Line in $Template.Invoke()) {
                         $File.WriteLine($Line)
                     }
                 }
 
                 Write-Information -InformationAction Continue -MessageData ("Log stopped, output file is '{0}'" -f $PSLog.Path) -InformationVariable null
+
                 ## EXCEPTIONS #################################################
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))

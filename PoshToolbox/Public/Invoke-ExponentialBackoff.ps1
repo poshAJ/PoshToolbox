@@ -39,7 +39,7 @@ function Invoke-ExponentialBackoff {
                     $PSCmdlet.ThrowTerminatingError(( New-ExponentialBackoffLimitException -Message ("The operation has reached the limit of {0} retries." -f $RetryCount) ))
                 }
 
-                Start-Sleep -Milliseconds ((Get-Random -Maximum 1000) * $Scalar * [math]::Pow($Base, $i))
+                Start-Sleep -Milliseconds ((Get-Random -Maximum 1000) * $Scalar * [System.Math]::Pow($Base, $i))
             }
         }
     }

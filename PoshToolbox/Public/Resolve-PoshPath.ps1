@@ -9,20 +9,20 @@ function Resolve-PoshPath {
         [Parameter(
             Position = 0,
             Mandatory,
-            ValueFromPipelineByPropertyName,
             ValueFromPipeline,
+            ValueFromPipelineByPropertyName,
             ParameterSetName = "Path"
         )]
         [ValidateNotNullOrEmpty()]
         [string[]]
         $Path,
 
+        [Alias("PSPath")]
         [Parameter(
             Mandatory,
             ValueFromPipelineByPropertyName,
             ParameterSetName = "LiteralPath"
         )]
-        [Alias("PSPath")]
         [ValidateNotNullOrEmpty()]
         [string[]]
         $LiteralPath
@@ -50,6 +50,7 @@ function Resolve-PoshPath {
                             Drive        = $Drive
                         })
                 }
+
                 ## EXCEPTIONS #################################################
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New-MethodInvocationException -Exception $_.Exception.InnerException ))
