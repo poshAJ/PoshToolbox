@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
+## Unreleased
+
+### Changed
+
+- Get-FolderProperties [!42](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/42)
+  > `Unit` property is now optional.
+
 ## [4.2.3](https://www.powershellgallery.com/packages/PoshToolbox/4.2.3) - 2024-07-15
 
 ### Fixed

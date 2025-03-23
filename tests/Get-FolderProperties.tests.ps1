@@ -29,13 +29,13 @@ Describe 'Get-FolderProperties' -Skip:($env:OS -ne 'Windows_NT') {
 
     Context 'Success' {
         It 'Path' {
-            $Result = Get-FolderProperties -Path '.'
+            $Result = Get-FolderProperties -Path '.' -Unit MiB
 
             $Result | Should -BeLike $KnownMiB
         }
 
         It 'LiteralPath' {
-            $Result = Get-FolderProperties -LiteralPath '.'
+            $Result = Get-FolderProperties -LiteralPath '.' -Unit MiB
 
             $Result | Should -BeLike $KnownMiB
         }
