@@ -8,26 +8,27 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Fixed
 
-- Fix Linux Compatibility and Test Suite [!35](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/35)
-- General Format and Consistency [!39](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/39)
+- Fix Linux Compatibility and Test Suite [#31](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/31)
+- General Format and Consistency [#35](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/35)
 - Fix Function Execution Inside Module Scope [!41](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/41)
+- Fix OutOfMemory Exception for `Convert-Base64String` [#36](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/36)
 
 ### Changed
 
-- Use-ErrorCoalescing [!36](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/36)
+- Use-ErrorCoalescing [#32](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/32)
   > Allow specific error branching utilizing hashtable input.
 
 ## [4.2.2](https://www.powershellgallery.com/packages/PoshToolbox/4.2.2) - 2024-03-07
 
 ### Fixed
 
-- Cmdlets using `Write-Output` with the `-NoEmunerate` switch would wrap `hashtable` in ``List`1`` [!32](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/32) and [!33](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/33)
+- Cmdlets using `Write-Output` with the `-NoEmunerate` switch would wrap `hashtable` in ``List`1`` [#30](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/30)
 
 ## [4.2.1](https://www.powershellgallery.com/packages/PoshToolbox/4.2.1) - 2024-03-06
 
 ### Fixed
 
-- Use-NullCoalescing isn't Consistent for Undefined Objects [!29](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/29)
+- Use-NullCoalescing isn't Consistent for Undefined Objects [#29](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/29)
 
 ### Changed
 
@@ -128,7 +129,7 @@ Project name change, previous versions known as `ScriptFramework`.
 
 - Find-NlMtu [!3](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/3)
   > Discovers the network layer maximum transmission unit (MTU) size.
-- Get-FileFolder [!4](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/4)
+- Get-FolderProperties [!4](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/4)
   > Displays file folder information.
 
 ### Fixed

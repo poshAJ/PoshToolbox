@@ -8,6 +8,12 @@ function ConvertFrom-Base64String {
             ValueFromPipeline
         )]
         [ValidateNotNullOrEmpty()]
+        [ValidateScript({
+                if ($_ -notmatch '^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$') {
+                    throw 'The argument specified must be a valid base 64 string.'
+                }
+                return $true
+            })]
         [string[]] $InputObject
     )
 
@@ -15,21 +21,39 @@ function ConvertFrom-Base64String {
     process {
         foreach ($Object in $InputObject) {
             try {
-                [byte[]] $Bytes = [System.Convert]::FromBase64String($Object)
+                [System.Collections.Generic.Dictionary[string, System.IDisposable]] $Disposable = @{}
+
+                $Disposable.MemoryStream = [System.IO.MemoryStream]::new()
+
+                $Disposable.MemoryStream.Write([System.Console]::InputEncoding.GetBytes($Object))
+
+                $Disposable.MemoryStream.Flush()
+                $Disposable.MemoryStream.Position = 0
+
+                $Disposable.CryptoStream = [System.Security.Cryptography.CryptoStream]::new(
+                    $Disposable.MemoryStream,
+                    [System.Security.Cryptography.FromBase64Transform]::new(),
+                    [System.Security.Cryptography.CryptoStreamMode]::Read
+                )
+
+                $Disposable.StreamReader = [System.IO.StreamReader]::new(
+                    $Disposable.CryptoStream,
+                    [System.Text.Encoding]::Unicode
+                )
+
+                [string] $String = $Disposable.StreamReader.ReadToEnd()
 
                 try {
-                    [string] $String = -join [char[]] $Bytes
-
                     $PSCmdlet.WriteObject([System.Management.Automation.PSSerializer]::Deserialize($String))
                 } catch {
-                    $PSCmdlet.WriteObject($Bytes)
+                    $PSCmdlet.WriteObject([System.Text.Encoding]::Unicode.GetBytes($String))
                 }
-
-                ## EXCEPTIONS ##################################################
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
             } catch {
                 $PSCmdlet.WriteError($_)
+            } finally {
+                $Disposable.Values.Dispose()
             }
         }
     }
