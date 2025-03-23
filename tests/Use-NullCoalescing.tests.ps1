@@ -30,5 +30,11 @@ Describe "Use-NullCoalescing" {
 
             $Result | Should -Be "VALUE1", "VALUE2"
         }
+
+        It "Hashtable Regression" {
+            $Result = @{ KEY = "VALUE" } | Use-NullCoalescing { $null }
+
+            $Result | Should -BeOfType [hashtable] -Because "#30"
+        }
     }
 }
