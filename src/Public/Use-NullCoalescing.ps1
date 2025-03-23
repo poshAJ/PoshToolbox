@@ -1,10 +1,10 @@
 function Use-NullCoalescing {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
-    [Alias("??")]
+    [Alias('??')]
     [OutputType([object])]
 
-    ## PARAMETERS #############################################################
+    ## PARAMETERS ##############################################################
     param (
         [Parameter(
             Mandatory,
@@ -24,7 +24,7 @@ function Use-NullCoalescing {
         $IfNull
     )
 
-    ## END ####################################################################
+    ## END #####################################################################
     end {
         if (-not ($InputObject = $input)) {
             $InputObject = , $null
@@ -32,10 +32,8 @@ function Use-NullCoalescing {
 
         foreach ($Object in $InputObject) {
             try {
-                if (($null -eq $Object) -and ($IfNull -is [scriptblock])) {
-                    . $IfNull
-                } elseif ($null -eq $Object) {
-                    Write-Output (, $IfNull)
+                if ($null -eq $Object) {
+                    Write_Object $IfNull
                 } else {
                     Write-Output (, $Object)
                 }
