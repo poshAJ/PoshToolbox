@@ -16,7 +16,8 @@ function Join-File {
                 }
                 throw 'The argument specified must resolve to a valid split type file.'
             })]
-        [string[]] $Path,
+        [PoshToolbox.FileSystemPathTransformation()]
+        [System.IO.FileInfo[]] $Path,
 
         [Alias('PSPath')]
         [Parameter(
@@ -30,41 +31,25 @@ function Join-File {
                 }
                 throw 'The argument specified must resolve to a valid split type file.'
             })]
-        [string[]] $LiteralPath,
+        [PoshToolbox.FileSystemLiteralPathTransformation()]
+        [System.IO.FileInfo[]] $LiteralPath,
 
         [Parameter()]
-        [ValidateScript({
-                if (Test-Path -LiteralPath $_ -IsValid) {
-                    return $true
-                }
-                throw 'The argument specified must resolve to a valid file or folder path.'
-            })]
-        [string] $Destination = (Get-Location -PSProvider 'FileSystem').ProviderPath
+        [PoshToolbox.ReturnFirstOrInputTransformation()]
+        [PoshToolbox.FileSystemLiteralPathTransformation()]
+        [System.IO.DirectoryInfo] $Destination = (Get-Location -PSProvider 'FileSystem').Path
     )
 
     ## LOGIC ###################################################################
-    begin {
-        [System.IO.FileInfo] $DestinationInfo = (Resolve-PoshPath -LiteralPath $Destination).ProviderPath
-    }
-
     process {
-        [hashtable] $Splat = @{ $PSCmdlet.ParameterSetName = $PSBoundParameters[$PSCmdlet.ParameterSetName] }
-        [object] $Process = Resolve-PoshPath @Splat
-
-        foreach ($Object in $Process) {
+        foreach ($Object in $PSBoundParameters[$PSCmdlet.ParameterSetName]) {
             try {
-                if ($Object.Provider.Name -ne 'FileSystem') {
-                    New_ArgumentException 'The argument specified must resolve to a valid path on the FileSystem provider.' -Throw
-                }
-
                 [System.Collections.Generic.Dictionary[string, System.IDisposable]] $Disposable = @{}
 
-                [System.IO.FileInfo] $File = $Object.ProviderPath
-
-                [string] $CalculatedDestination = if ($DestinationInfo.Extension) { $DestinationInfo } else { "$( $DestinationInfo.FullName.TrimEnd('\/') )/$( $File.BaseName )" }
+                [string] $CalculatedDestination = if ($Destination.Extension) { $Destination } else { "$( $Destination.FullName.TrimEnd('/\') )/$( $Object.BaseName )" }
 
                 if ($PSCmdlet.ShouldProcess($CalculatedDestination, 'Write Content')) {
-                    [string] $Directory = if ($DestinationInfo.Extension) { $DestinationInfo.Directory } else { $DestinationInfo }
+                    [string] $Directory = if ($Destination.Extension) { $Destination.Parent } else { $Destination }
 
                     if (-not $Directory.Exists) { $null = [System.IO.Directory]::CreateDirectory($Directory) }
 
@@ -72,7 +57,7 @@ function Join-File {
 
                     $Disposable.Writer = [System.IO.File]::OpenWrite($CalculatedDestination)
                     # sort to fix ChildItem number sorting
-                    foreach ($SplitFile in (Get-ChildItem -Path "$( $File.Directory )/$( $File.BaseName ).*split").FullName | Sort-Object -Property { [int32] [regex]::Match($_, '\.(?<match>\d+)split$').Groups['match'].Value }) {
+                    foreach ($SplitFile in (Get-ChildItem -Path "$( $Object.Directory )/$( $Object.BaseName ).*split").FullName | Sort-Object -Property { [int32] [regex]::Match($_, '\.(?<match>\d+)split$').Groups['match'].Value }) {
                         $PSCmdlet.WriteVerbose("READ ${SplitFile}")
 
                         [byte[]] $Bytes = [System.IO.File]::ReadAllBytes($SplitFile)
