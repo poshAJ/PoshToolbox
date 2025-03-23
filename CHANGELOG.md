@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ## Unreleased
 
+## [4.1.0](https://www.powershellgallery.com/packages/PoshToolbox/4.1.0) - 2023-08-05
+
 ### Added
 + New-IPAddress ([#23](https://github.com/PoshAJ/PoshToolbox/pull/23))
     > Creates an IPAddress object.

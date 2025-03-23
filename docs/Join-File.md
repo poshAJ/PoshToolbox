@@ -23,7 +23,7 @@ Join-File -LiteralPath <String[]> [-Destination <String>] [-WhatIf] [-Confirm] [
 ```
 
 ## DESCRIPTION
-The Join-File cmdlet combines the specified parts into a file.
+The `Join-File` cmdlet combines the specified parts into a file.
 
 ## EXAMPLES
 

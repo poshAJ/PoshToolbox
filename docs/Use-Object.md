@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Use-Object.md
@@ -13,13 +13,13 @@ Provides a convenient syntax that ensures the correct use of IDisposable and COM
 ## SYNTAX
 
 ```
-Use-Object [-InputObject] <Object> [-Scriptblock] <ScriptBlock> [<CommonParameters>]
+Use-Object [-InputObject] <Object> [-ScriptBlock] <ScriptBlock> [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Use-Object cmdlet simulates the effect of the using statement found in C# with added support for ComObjects.
+The `Use-Object` cmdlet simulates the effect of the using statement found in C# with added support for ComObjects.
 
-When the lifetime of an IDisposable or ComObject is limited to a single method, you should declare and instantiate it in the Use-Object cmdlet. The Use-Object cmdlet calls the Dispose or ReleaseComObject method on the object in the correct way when it goes out of scope. The Use-Object cmdlet ensures that Dispose or ReleaseComObject is called even if an exception occurs within the using block.
+When the lifetime of an IDisposable or ComObject is limited to a single method, you should declare and instantiate it in the `Use-Object` cmdlet. The `Use-Object` cmdlet calls the Dispose or ReleaseComObject method on the object in the correct way when it goes out of scope. The `Use-Object` cmdlet ensures that Dispose or ReleaseComObject is called even if an exception occurs within the using block.
 
 ## EXAMPLES
 
@@ -40,7 +40,7 @@ Accept pipeline input: False
 Accept wildcard characters: False
 ```
 
-### -Scriptblock
+### -ScriptBlock
 Specifies the commands to run.
 
 ```yaml

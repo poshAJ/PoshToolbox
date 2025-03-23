@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Use-Ternary.md
@@ -8,7 +8,7 @@ schema: 2.0.0
 # Use-Ternary
 
 ## SYNOPSIS
-Impliments the Ternary operator (?:).
+Implements the Ternary operator (?:).
 
 ## SYNTAX
 
@@ -17,7 +17,7 @@ Use-Ternary -InputObject <Object> [-IfTrue] <ScriptBlock> [-IfFalse] <ScriptBloc
 ```
 
 ## DESCRIPTION
-The Use-Ternary cmdlet simulates the effect of the ternary operator for earlier versions of PowerShell before it was introduced.
+The `Use-Ternary` cmdlet simulates the effect of the ternary operator for earlier versions of PowerShell before it was introduced.
 
 You can use the ternary operator as a replacement for the if-else statement in simple conditional cases.
 

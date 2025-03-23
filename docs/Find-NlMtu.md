@@ -1,4 +1,4 @@
----
+﻿---
 external help file: PoshToolbox-help.xml
 Module Name: PoshToolbox
 online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Find-NlMtu.md
@@ -17,7 +17,7 @@ Find-NlMtu [-ComputerName] <String[]> [-Timeout <Int32>] [-MaxHops <Int32>] [<Co
 ```
 
 ## DESCRIPTION
-The Find-NlMtu cmdlet creates a result object for the specified computer name(s) by evaluating the response to Internet Control Message Protocol (ICMP) echo request packets.
+The `Find-NlMtu` cmdlet creates a result object for the specified computer name(s) by evaluating the response to Internet Control Message Protocol (ICMP) echo request packets.
 
 ## EXAMPLES
 
