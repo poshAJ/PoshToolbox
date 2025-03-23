@@ -84,7 +84,7 @@ You can pipe a string that contains an IP subnet in CIDR notation to this cmdlet
 
 ## OUTPUTS
 
-### IPSubnet
+### System.Net.IPSubnet
 Returns an object representing the IP subnet.
 
 ## NOTES
