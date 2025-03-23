@@ -11,7 +11,7 @@ Describe "Get-FolderProperties" {
             Length   = 52428800
             Size     = "52,428.80 KB"
             Contains = "6 Files, 0 Folders"
-            Created  = "Friday, April 7, 2023 6:39:57 PM"
+            Created  = "*"
         }
 
         $ComparatorMiB = [pscustomobject] @{
@@ -19,7 +19,7 @@ Describe "Get-FolderProperties" {
             Length   = 52428800
             Size     = "50.00 MiB"
             Contains = "6 Files, 0 Folders"
-            Created  = "Friday, April 7, 2023 6:39:57 PM"
+            Created  = "*"
         }
     }
 

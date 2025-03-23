@@ -28,11 +28,6 @@ function Resolve-PoshPath {
         $LiteralPath
     )
 
-    ## BEGIN ##################################################################
-    begin {
-        $ProviderInfo = $DriveInfo = $null
-    }
-
     ## PROCESS ################################################################
     process {
         foreach ($Object in ($Path + $LiteralPath).Where({ $_ })) {
@@ -53,10 +48,11 @@ function Resolve-PoshPath {
                 }
 
                 foreach ($String in $Object) {
-                    $PathInfo = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($String, [ref] $ProviderInfo, [ref] $DriveInfo)
+                    $ProviderInfo = $DriveInfo = $null
+                    $ProviderPath = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($String, [ref] $ProviderInfo, [ref] $DriveInfo)
 
                     Write-Output ([pscustomobject] @{
-                            ProviderPath = $PathInfo
+                            ProviderPath = $ProviderPath
                             Provider     = $ProviderInfo
                             Drive        = $DriveInfo
                         })
@@ -68,9 +64,5 @@ function Resolve-PoshPath {
                 $PSCmdlet.WriteError($_)
             }
         }
-    }
-
-    ## END ####################################################################
-    end {
     }
 }
