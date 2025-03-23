@@ -14,7 +14,10 @@ function ConvertFrom-Base64String {
                 }
                 return $true
             })]
-        [string[]] $InputObject
+        [string[]] $InputObject,
+
+        [Parameter()]
+        [switch] $AsString = $false
     )
 
     ## LOGIC ###################################################################
@@ -23,30 +26,33 @@ function ConvertFrom-Base64String {
             try {
                 [System.Collections.Generic.Dictionary[string, System.IDisposable]] $Disposable = @{}
 
-                $Disposable.MemoryStream = [System.IO.MemoryStream]::new()
+                $Disposable.MemoryWriter = [System.IO.MemoryStream]::new()
 
-                $Disposable.MemoryStream.Write(([byte[]] $Buffer = [System.Console]::InputEncoding.GetBytes($Object)), 0, $Buffer.Length)
+                $Disposable.MemoryWriter.Write(([byte[]] $Buffer = [System.Console]::InputEncoding.GetBytes($Object)), 0, $Buffer.Length)
 
-                $Disposable.MemoryStream.Flush()
-                $Disposable.MemoryStream.Position = 0
+                $Disposable.MemoryWriter.Flush()
+                $Disposable.MemoryWriter.Position = 0
 
                 $Disposable.CryptoStream = [System.Security.Cryptography.CryptoStream]::new(
-                    $Disposable.MemoryStream,
+                    $Disposable.MemoryWriter,
                     [System.Security.Cryptography.FromBase64Transform]::new(),
                     [System.Security.Cryptography.CryptoStreamMode]::Read
                 )
 
-                $Disposable.StreamReader = [System.IO.StreamReader]::new(
-                    $Disposable.CryptoStream,
-                    [System.Text.Encoding]::Unicode
-                )
+                $Disposable.MemoryReader = [System.IO.MemoryStream]::new()
+                $Disposable.CryptoStream.CopyTo($Disposable.MemoryReader)
 
-                [string] $String = $Disposable.StreamReader.ReadToEnd()
+                [byte[]] $Bytes = $Disposable.MemoryReader.ToArray()
+                [string] $String = [System.Text.Encoding]::UTF8.GetString($Bytes)
 
-                try {
-                    $PSCmdlet.WriteObject([System.Management.Automation.PSSerializer]::Deserialize($String))
-                } catch {
-                    $PSCmdlet.WriteObject([System.Text.Encoding]::Unicode.GetBytes($String))
+                if ($AsString) {
+                    $PSCmdlet.WriteObject($String)
+                } else {
+                    try {
+                        $PSCmdlet.WriteObject([System.Management.Automation.PSSerializer]::Deserialize($String))
+                    } catch {
+                        $PSCmdlet.WriteObject($Bytes)
+                    }
                 }
             } catch [System.Management.Automation.MethodInvocationException] {
                 $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))

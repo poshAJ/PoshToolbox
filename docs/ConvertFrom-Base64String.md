@@ -14,7 +14,7 @@ Converts a Base-64 string to an object.
 ## SYNTAX
 
 ```powershell
-ConvertFrom-Base64String -InputObject <String[]> [<CommonParameters>]
+ConvertFrom-Base64String -InputObject <String[]> [-AsString] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
@@ -32,10 +32,26 @@ Get-Content -Path "Archive.txt" -Raw | ConvertFrom-Base64String | Set-Content -P
 ### Restore an Object in Base-64
 
 ```powershell
-$Object = ConvertTo-Base64String -InputObject $Base64String
+$Object = ConvertFrom-Base64String -InputObject $Base64String
 ```
 
 ## PARAMETERS
+
+### -AsString
+
+Specifies to output as a string.
+
+```yaml
+Type: SwitchParameter
+Parameter Sets: (All)
+Aliases:
+
+Required: False
+Position: Named
+Default value: None
+Accept pipeline input: False
+Accept wildcard characters: False
+```
 
 ### -InputObject
 

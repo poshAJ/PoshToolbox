@@ -19,31 +19,38 @@ function ConvertTo-Base64String {
         try {
             [System.Collections.Generic.Dictionary[string, System.IDisposable]] $Disposable = @{}
 
-            $Disposable.MemoryStream = [System.IO.MemoryStream]::new()
+            $Disposable.MemoryWriter = [System.IO.MemoryStream]::new()
 
             try {
-                $Disposable.MemoryStream.Write(([byte[]] $Buffer = $InputObject), 0, $Buffer.Length)
+                [byte[]] $Buffer = $InputObject
             } catch {
-                [xml] $Serialize = [System.Management.Automation.PSSerializer]::Serialize($InputObject, $Depth)
+                if ($InputObject -is [string]) {
+                    [byte[]] $Buffer = [System.Text.Encoding]::UTF8.GetBytes($InputObject)
+                } else {
+                    [xml] $Serialize = [System.Management.Automation.PSSerializer]::Serialize($InputObject, $Depth)
 
-                $Disposable.MemoryStream.Write(([byte[]] $Buffer = [System.Text.Encoding]::Unicode.GetBytes($Serialize.OuterXml)), 0, $Buffer.Length)
+                    [byte[]] $Buffer = [System.Text.Encoding]::UTF8.GetBytes($Serialize.OuterXml)
+                }
             }
 
-            $Disposable.MemoryStream.Flush()
-            $Disposable.MemoryStream.Position = 0
+            $Disposable.MemoryWriter.Write($Buffer, 0, $Buffer.Length)
+
+            $Disposable.MemoryWriter.Flush()
+            $Disposable.MemoryWriter.Position = 0
 
             $Disposable.CryptoStream = [System.Security.Cryptography.CryptoStream]::new(
-                $Disposable.MemoryStream,
+                $Disposable.MemoryWriter,
                 [System.Security.Cryptography.ToBase64Transform]::new(),
                 [System.Security.Cryptography.CryptoStreamMode]::Read
             )
 
-            $Disposable.StreamReader = [System.IO.StreamReader]::new(
-                $Disposable.CryptoStream,
-                [System.Console]::OutputEncoding
-            )
+            $Disposable.MemoryReader = [System.IO.MemoryStream]::new()
+            $Disposable.CryptoStream.CopyTo($Disposable.MemoryReader)
 
-            $PSCmdlet.WriteObject($Disposable.StreamReader.ReadToEnd())
+            [byte[]] $Bytes = $Disposable.MemoryReader.ToArray()
+            [string] $String = [System.Console]::OutputEncoding.GetString($Bytes)
+
+            $PSCmdlet.WriteObject($String)
         } catch [System.Management.Automation.MethodInvocationException] {
             $PSCmdlet.WriteError(( New_MethodInvocationException -Exception $_.Exception.InnerException ))
         } catch {
