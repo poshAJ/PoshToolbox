@@ -4,7 +4,7 @@ A collection of functions that can be used to build PowerShell scripts and modul
 
 ## Installation
 
-```
+```powershell
 Install-Module -Name PoshToolbox
 ```
 

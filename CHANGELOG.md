@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/), and this project adheres to [Semantic Versioning](https://semver.org/).
 
-## Unreleased
+## [4.2.1](https://www.powershellgallery.com/packages/PoshToolbox/4.2.1) - 2024-03-06
+
+### Fixed
+
+- Use-NullCoalescing isn't Consistent for Undefined Objects [#29](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/29)
 
 ### Changed
 
