@@ -1,0 +1,39 @@
+default:
+  tags: [saas-linux-small-amd64]
+  image: mcr.microsoft.com/dotnet/sdk:8.0
+
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  script:
+    - pwsh -c "Install-PSResource -RequiredResourceFile ./RequiredModules.psd1 -TrustRepository"
+    - pwsh -c "Invoke-Build -Task Test"
+  artifacts:
+    reports:
+      junit: testResults.xml
+  coverage: /Covered (\d+\.\d+%)/
+
+publish:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TITLE =~ /^\d+\.\d+\.\d+$/
+  script:
+    - pwsh -c "Install-PSResource -RequiredResourceFile ./RequiredModules.psd1 -TrustRepository"
+    - pwsh -c "Invoke-Build -Task Publish -ModuleVersion $CI_COMMIT_TITLE -ApiKey $ApiKey"
+
+release:
+  stage: deploy
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main" && $CI_COMMIT_TITLE =~ /^\d+\.\d+\.\d+$/
+  script:
+    - echo "running release"
+  release:
+    tag_name: $CI_COMMIT_TITLE
+    description: $CI_COMMIT_TITLE
+    ref: $CI_COMMIT_SHA
