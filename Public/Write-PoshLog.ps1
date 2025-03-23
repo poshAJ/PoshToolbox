@@ -1,9 +1,9 @@
-# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
+# Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
 using namespace System.IO
 using namespace System.Management.Automation
 
-function Write-Log {
+function Write-PoshLog {
     [CmdletBinding(
         DefaultParameterSetName = "Type"
     )]

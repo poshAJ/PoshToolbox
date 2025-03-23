@@ -1,11 +1,11 @@
-# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
+# Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
 using namespace System.IO
 using namespace System.Text
 using namespace System.Management.Automation
 using namespace System.Collections.ObjectModel
 
-function Start-Log {
+function Start-PoshLog {
     [CmdletBinding(DefaultParameterSetName = "Path")]
     [OutputType([void])]
 
@@ -30,7 +30,7 @@ function Start-Log {
             ParameterSetName = "PathNoClobber"
         )]
         [ValidateScript({ # Validate IsFileSystem
-                if ((Resolve-PSPath -Path $_ -Provider).Name -ne "FileSystem") {
+                if ((Resolve-PoshPath -Path $_ -Provider).Name -ne "FileSystem") {
                     throw "The argument specified must resolve to a valid path on the FileSystem provider."
                 } else {
                     $true
@@ -63,7 +63,7 @@ function Start-Log {
         )]
         [Alias("PSPath")]
         [ValidateScript({ # Validate IsFileSystem
-                if ((Resolve-PSPath -LiteralPath $_ -Provider).Name -ne "FileSystem") {
+                if ((Resolve-PoshPath -LiteralPath $_ -Provider).Name -ne "FileSystem") {
                     throw "The argument specified must resolve to a valid path on the FileSystem provider."
                 } else {
                     $true
@@ -116,7 +116,7 @@ function Start-Log {
 
     ## PROCESS ################################################################
     process {
-        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | ?: { Resolve-PSPath -LiteralPath $LiteralPath } { Resolve-PSPath -Path $Path }
+        $Process = ($PSCmdlet.ParameterSetName -cmatch "^LiteralPath") | ?: { Resolve-PoshPath -LiteralPath $LiteralPath } { Resolve-PoshPath -Path $Path }
 
         :Main foreach ($Item in $Process) {
             try {
@@ -169,7 +169,7 @@ function Start-Log {
             $Global:PSLogWarning = [ObservableCollection[WarningRecord]]::new()
             $Global:PSLogError = [ObservableCollection[ErrorRecord]]::new()
 
-            $Action = { Write-Log -PSEventArgs $Event }
+            $Action = { Write-PoshLog -PSEventArgs $Event }
 
             $null = Register-ObjectEvent -EventName CollectionChanged -InputObject $PSLogInformation -SourceIdentifier PSLogInformation -Action $Action
             $null = Register-ObjectEvent -EventName CollectionChanged -InputObject $PSLogWarning -SourceIdentifier PSLogWarning -Action $Action

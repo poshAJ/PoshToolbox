@@ -1,11 +1,11 @@
 ﻿---
-external help file: ScriptFramework-help.xml
-Module Name: ScriptFramework
-online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Start-Log.md
+external help file: PoshToolbox-help.xml
+Module Name: PoshToolbox
+online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Start-PoshLog.md
 schema: 2.0.0
 ---
 
-# Start-Log
+# Start-PoshLog
 
 ## SYNOPSIS
 Creates a log for the PowerShell session.
@@ -14,38 +14,38 @@ Creates a log for the PowerShell session.
 
 ### Path (Default)
 ```
-Start-Log [[-Path] <String[]>] [-AsUtc] [-PassThru] [<CommonParameters>]
+Start-PoshLog [[-Path] <String[]>] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### Path (NoClobber)
 ```
-Start-Log [[-Path] <String[]>] [-NoClobber] [-AsUtc] [-PassThru] [<CommonParameters>]
+Start-PoshLog [[-Path] <String[]>] [-NoClobber] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### Path (Append)
 ```
-Start-Log [[-Path] <String[]>] [-Append] [-AsUtc] [-PassThru] [<CommonParameters>]
+Start-PoshLog [[-Path] <String[]>] [-Append] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### LiteralPath (NoClobber)
 ```
-Start-Log -LiteralPath <String[]> [-NoClobber] [-AsUtc] [-PassThru] [<CommonParameters>]
+Start-PoshLog -LiteralPath <String[]> [-NoClobber] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### LiteralPath (Append)
 ```
-Start-Log -LiteralPath <String[]> [-Append] [-AsUtc] [-PassThru] [<CommonParameters>]
+Start-PoshLog -LiteralPath <String[]> [-Append] [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ### LiteralPath
 ```
-Start-Log -LiteralPath <String[]> [-AsUtc] [-PassThru] [<CommonParameters>]
+Start-PoshLog -LiteralPath <String[]> [-AsUtc] [-PassThru] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Start-Log cmdlet creates a record of all or part of a PowerShell session to a text file. The log includes all output from the Write-Log, Write-Information, Write-Warning, and Write-Error cmdlets.
+The Start-PoshLog cmdlet creates a record of all or part of a PowerShell session to a text file. The log includes all output from the Write-PoshLog, Write-Information, Write-Warning, and Write-Error cmdlets.
 
-Files that are created by the Start-Log cmdlet include random characters in names to prevent potential overwrites or duplication when two or more transcripts are started simultaneously.
+Files that are created by the Start-PoshLog cmdlet include random characters in names to prevent potential overwrites or duplication when two or more transcripts are started simultaneously.
 
 ## PARAMETERS
 

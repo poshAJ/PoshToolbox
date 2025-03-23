@@ -1,11 +1,11 @@
 ﻿---
-external help file: ScriptFramework-help.xml
-Module Name: ScriptFramework
-online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Resolve-PSPath.md
+external help file: PoshToolbox-help.xml
+Module Name: PoshToolbox
+online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Resolve-PoshPath.md
 schema: 2.0.0
 ---
 
-# Resolve-PSPath
+# Resolve-PoshPath
 
 ## SYNOPSIS
 Resolves a path with wildcard support.
@@ -14,16 +14,16 @@ Resolves a path with wildcard support.
 
 ### Path
 ```
-Resolve-PSPath [-Path] <String[]> [-Provider] [<CommonParameters>]
+Resolve-PoshPath [-Path] <String[]> [-Provider] [<CommonParameters>]
 ```
 
 ### LiteralPath
 ```
-Resolve-PSPath -LiteralPath <String[]> [-Provider] [<CommonParameters>]
+Resolve-PoshPath -LiteralPath <String[]> [-Provider] [<CommonParameters>]
 ```
 
 ## DESCRIPTION
-The Resolve-PSPath cmdlet resolves a drive or provider qualified absolute or relative path that may contain wildcard characters into one or more provider-internal paths.
+The Resolve-PoshPath cmdlet resolves a drive or provider qualified absolute or relative path that may contain wildcard characters into one or more provider-internal paths.
 
 ## PARAMETERS
 

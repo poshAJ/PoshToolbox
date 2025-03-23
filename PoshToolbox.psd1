@@ -2,7 +2,7 @@
 
     RootModule        = "PoshToolbox.psm1"
 
-    ModuleVersion     = "1.1.2"
+    ModuleVersion     = "2.0.0"
 
     # CompatiblePSEditions = @()
 
@@ -14,7 +14,7 @@
 
     Copyright         = "(c) 2022 Anthony J. Raymond"
 
-    Description       = "Simple toolbox of functions that can be used to build PowerShell scripts and modules."
+    Description       = "A collection of functions that can be used to build PowerShell scripts and modules."
 
     # PowerShellVersion = ""
 
@@ -41,10 +41,10 @@
     # NestedModules = @()
 
     FunctionsToExport = @(
-        "Resolve-PSPath"
-        "Start-Log"
-        "Write-Log"
-        "Stop-Log"
+        "Resolve-PoshPath"
+        "Start-PoshLog"
+        "Write-PoshLog"
+        "Stop-PoshLog"
         "Use-NullCoalescing"
         "Use-Object"
         "Use-Ternary"
@@ -73,9 +73,10 @@
 
             Tags         = @(
                 "script"
+                "module"
                 "framework"
                 "toolbox"
-                "log"
+                "logging"
             )
 
             LicenseUri   = "https://github.com/PoshAJ/PoshToolbox/blob/main/LICENSE"
@@ -84,12 +85,7 @@
 
             # IconUri = ""
 
-            ReleaseNotes =
-            @"
-    20220914-AJR: 1.0.0 - Initial Release
-    20220921-AJR: 1.1.0 - Added Get-ADServiceAccountCredential
-    20221027-AJR: 1.1.2 - Fixed bug in Get-ADServiceAccountCredential
-"@
+            ReleaseNotes = ""
 
         }
 
