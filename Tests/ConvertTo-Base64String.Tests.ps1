@@ -11,11 +11,13 @@ Describe "ConvertTo-Base64String" {
     Context "Success" {
         It "Pipeline" {
             $Result = @{ Test = $true } | ConvertTo-Base64String
+
             $Result | Should -Be $HashTable
         }
 
         It "InputObject" {
             $Result = ConvertTo-Base64String -InputObject @{ Test = $true }
+
             $Result | Should -Be $HashTable
         }
     }
