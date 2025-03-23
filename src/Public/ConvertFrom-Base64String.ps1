@@ -2,10 +2,12 @@ function ConvertFrom-Base64String {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
     [CmdletBinding()]
     [OutputType([object])]
+
     param (
         [Parameter(
             Mandatory,
-            ValueFromPipeline
+            ValueFromPipeline,
+            Position = 0
         )]
         [ValidateNotNullOrEmpty()]
         [ValidateScript({
@@ -28,7 +30,8 @@ function ConvertFrom-Base64String {
 
                 $Disposable.MemoryWriter = [System.IO.MemoryStream]::new()
 
-                $Disposable.MemoryWriter.Write(([byte[]] $Buffer = [System.Console]::InputEncoding.GetBytes($Object)), 0, $Buffer.Length)
+                [byte[]] $Buffer = [System.Console]::InputEncoding.GetBytes($Object)
+                $Disposable.MemoryWriter.Write($Buffer, 0, $Buffer.Length)
 
                 $Disposable.MemoryWriter.Flush()
                 $Disposable.MemoryWriter.Position = 0

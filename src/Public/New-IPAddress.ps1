@@ -5,12 +5,13 @@ function New-IPAddress {
 
     [CmdletBinding()]
     [OutputType([System.Net.IPAddress])]
+
     param (
         [Alias('Address')]
         [Parameter(
             Mandatory,
-            Position = 0,
-            ValueFromPipeline
+            ValueFromPipeline,
+            Position = 0
         )]
         [string[]] $IPAddress
     )

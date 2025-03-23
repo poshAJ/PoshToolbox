@@ -3,6 +3,7 @@ function Use-ErrorCoalescing {
     [CmdletBinding()]
     [Alias('?!')]
     [OutputType([object])]
+
     param (
         [Parameter(
             Mandatory,

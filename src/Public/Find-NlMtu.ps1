@@ -5,13 +5,14 @@ function Find-NlMtu {
 
     [CmdletBinding()]
     [OutputType([PoshToolbox.FindNlMtuCommand+NlMtuInfo])]
+
     param (
         [Alias('Hostname', 'IPAddress', 'Address')]
         [Parameter(
             Mandatory,
-            Position = 0,
             ValueFromPipeline,
-            ValueFromPipelineByPropertyName
+            ValueFromPipelineByPropertyName,
+            Position = 0
         )]
         [ValidateNotNullOrEmpty()]
         [string[]] $ComputerName,

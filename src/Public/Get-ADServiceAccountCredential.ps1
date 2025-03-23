@@ -6,13 +6,14 @@ function Get-ADServiceAccountCredential {
 
     [CmdletBinding()]
     [OutputType([pscredential])]
+
     param (
         [Alias('distinguishedName', 'objectGuid', 'objectSid', 'sAMAccountName')]
         [Parameter(
             Mandatory,
-            Position = 0,
             ValueFromPipeline,
-            ValueFromPipelineByPropertyName
+            ValueFromPipelineByPropertyName,
+            Position = 0
         )]
         [ValidateNotNullOrEmpty()]
         [string[]] $Identity,
@@ -31,7 +32,12 @@ function Get-ADServiceAccountCredential {
                     [int32] $Length = $_.Properties.'msds-managedpassword'.Length
                     [int32] $IntPtr = [System.Runtime.InteropServices.Marshal]::AllocHGlobal($Length)
 
-                    [System.Runtime.InteropServices.Marshal]::Copy([byte[]] $_.Properties.'msds-managedpassword'.ForEach{ $_ }, 0, $IntPtr, $Length)
+                    [System.Runtime.InteropServices.Marshal]::Copy(
+                        [byte[]] $_.Properties.'msds-managedpassword'.ForEach{ $_ },
+                        0,
+                        $IntPtr,
+                        $Length
+                    )
 
                     return $IntPtr
                 }
@@ -78,7 +84,12 @@ function Get-ADServiceAccountCredential {
                 $Disposable.Values.Dispose()
 
                 if ($ADServiceAccount) {
-                    [System.Runtime.InteropServices.Marshal]::Copy([byte[]]::new($ADServiceAccount.Length), 0, $ADServiceAccount.ManagedPassword, $ADServiceAccount.Length)
+                    [System.Runtime.InteropServices.Marshal]::Copy(
+                        [byte[]]::new($ADServiceAccount.Length),
+                        0,
+                        $ADServiceAccount.ManagedPassword,
+                        $ADServiceAccount.Length
+                    )
                     [System.Runtime.InteropServices.Marshal]::FreeHGlobal($ADServiceAccount.ManagedPassword)
 
                     $ADServiceAccount = $SecureString = $null

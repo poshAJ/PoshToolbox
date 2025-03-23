@@ -1,13 +1,17 @@
 function Split-File {
     # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
-    [CmdletBinding(SupportsShouldProcess)]
+    [CmdletBinding(
+        DefaultParameterSetName = 'Path',
+        SupportsShouldProcess
+    )]
     [OutputType([System.IO.FileInfo])]
+
     param (
         [Parameter(
             Mandatory,
-            Position = 0,
             ValueFromPipeline,
             ValueFromPipelineByPropertyName,
+            Position = 0,
             ParameterSetName = 'Path'
         )]
         [ValidateScript({
