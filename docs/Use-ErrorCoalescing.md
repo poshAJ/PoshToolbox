@@ -29,7 +29,7 @@ An error-coalescing operator ?! returns the value of its left-hand operand if it
 
 ### -IfError
 
-Specifies the expression to be executed if the <condition> expression is an error.
+Specifies the expression to be executed if the \<condition\> expression is an error.
 
 ```yaml
 Type: Object
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 
 ### -InputObject
 
-Specifies the <condition> expression to be evaluated and returned if not an error.
+Specifies the \<condition\> expression to be evaluated and returned if not an error.
 
 ```yaml
 Type: ScriptBlock

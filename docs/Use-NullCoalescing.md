@@ -29,7 +29,7 @@ The null-coalescing operator ?? returns the value of its left-hand operand if it
 
 ### -IfNull
 
-Specifies the expression to be executed if the <condition> expression is null.
+Specifies the expression to be executed if the \<condition\> expression is null.
 
 ```yaml
 Type: Object
@@ -45,7 +45,7 @@ Accept wildcard characters: False
 
 ### -InputObject
 
-Specifies the <condition> expression to be evaluated and returned if not null.
+Specifies the \<condition\> expression to be evaluated and returned if not null.
 
 ```yaml
 Type: Object
