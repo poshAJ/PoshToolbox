@@ -1,36 +1,4 @@
-<#PSScriptInfo
-
-    .VERSION 2.0.1
-
-    .GUID 5d153b60-f43a-4a30-8b29-4ff55244bc02
-
-    .AUTHOR Anthony J. Raymond
-
-    .COMPANYNAME
-
-    .COPYRIGHT (c) 2022 Anthony J. Raymond
-
-    .TAGS pslog log logging
-
-    .LICENSEURI https://github.com/CodeAJGit/posh/blob/master/LICENSE
-
-    .PROJECTURI https://github.com/CodeAJGit/posh
-
-    .ICONURI
-
-    .EXTERNALMODULEDEPENDENCIES
-
-    .REQUIREDSCRIPTS
-
-    .EXTERNALSCRIPTDEPENDENCIES
-
-    .RELEASENOTES
-        20220908-AJR: 2.0.0 - Initial Release
-        20220921-AJR: 2.0.1 - Fix for External Help
-
-    .PRIVATEDATA
-
-#>
+# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
 
 using namespace System.IO
 using namespace System.Management.Automation

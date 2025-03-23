@@ -1,37 +1,4 @@
-<#PSScriptInfo
-
-    .VERSION 3.0.2
-
-    .GUID 3c2ae6e7-fe2b-4d32-83ff-bdcd0e589fb1
-
-    .AUTHOR Anthony J. Raymond
-
-    .COMPANYNAME
-
-    .COPYRIGHT (c) 2022 Anthony J. Raymond
-
-    .TAGS operators ternary ?:
-
-    .LICENSEURI https://github.com/CodeAJGit/posh/blob/master/LICENSE
-
-    .PROJECTURI https://github.com/CodeAJGit/posh
-
-    .ICONURI
-
-    .EXTERNALMODULEDEPENDENCIES
-
-    .REQUIREDSCRIPTS
-
-    .EXTERNALSCRIPTDEPENDENCIES
-
-    .RELEASENOTES
-        20220908-AJR: 3.0.0 - Initial Release
-        20220921-AJR: 3.0.1 - Fix for External Help
-        20221115-AJR: 3.0.2 - Moved TryCatch inside ForEach
-
-    .PRIVATEDATA
-
-#>
+# Copyright (c) 2022 Anthony J. Raymond, MIT License (see manifest for details)
 
 function Use-Ternary {
     [CmdletBinding()]
