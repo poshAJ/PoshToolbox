@@ -1,7 +1,7 @@
 ﻿---
 external help file: ScriptFramework-help.xml
 Module Name: ScriptFramework
-online version: https://github.com/CodeAJGit/posh/blob/master/Modules/ScriptFramework/docs/Get-ADServiceAccountCredential.md
+online version: https://github.com/PoshAJ/PoshToolbox/blob/main/docs/Get-ADServiceAccountCredential.md
 schema: 2.0.0
 ---
 
