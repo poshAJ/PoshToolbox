@@ -14,9 +14,13 @@ build:
   script:
     - pwsh -c "Install-PSResource -RequiredResourceFile ./RequiredModules.psd1 -TrustRepository"
     - pwsh -c "Invoke-Build -Task Build"
+  artifacts:
+    untracked: true
 
 test:
   stage: test
+  dependencies:
+    - build
   rules:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
