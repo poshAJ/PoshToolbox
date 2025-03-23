@@ -41,7 +41,7 @@ function Resolve-PoshPath {
 
     ## PROCESS ################################################################
     process {
-        :Main foreach ($Object in ($Path + $LiteralPath).Where({ $_ })) {
+        foreach ($Object in ($Path + $LiteralPath).Where({ $_ })) {
             try {
                 if ($PSCmdlet.ParameterSetName -eq "LiteralPath") {
                     $PathInfo = $PSCmdlet.SessionState.Path.GetUnresolvedProviderPathFromPSPath($Object, [ref] $ProviderInfo, [ref] $DriveInfo)
@@ -67,18 +67,9 @@ function Resolve-PoshPath {
                 }
                 ## EXCEPTIONS #################################################
             } catch [MethodInvocationException] {
-                $PSCmdlet.WriteError(
-                    [ErrorRecord]::new(
-                        $_.Exception.InnerException,
-                        "MethodException",
-                        [ErrorCategory]::InvalidOperation,
-                        $Object
-                    )
-                )
-                continue Main
+                $PSCmdlet.WriteError((New-MethodInvocationException -Exception $_.Exception.InnerException))
             } catch {
                 $PSCmdlet.WriteError($_)
-                continue Main
             }
         }
     }

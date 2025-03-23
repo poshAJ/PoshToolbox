@@ -34,7 +34,7 @@ function Use-Ternary {
     ## PROCESS ################################################################
     process {
         # wrapping in an array to handle $null as input
-        :Main foreach ($Object in @($InputObject)) {
+        foreach ($Object in @($InputObject)) {
             try {
                 if ($Object) {
                     . $IfTrue
@@ -43,7 +43,6 @@ function Use-Ternary {
                 }
             } catch {
                 $PSCmdlet.WriteError($_)
-                continue Main
             }
         }
     }

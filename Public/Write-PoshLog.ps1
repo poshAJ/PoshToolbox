@@ -1,7 +1,6 @@
 # Copyright (c) 2023 Anthony J. Raymond, MIT License (see manifest for details)
 
 using namespace System.IO
-using namespace System.Management.Automation
 
 function Write-PoshLog {
     [CmdletBinding(
@@ -39,14 +38,7 @@ function Write-PoshLog {
     ## BEGIN ##################################################################
     begin {
         if (-not $PSLogDetails) {
-            $PSCmdlet.ThrowTerminatingError(
-                [ErrorRecord]::new(
-                    ([PSInvalidOperationException] "An error occurred writing the log: The host is not currently logging."),
-                    "InvalidOperation",
-                    [ErrorCategory]::InvalidOperation,
-                    $null
-                )
-            )
+            New-PSInvalidOperationException -Message "An error occurred writing the log: The host is not currently logging." -Throw
         } else {
             $TypeMap = @{
                 Log         = "LOG"
@@ -84,7 +76,7 @@ function Write-PoshLog {
 
     ## PROCESS ################################################################
     process {
-        :Main foreach ($PSLog in $PSLogDetails) {
+        foreach ($PSLog in $PSLogDetails) {
             try {
                 $Format = $PSLog.Utc | ?: { "yyyy\-MM\-dd HH:mm:ss\Z", "ToUniversalTime" } { "yyyy\-MM\-dd HH:mm:ss", "ToLocalTime" }
 
@@ -94,18 +86,9 @@ function Write-PoshLog {
 
                 ## EXCEPTIONS #################################################
             } catch [MethodInvocationException] {
-                $PSCmdlet.WriteError(
-                    [ErrorRecord]::new(
-                        $_.Exception.InnerException,
-                        "MethodException",
-                        [ErrorCategory]::InvalidOperation,
-                        $PSLog
-                    )
-                )
-                continue Main
+                $PSCmdlet.WriteError((New-MethodInvocationException -Exception $_.Exception.InnerException))
             } catch {
                 $PSCmdlet.WriteError($_)
-                continue Main
             }
         }
     }
