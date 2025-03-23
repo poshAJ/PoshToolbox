@@ -3,7 +3,7 @@ Simple framework that can be used to build PowerShell script and modules.
 
 ## Installation
 ```
-Install-Module -Name ScriptFramework
+Install-Module -Name PoshToolbox
 ```
 
 ## Functions
