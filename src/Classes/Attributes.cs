@@ -5,42 +5,32 @@ using System.Text;
 using System.Linq;
 using System.Globalization;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Management.Automation;
 
-namespace PoshToolbox
-{
+namespace PoshToolbox {
     // Copyright (c) Microsoft Corporation, https://github.com/PowerShell/PowerShell, MIT License
     // Modified "src/System.Management.Automation/utils/PathUtils.cs" by Anthony J. Raymond
-    internal static class PathUtils
-    {
-        internal static string[] ResolveFilePath(string filePath, SessionState sessionState, bool isLiteralPath)
-        {
+    internal static class PathUtils {
+        internal static string[] ResolveFilePath (string filePath, SessionState sessionState, bool isLiteralPath) {
             string[] paths = new[] { filePath };
 
-            if (!isLiteralPath)
-            {
-                try
-                {
+            if (!isLiteralPath) {
+                try {
                     paths = sessionState.Path.GetResolvedPSPathFromPSPath(filePath)
                         .Select(pathInfo => pathInfo.Path)
                         .ToArray();
-                }
-                catch (ItemNotFoundException e)
-                {
+                } catch (ItemNotFoundException e) {
                     paths = new[] { e.ItemName };
                 }
             }
 
             List<string> result = new List<string>();
 
-            foreach (string path in paths)
-            {
+            foreach (string path in paths) {
                 result.Add(sessionState.Path.GetUnresolvedProviderPathFromPSPath(path, out ProviderInfo provider, out PSDriveInfo drive));
 
-                if (provider.ImplementingType.FullName != "Microsoft.PowerShell.Commands.FileSystemProvider")
-                {
-                    throw new PSArgumentException("The argument specified must resolve to a valid path on the FileSystem provider.");
+                if (provider.ImplementingType.FullName != "Microsoft.PowerShell.Commands.FileSystemProvider") {
+                    throw new PSArgumentException("The argument specified must resolve to a valid FileSystem provider path.");
                 }
             }
 
@@ -48,22 +38,18 @@ namespace PoshToolbox
         }
     }
 
-    public sealed class FileSystemPathTransformation : ArgumentTransformationAttribute
-    {
-        public override object Transform(EngineIntrinsics engineIntrinsics, object inputData)
-        {
+    public sealed class FileSystemPathTransformation : ArgumentTransformationAttribute {
+        public override object Transform (EngineIntrinsics engineIntrinsics, object inputData) {
             SessionState sessionState = new SessionState();
 
-            switch (inputData)
-            {
+            switch (inputData) {
                 case string value:
                     return PathUtils.ResolveFilePath(value, sessionState, false);
 
                 case IList<object> values:
                     List<string> filePaths = new List<string>();
 
-                    for (int i = 0; i < values.Count; i++)
-                    {
+                    for (int i = 0; i < values.Count; i++) {
                         string value = values[i] as string;
 
                         filePaths.AddRange(PathUtils.ResolveFilePath(value, sessionState, false));
@@ -76,22 +62,18 @@ namespace PoshToolbox
         }
     }
 
-    public sealed class FileSystemLiteralPathTransformation : ArgumentTransformationAttribute
-    {
-        public override object Transform(EngineIntrinsics engineIntrinsics, object inputData)
-        {
+    public sealed class FileSystemLiteralPathTransformation : ArgumentTransformationAttribute {
+        public override object Transform (EngineIntrinsics engineIntrinsics, object inputData) {
             SessionState sessionState = new SessionState();
 
-            switch (inputData)
-            {
+            switch (inputData) {
                 case string value:
                     return PathUtils.ResolveFilePath(value, sessionState, true);
 
                 case IList<object> values:
                     List<string> filePaths = new List<string>();
 
-                    for (int i = 0; i < values.Count; i++)
-                    {
+                    for (int i = 0; i < values.Count; i++) {
                         string value = values[i] as string;
 
                         filePaths.AddRange(PathUtils.ResolveFilePath(value, sessionState, true));
@@ -104,12 +86,9 @@ namespace PoshToolbox
         }
     }
 
-    public sealed class ReturnFirstOrInputTransformation : ArgumentTransformationAttribute
-    {
-        public override object Transform(EngineIntrinsics engineIntrinsics, object inputData)
-        {
-            if (inputData is IList<object> values)
-            {
+    public sealed class ReturnFirstOrInputTransformation : ArgumentTransformationAttribute {
+        public override object Transform (EngineIntrinsics engineIntrinsics, object inputData) {
+            if (inputData is IList<object> values) {
                 return values[0];
             }
 
@@ -119,8 +98,7 @@ namespace PoshToolbox
 
     // Copyright (c) Microsoft Corporation, https://github.com/PowerShell/PowerShell, MIT License
     // Modified "src/System.Management.Automation/utils/EncodingUtils.cs" by Anthony J. Raymond
-    public sealed class EncodingTransformation : ArgumentTransformationAttribute
-    {
+    public sealed class EncodingTransformation : ArgumentTransformationAttribute {
         internal static readonly Dictionary<string, Encoding> encodingMap = new Dictionary<string, Encoding>(StringComparer.OrdinalIgnoreCase)
         {
             { "ansi", Encoding.GetEncoding(CultureInfo.CurrentCulture.TextInfo.ANSICodePage) },
@@ -139,19 +117,15 @@ namespace PoshToolbox
             { "utf32", Encoding.UTF32 },
         };
 
-        public override object Transform(EngineIntrinsics engineIntrinsics, object inputData)
-        {
-            switch (inputData)
-            {
+        public override object Transform (EngineIntrinsics engineIntrinsics, object inputData) {
+            switch (inputData) {
                 case string value:
-                    if (encodingMap.TryGetValue(value, out Encoding encoding))
-                    {
+                    if (encodingMap.TryGetValue(value, out Encoding encoding)) {
                         return encoding;
-                    }
-                    else
-                    {
+                    } else {
                         return Encoding.GetEncoding(value);
                     }
+
                 case int value:
                     return Encoding.GetEncoding(value);
             }
