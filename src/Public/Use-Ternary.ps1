@@ -14,13 +14,11 @@ function Use-Ternary {
         [object] $InputObject,
 
         [Parameter(
-            Mandatory,
             Position = 0
         )]
         [object] $IfTrue,
 
         [Parameter(
-            Mandatory,
             Position = 1
         )]
         [object] $IfFalse

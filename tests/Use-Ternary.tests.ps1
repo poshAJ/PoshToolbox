@@ -12,6 +12,12 @@ Describe 'Use-Ternary' {
             $Result | Should -Be 'VALUE'
         }
 
+        It 'True Only' {
+            $Result = $true | Use-Ternary -IfTrue 'VALUE'
+
+            $Result | Should -Be 'VALUE'
+        }
+
         It 'False' {
             $Result = $false | Use-Ternary $true 'VALUE'
 
@@ -20,6 +26,12 @@ Describe 'Use-Ternary' {
 
         It 'False ScriptBlock' {
             $Result = $false | Use-Ternary { $true } { 'VALUE' }
+
+            $Result | Should -Be 'VALUE'
+        }
+
+        It 'False Only' {
+            $Result = $false | Use-Ternary -IfFalse 'VALUE'
 
             $Result | Should -Be 'VALUE'
         }

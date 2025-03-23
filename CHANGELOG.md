@@ -8,8 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/), and this
 
 ### Changed
 
+- Use-Ternary [#33](https://gitlab.com/PoshAJ/PoshToolbox/-/issues/33)
+  > `IfTrue` and `IfFalse` parameters are no longer mandatory.
+
 - Get-FolderProperties [!42](https://gitlab.com/PoshAJ/PoshToolbox/-/merge_requests/42)
-  > `Unit` property is now optional.
+  > `Unit` parameter is no longer mandatory.
 
 ## [4.2.3](https://www.powershellgallery.com/packages/PoshToolbox/4.2.3) - 2024-07-15
 
