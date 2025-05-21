@@ -1,6 +1,6 @@
 function Get-ADServiceAccountCredential {
-    # Copyright (c) 2021 Ryan Ephgrave, https://github.com/Ryan2065/gMSACredentialModule, MIT License
-    # Modified "GMSACredential/Commands/Get-GMSACredential.ps1" by Anthony J. Raymond
+    # Copyright (c) 2021 Ryan Ephgrave, MIT License
+    # https://github.com/Ryan2065/gMSACredentialModule/blob/main/GMSACredential/Commands/Get-GMSACredential.ps1
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSAvoidUsingConvertToSecureStringWithPlainText', '',
         Justification = 'Retrieved password is plaintext.')]
 

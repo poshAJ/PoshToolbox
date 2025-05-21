@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.Management.Automation;
 
 namespace PoshToolbox {
-    // Copyright (c) Microsoft Corporation, https://github.com/PowerShell/PowerShell, MIT License
-    // Modified "src/System.Management.Automation/utils/PathUtils.cs" by Anthony J. Raymond
+    // Copyright (c) Microsoft Corporation, MIT License
+    // https://github.com/PowerShell/PowerShell/blob/master/src/System.Management.Automation/utils/PathUtils.cs
     internal static class PathUtils {
         internal static string[] ResolveFilePath (string filePath, SessionState sessionState, bool isLiteralPath) {
             string[] paths = new[] { filePath };
@@ -96,8 +96,8 @@ namespace PoshToolbox {
         }
     }
 
-    // Copyright (c) Microsoft Corporation, https://github.com/PowerShell/PowerShell, MIT License
-    // Modified "src/System.Management.Automation/utils/EncodingUtils.cs" by Anthony J. Raymond
+    // Copyright (c) Microsoft Corporation, MIT License
+    // https://github.com/PowerShell/PowerShell/blob/master/src/System.Management.Automation/utils/EncodingUtils.cs
     public sealed class EncodingTransformation : ArgumentTransformationAttribute {
         internal static readonly Dictionary<string, Encoding> encodingMap = new Dictionary<string, Encoding>(StringComparer.OrdinalIgnoreCase)
         {

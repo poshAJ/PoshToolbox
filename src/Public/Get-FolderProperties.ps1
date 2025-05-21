@@ -82,8 +82,8 @@ function Get-FolderProperties {
                     'Bytes :\s+(?<match>\d+)' { $Bytes = $Matches.match }
                 }
 
-                # Copyright (c) 2021 Santiago Squarzon, https://github.com/santisq/PSTree, MIT License
-                # Modified "src/PSTree/Internal/_FormattingInternals.cs" by Anthony J. Raymond
+                # Copyright (c) 2021 Santiago Squarzon, MIT License
+                # https://github.com/santisq/PSTree/blob/main/src/PSTree/Internal/_FormattingInternals.cs
                 [double] $Size = $Bytes
                 [int32] $Base = if ($Unit -match 'i') { 1024 } else { 1000 }
                 [int32] $Index = 0
